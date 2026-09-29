@@ -32,6 +32,10 @@
     .then(() => window.FolkholdAds?.showForView(state.view))
     .catch((error) => console.warn('Folkhold ad module did not load.', error));
 
+  loadLocalScript('cloudflare-config.js')
+    .then(() => loadLocalScript('global-chat.js'))
+    .catch((error) => console.warn('Folkhold Global Chat module did not load.', error));
+
   function showToast(message) {
     toast.textContent = message;
     toast.classList.add('show');
@@ -117,6 +121,7 @@
   });
 
   document.getElementById('square-form').addEventListener('submit', (event) => {
+    if (window.FolkholdGlobalChat?.connected?.()) return;
     event.preventDefault();
     const input = document.getElementById('square-message');
     const text = input.value.trim();
