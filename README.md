@@ -19,7 +19,7 @@ Current prototype areas:
 - **Tea Room** — heavily moderated civility-first alternative
 - **Directory** — broad or narrow people discovery
 - **Key Ring** — individually issued and revocable access keys
-- **Advertising preferences** — user-declared interests rather than behavioral profiling
+- **Advertising** — one quiet banner per page, with Google AdSense wired as the first eligible provider and room-specific providers planned where needed
 
 ## Core ideas
 
@@ -31,6 +31,10 @@ Current prototype areas:
 - Public discovery should be broad when the user wants it broad and precise when they want it precise.
 - A future AI People Finder may help locate old friends using only information members explicitly make discoverable.
 - Folkhold is intended to be a web application first. A separate native mobile application is not required for the core experience.
+
+## Advertising prototype
+
+The ad slot is provider-neutral. Google AdSense is wired for ordinary pages but remains disabled until an approved publisher ID and responsive display-ad slot are supplied. See `docs/ADSENSE.md` for the activation path and the root-domain `ads.txt` note.
 
 ## Hosting plan
 
