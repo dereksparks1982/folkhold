@@ -3,6 +3,32 @@
   const renderedViews = new Set();
   let googleLoader = null;
 
+  function installPrototypeChrome() {
+    document.getElementById('ad-strip')?.remove();
+    document.querySelector('.range-label')?.remove();
+
+    const dialog = document.getElementById('ad-dialog');
+    const intro = dialog?.querySelector('p');
+    const privacy = dialog?.querySelector('.privacy-note');
+    if (intro) intro.textContent = 'Folkhold reserves one unobtrusive banner per page. Free accounts keep the banner, while declared interests can guide Folkhold-direct ads and compatible providers without building a behavioral profile.';
+    if (privacy) privacy.textContent = 'Google AdSense is the first network being wired in. Folkhold requests non-personalized Google ads by default. Other areas can use different providers when appropriate.';
+
+    const principle = document.querySelector('.principle p');
+    if (principle) principle.textContent = 'One quiet banner per page. Google AdSense is the first provider, using non-personalized requests by default where Google is eligible to serve.';
+
+    const style = document.createElement('style');
+    style.dataset.folkholdAds = 'true';
+    style.textContent = `
+      .folkhold-page-ad{position:relative;max-width:970px;min-height:92px;margin:16px auto 24px;border:1px solid rgba(176,141,87,.38);border-radius:12px;background:rgba(255,248,238,.76);overflow:hidden;display:grid;place-items:center;box-shadow:0 7px 20px rgba(50,36,23,.05)}
+      .folkhold-page-ad .ad-kicker{position:absolute;top:6px;left:9px;z-index:2;font:9px Arial,sans-serif;letter-spacing:.12em;text-transform:uppercase;color:#8a7a67}
+      .folkhold-page-ad .ad-placeholder{padding:22px 18px 14px;text-align:center;font:13px Arial,sans-serif;color:#6f6356}
+      .folkhold-page-ad .ad-placeholder strong{display:block;color:#3c332a;font-size:14px;margin-bottom:4px}
+      .folkhold-page-ad .adsbygoogle{display:block;width:100%;min-height:90px}
+      @media(max-width:760px){.mobile-nav{bottom:0!important}.folkhold-page-ad{min-height:72px;margin:12px auto 18px;border-radius:10px}.folkhold-page-ad .adsbygoogle{min-height:70px}}
+    `;
+    document.head.append(style);
+  }
+
   function hasLiveGoogleConfig() {
     return config.enabled === true &&
       /^ca-pub-\d+$/.test(config.client || '') &&
@@ -113,5 +139,6 @@
     renderGoogle(host, view);
   }
 
+  installPrototypeChrome();
   window.FolkholdAds = Object.freeze({ showForView });
 })();
