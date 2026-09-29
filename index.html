@@ -1,0 +1,247 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#171717">
+  <meta name="description" content="Folkhold prototype: your place, your people, your keys.">
+  <title>Folkhold</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main">Skip to content</a>
+
+  <header class="topbar">
+    <button class="brand" type="button" data-view="home" aria-label="Folkhold home">
+      <span class="brand-mark" aria-hidden="true">
+        <svg viewBox="0 0 64 64" role="img">
+          <path d="M14 20c0-6 5-11 11-11h14c6 0 11 5 11 11 0 5-3 9-8 10v5h-7v18h-7V35h-6v-6c-5-1-8-4-8-9Z" fill="none" stroke="currentColor" stroke-width="4" stroke-linejoin="round"/>
+          <path d="M25 16c-4 2-6 5-6 9 0 4 2 7 6 9" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/>
+          <path d="M38 29v-8l5-4 5 4v8h-4v-5h-3v5Z" fill="currentColor"/>
+        </svg>
+      </span>
+      <span class="brand-copy"><strong>Folkhold</strong><small>Your place. Your people.</small></span>
+    </button>
+
+    <nav class="desktop-nav" aria-label="Primary">
+      <button type="button" data-view="hold">My Hold</button>
+      <button type="button" data-view="square">Public Square</button>
+      <button type="button" data-view="notice">Notice Board</button>
+      <button type="button" data-view="directory">Directory</button>
+      <button type="button" data-view="keys">Key Ring</button>
+    </nav>
+
+    <button class="avatar-button" type="button" data-view="hold" aria-label="Open your Hold">D</button>
+  </header>
+
+  <div class="app-shell">
+    <aside class="side-rail" aria-label="Places">
+      <div class="rail-heading">Town</div>
+      <button type="button" data-view="home"><span>⌂</span> Home</button>
+      <button type="button" data-view="hold"><span>🏠</span> My Hold</button>
+      <button type="button" data-view="square"><span>🏛</span> Public Square</button>
+      <button type="button" data-view="notice"><span>📌</span> Notice Board</button>
+      <button type="button" data-view="tavern"><span>🍺</span> Tavern <b class="age-chip">18+</b></button>
+      <button type="button" data-view="tea"><span>🫖</span> Tea Room</button>
+      <button type="button" data-view="directory"><span>📖</span> Directory</button>
+      <button type="button" data-view="keys"><span>🔑</span> Key Ring</button>
+      <div class="rail-rule"></div>
+      <button type="button" data-action="ad-settings"><span>⚙</span> Ad choices</button>
+    </aside>
+
+    <main id="main" tabindex="-1">
+      <section class="view active" data-screen="home">
+        <div class="hero panel">
+          <div class="hero-copy">
+            <span class="eyebrow">FOLKHOLD PROTOTYPE 0.0.1</span>
+            <h1>The internet should feel like somewhere you can belong.</h1>
+            <p>Build your Hold. Make rooms for what matters to you. Give people keys. Meet everyone else in the Public Square.</p>
+            <div class="button-row">
+              <button class="primary" type="button" data-view="hold">Enter My Hold</button>
+              <button class="secondary" type="button" data-view="square">Visit the Square</button>
+            </div>
+          </div>
+          <div class="hero-door" aria-hidden="true">
+            <div class="door-sign">Derek's Hold</div>
+            <div class="door"><span class="door-keyhole">●</span></div>
+            <div class="doormat">WELCOME, IF YOU HAVE A KEY</div>
+          </div>
+        </div>
+
+        <section class="town-grid" aria-label="Folkhold places">
+          <button class="place-card square-card" type="button" data-view="square">
+            <span class="place-icon">🏛</span><strong>Public Square</strong><small>Global chat and public conversation.</small>
+          </button>
+          <button class="place-card notice-card" type="button" data-view="notice">
+            <span class="place-icon">📌</span><strong>Notice Board</strong><small>Pin a request, invitation, sale, event or odd little note.</small>
+          </button>
+          <button class="place-card tavern-card" type="button" data-view="tavern">
+            <span class="place-icon">🍺</span><strong>The Tavern</strong><small>Adults only. Minimal moderation. Enter knowingly.</small>
+          </button>
+          <button class="place-card tea-card" type="button" data-view="tea">
+            <span class="place-icon">🫖</span><strong>Tea Room</strong><small>Strictly moderated, civility-first conversation.</small>
+          </button>
+        </section>
+
+        <section class="panel principle">
+          <span class="eyebrow">OUR LINE IN THE SAND</span>
+          <blockquote>“Advertising pays for Folkhold. Your private life does not.”</blockquote>
+          <p>Prototype ads are limited, quiet, and preference-based. Nothing here tracks you around the web.</p>
+        </section>
+      </section>
+
+      <section class="view" data-screen="hold">
+        <div class="hold-cover panel">
+          <div>
+            <span class="eyebrow">YOUR HOLD</span>
+            <h1>Derek's Hold</h1>
+            <p class="status-line"><span class="status-dot"></span> Door sign: <strong>Come in if you've got a key.</strong></p>
+          </div>
+          <button class="secondary" type="button" data-action="customize">Customize Hold</button>
+        </div>
+
+        <div class="room-grid">
+          <article class="room public-room"><span>🎮</span><h2>Gaming Room</h2><p>Games, preservation projects and things worth keeping alive.</p><small>Public room</small></article>
+          <article class="room keyed-room"><span>💻</span><h2>Workshop</h2><p>Projects, builds, experiments and notes.</p><small>Key required</small></article>
+          <article class="room public-room"><span>🎬</span><h2>Movie Room</h2><p>Films, recommendations and collections.</p><small>Public room</small></article>
+          <article class="room keyed-room"><span>🔒</span><h2>Private Room</h2><p>Only invited key holders can enter.</p><small>Special key required</small></article>
+          <button class="room new-room" type="button" data-action="new-room"><span>＋</span><h2>Add a Room</h2><p>Your Hold can grow around your life.</p></button>
+        </div>
+
+        <section class="panel guestbook">
+          <div class="section-title"><div><span class="eyebrow">GUESTBOOK</span><h2>Visitors were here</h2></div><button class="text-button" type="button">See all</button></div>
+          <div class="guest-entry"><div class="mini-avatar">S</div><div><strong>Sarah</strong><p>This place feels like the old web grew up instead of getting paved over.</p></div></div>
+          <div class="guest-entry"><div class="mini-avatar">J</div><div><strong>Jeff</strong><p>Left your key under absolutely no mats whatsoever.</p></div></div>
+        </section>
+      </section>
+
+      <section class="view" data-screen="square">
+        <div class="section-heading">
+          <div><span class="eyebrow">GLOBAL</span><h1>Public Square</h1><p>Live public conversation, in order. No engagement-ranking machine.</p></div>
+          <span class="live-pill">● LIVE</span>
+        </div>
+        <div class="chat-layout">
+          <section class="panel chat-panel">
+            <div id="square-chat" class="chat-stream" aria-live="polite">
+              <div class="chat-message"><span class="chat-time">3:12</span><button class="chat-name">MayaR</button><p>Anyone here still collecting physical games?</p></div>
+              <div class="chat-message"><span class="chat-time">3:13</span><button class="chat-name">OldNetDave</button><p>Absolutely. If the server dies I still own the disc.</p></div>
+              <div class="chat-message"><span class="chat-time">3:14</span><button class="chat-name">Amina</button><p>Just opened my cooking room. Knock if you want the key.</p></div>
+            </div>
+            <form id="square-form" class="chat-compose">
+              <label class="sr-only" for="square-message">Message the Public Square</label>
+              <input id="square-message" maxlength="280" placeholder="Say something to the Square…" autocomplete="off">
+              <button class="primary" type="submit">Send</button>
+            </form>
+          </section>
+          <aside class="panel now-panel">
+            <span class="eyebrow">HAPPENING NOW</span>
+            <h2>Open doors</h2>
+            <button class="open-door" type="button"><strong>RetroDave's Basement</strong><small>Retro gaming • 23 inside</small></button>
+            <button class="open-door" type="button"><strong>Amina's Kitchen</strong><small>Recipes • 11 inside</small></button>
+            <h2>Square rules</h2>
+            <p>Broad public audience. Normal community rules apply here. The Tavern exists for rougher conversation.</p>
+          </aside>
+        </div>
+      </section>
+
+      <section class="view" data-screen="notice">
+        <div class="section-heading"><div><span class="eyebrow">THE TOWN BOARD</span><h1>Notice Board</h1><p>Persistent public notes, requests, invitations and odd jobs.</p></div><button class="primary" type="button" data-action="pin-note">Pin a Notice</button></div>
+        <div id="notice-board" class="notice-board">
+          <article class="paper-note tilt-left"><span class="pin">●</span><small>OPEN QUEST</small><h2>Need a Linux tester</h2><p>Looking for someone to test controller support on an old game preservation build.</p><footer><strong>DKWorkshop</strong><button type="button">Visit Hold</button></footer></article>
+          <article class="paper-note tilt-right"><span class="pin">●</span><small>INVITATION</small><h2>Movie night Friday</h2><p>Old sword-and-sandal films. Door opens at 7. Ask me for a key.</p><footer><strong>HistoryNerd</strong><button type="button">Knock</button></footer></article>
+          <article class="paper-note"><span class="pin">●</span><small>WANTED</small><h2>Anyone remember this song?</h2><p>Late 90s, female vocalist, chorus had something about driving all night. Driving me mad.</p><footer><strong>Kell84</strong><button type="button">Reply</button></footer></article>
+          <article class="paper-note faded"><span class="pin">●</span><small>TAKEN</small><h2>Help moving a sofa</h2><p>Sorted. Cheers to Marcus and Lee.</p><footer><strong>JenK</strong><button type="button">Completed</button></footer></article>
+        </div>
+      </section>
+
+      <section class="view" data-screen="tavern">
+        <div class="tavern-header panel"><span class="eyebrow">18+ • MINIMAL MODERATION</span><h1>🍺 The Tavern</h1><p>Rough language, explicit adult discussion and offensive viewpoints may be present. Illegal conduct is still prohibited.</p></div>
+        <div class="panel tavern-chat locked-content" id="tavern-content">
+          <div class="locked-badge">🔒</div><h2>The door is closed.</h2><p>Accept the one-time Tavern warning to enter this prototype area.</p><button class="primary" type="button" data-action="tavern-enter">Read warning & enter</button>
+        </div>
+      </section>
+
+      <section class="view" data-screen="tea">
+        <div class="section-heading"><div><span class="eyebrow">CIVILITY-FIRST</span><h1>🫖 Tea Room</h1><p>A deliberately heavily moderated alternative for people who want calmer conversation.</p></div><span class="calm-pill">Quiet table</span></div>
+        <section class="panel discussion-list">
+          <article><div class="mini-avatar">E</div><div><h2>What are you reading this week?</h2><p>Elena • 18 replies • 6 minutes ago</p></div></article>
+          <article><div class="mini-avatar">T</div><div><h2>Show us something you repaired instead of replacing</h2><p>TomM • 42 replies • 19 minutes ago</p></div></article>
+          <article><div class="mini-avatar">R</div><div><h2>Best inexpensive meal you've learned to cook?</h2><p>Rafi • 31 replies • 27 minutes ago</p></div></article>
+        </section>
+      </section>
+
+      <section class="view" data-screen="directory">
+        <div class="section-heading"><div><span class="eyebrow">FIND PEOPLE</span><h1>Hold Directory</h1><p>Discoverable does not mean open. A door can be listed while the rooms behind it remain private.</p></div></div>
+        <section class="panel people-search">
+          <label for="people-query">Search as broadly or narrowly as you want</label>
+          <div class="search-row"><input id="people-query" placeholder="Name, old username, school, town…"><button class="primary" type="button" data-action="people-search">Search</button></div>
+          <div class="filter-row"><button type="button">Name</button><button type="button">Hometown</button><button type="button">School + year</button><button type="button">Old username</button><button type="button">Mutuals</button></div>
+          <p class="privacy-note">Future AI People Finder will search only information members chose to make discoverable.</p>
+        </section>
+        <div id="people-results" class="people-grid">
+          <article class="person-card"><div class="person-avatar">MR</div><div><h2>Mike Reynolds</h2><p>Wichita • North High • 2001</p><small>Private Hold</small></div><button class="secondary" type="button" data-action="knock">Knock</button></article>
+          <article class="person-card"><div class="person-avatar">AM</div><div><h2>Amina Malik</h2><p>Kansas City • Cooking, books</p><small>2 public rooms</small></div><button class="secondary" type="button">Visit</button></article>
+          <article class="person-card"><div class="person-avatar">RD</div><div><h2>RetroDave</h2><p>St. Louis • Games, hardware</p><small>Door open now</small></div><button class="secondary" type="button">Enter</button></article>
+        </div>
+      </section>
+
+      <section class="view" data-screen="keys">
+        <div class="section-heading"><div><span class="eyebrow">PRIVATE</span><h1>🔑 Key Ring</h1><p>Your keys are individual credentials, not shared house passwords.</p></div><button class="primary" type="button" data-action="give-key">Give a Key</button></div>
+        <div class="keys-layout">
+          <section class="panel">
+            <h2>Keys I carry</h2>
+            <div class="key-card"><span class="key-icon">🔑</span><div><strong>Sarah's House</strong><small>Friend access • 4 rooms</small></div><button type="button">Use Key</button></div>
+            <div class="key-card"><span class="key-icon">🔑</span><div><strong>Retro Gaming Clubhouse</strong><small>Member access • 2 rooms</small></div><button type="button">Use Key</button></div>
+          </section>
+          <section class="panel">
+            <h2>Keys to Derek's Hold</h2>
+            <div class="issued-key"><div><strong>Sarah</strong><small>Friend • Front Room, Gaming, Movies</small></div><button type="button" data-action="revoke">Revoke</button></div>
+            <div class="issued-key"><div><strong>Jeff</strong><small>Visitor • Front Room, Gaming</small></div><button type="button" data-action="revoke">Revoke</button></div>
+            <div class="issued-key"><div><strong>Mohammed</strong><small>Trusted Friend • 4 rooms</small></div><button type="button" data-action="revoke">Revoke</button></div>
+          </section>
+        </div>
+      </section>
+    </main>
+  </div>
+
+  <footer class="mobile-nav" aria-label="Mobile navigation">
+    <button type="button" data-view="home"><span>⌂</span>Home</button>
+    <button type="button" data-view="square"><span>🏛</span>Square</button>
+    <button type="button" data-view="hold"><span>🏠</span>Hold</button>
+    <button type="button" data-view="notice"><span>📌</span>Board</button>
+    <button type="button" data-view="keys"><span>🔑</span>Keys</button>
+  </footer>
+
+  <div class="ad-strip" id="ad-strip" aria-label="Advertisement">
+    <span class="ad-label">AD</span><strong>Retro Cartridge Club</strong><span>Protect the games you actually own.</span><button type="button" data-action="ad-settings">Ad choices</button>
+  </div>
+
+  <dialog id="tavern-dialog">
+    <form method="dialog" class="dialog-card">
+      <span class="eyebrow">ONE-TIME WARNING</span>
+      <h1>Entering the Tavern</h1>
+      <p>The Tavern is an intentionally lightly moderated area intended for adults. You may encounter profanity, insults, slurs, explicit sexual discussion or imagery, crude humor, extremist slogans, and political or religious opinions you find deeply offensive.</p>
+      <p><strong>Offensiveness alone is not grounds for removal in the Tavern.</strong> A small platform-wide floor still applies to illegal conduct, including child sexual exploitation, grooming of minors, non-consensual intimate imagery, credible threats, doxxing, fraud, trafficking and similar unlawful activity.</p>
+      <p>This prototype does not yet perform real age verification. A production Tavern will require adult verification.</p>
+      <label class="consent-check"><input id="tavern-consent" type="checkbox"> I understand what the Tavern is and choose to enter.</label>
+      <div class="button-row"><button class="secondary" value="cancel">Leave</button><button id="accept-tavern" class="danger" value="default" disabled>Enter Tavern</button></div>
+    </form>
+  </dialog>
+
+  <dialog id="ad-dialog">
+    <form method="dialog" class="dialog-card">
+      <span class="eyebrow">YOU CHOOSE</span><h1>Advertising preferences</h1>
+      <p>Folkhold does not infer your interests from private activity. Pick categories you actually want to see.</p>
+      <div class="ad-options">
+        <label><input type="checkbox" checked> Gaming & Xbox</label><label><input type="checkbox" checked> Computers & Linux</label><label><input type="checkbox"> Cars</label><label><input type="checkbox" checked> Movies</label><label><input type="checkbox"> Travel</label><label><input type="checkbox"> Home & Garden</label>
+      </div>
+      <label class="range-label">General-purpose ads per day <strong id="ad-count-label">5</strong><input id="ad-count" type="range" min="0" max="10" value="5"></label>
+      <p class="privacy-note">Prototype only. These choices stay in this browser.</p>
+      <div class="button-row"><button class="primary" value="default">Save choices</button></div>
+    </form>
+  </dialog>
+
+  <div id="toast" class="toast" role="status" aria-live="polite"></div>
+  <script src="app.js"></script>
+</body>
+</html>
