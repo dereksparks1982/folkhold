@@ -46,9 +46,13 @@ Project principle:
 
 > **Advertising pays for Folkhold. Your private life does not.**
 
-Advertising should be unobtrusive. Users may explicitly choose advertising categories they want. General-purpose advertising can be capped per day. No ad is required merely because empty space exists.
+Advertising is part of the free Folkhold service. Every major page and every Room reserves **one unobtrusive banner**, placed below the page/room header and before the main content so it never interrupts a conversation or post stream. Free accounts do not have an ad-off switch.
 
-Aggregate campaign counts are acceptable. Behavioral dossiers, cross-site tracking and private-space profiling are not part of the intended business model.
+Ad eligibility is contextual. Different areas may use different allowed ad inventories: a Tea Room can use ordinary general-interest advertising while the Tavern can use an adult-compatible provider. Folkhold should support multiple providers rather than depending permanently on one network.
+
+Google AdSense is the first network being wired into ordinary pages. Folkhold requests non-personalized Google ads by default. The Tavern and future private-chat screens are reserved for providers whose terms expressly allow those environments.
+
+Users may explicitly choose advertising categories they prefer for Folkhold-direct ads and compatible providers. Aggregate campaign counts are acceptable. Behavioral dossiers, private-message analysis, cross-site profiling, and private-space profiling are not part of the intended business model.
 
 ## Prototype architecture
 
