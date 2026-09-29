@@ -12,6 +12,26 @@
   const acceptTavern = document.getElementById('accept-tavern');
   const adDialog = document.getElementById('ad-dialog');
 
+  function loadLocalScript(src) {
+    return new Promise((resolve, reject) => {
+      if (document.querySelector(`script[data-folkhold-module="${src}"]`)) {
+        resolve();
+        return;
+      }
+      const script = document.createElement('script');
+      script.src = src;
+      script.dataset.folkholdModule = src;
+      script.addEventListener('load', resolve, { once: true });
+      script.addEventListener('error', reject, { once: true });
+      document.head.append(script);
+    });
+  }
+
+  loadLocalScript('ads-config.js')
+    .then(() => loadLocalScript('ads.js'))
+    .then(() => window.FolkholdAds?.showForView(state.view))
+    .catch((error) => console.warn('Folkhold ad module did not load.', error));
+
   function showToast(message) {
     toast.textContent = message;
     toast.classList.add('show');
@@ -28,6 +48,7 @@
     document.getElementById('main').focus({ preventScroll: true });
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (name === 'tavern') renderTavern();
+    window.FolkholdAds?.showForView(name);
   }
 
   function renderTavern() {
@@ -127,7 +148,9 @@
 
   const adCount = document.getElementById('ad-count');
   const adCountLabel = document.getElementById('ad-count-label');
-  adCount.addEventListener('input', () => adCountLabel.textContent = adCount.value);
+  if (adCount && adCountLabel) {
+    adCount.addEventListener('input', () => adCountLabel.textContent = adCount.value);
+  }
   adDialog.addEventListener('close', () => showToast('Ad preferences saved locally for the prototype.'));
 
   window.addEventListener('hashchange', () => setView(location.hash.replace('#', '') || 'home', false));
