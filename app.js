@@ -33,7 +33,11 @@
     .catch((error) => console.warn('Folkhold ad module did not load.', error));
 
   loadLocalScript('cloudflare-config.js?v=15')
-    .then(() => loadLocalScript('global-chat.js'))
+    .then(() => {
+      const brandIcon = document.querySelector('.brand-mark img');
+      if (brandIcon) brandIcon.src = 'assets/folkhold-app-icon-192.png?v=10';
+      return loadLocalScript('global-chat.js');
+    })
     .catch((error) => console.warn('Folkhold Global Chat module did not load.', error));
 
   function showToast(message) {
