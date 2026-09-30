@@ -17,6 +17,18 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
     document.head.append(script);
   }
 
+  function applyApprovedHomeIcon() {
+    const iconPath = 'assets/folkhold-home-fh.png?v=1';
+
+    document.querySelectorAll('img[src="assets/folkhold-home.png"], img[src$="/folkhold-home.png"]').forEach((img) => {
+      img.src = iconPath;
+    });
+
+    document.querySelectorAll('link[rel="icon"], link[rel="apple-touch-icon"]').forEach((link) => {
+      link.href = iconPath;
+    });
+  }
+
   function ensureMobileDirectoryNav() {
     const nav = document.querySelector('.mobile-nav');
     if (!nav || nav.querySelector('[data-view="directory"]')) return;
@@ -46,9 +58,14 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
     syncActiveState();
   }
 
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', ensureMobileDirectoryNav, { once: true });
-  } else {
+  function bootFolkholdUiFixes() {
+    applyApprovedHomeIcon();
     ensureMobileDirectoryNav();
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootFolkholdUiFixes, { once: true });
+  } else {
+    bootFolkholdUiFixes();
   }
 })();
