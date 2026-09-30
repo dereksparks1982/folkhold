@@ -81,6 +81,15 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
     });
   }
 
+  function applyTranslucentSideRail() {
+    if (document.getElementById('folkhold-side-rail-translucent-style')) return;
+
+    const style = document.createElement('style');
+    style.id = 'folkhold-side-rail-translucent-style';
+    style.textContent = '.side-rail{background:rgba(24,18,14,.68)!important;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}';
+    document.head.append(style);
+  }
+
   function ensureMobileDirectoryNav() {
     const nav = document.querySelector('.mobile-nav');
     if (!nav || nav.querySelector('[data-view="directory"]')) return;
@@ -113,6 +122,7 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
   function bootFolkholdUiFixes() {
     applyApprovedBrandIcon();
     applyFolkholdNaming();
+    applyTranslucentSideRail();
     ensureMobileDirectoryNav();
   }
 
