@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">Folkhold</title>
+  <desc id="desc">Folkhold logo showing a golden house shaped like a castle with a keyhole doorway.</desc>
+  <defs>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f1d79a"/>
+      <stop offset="0.42" stop-color="#b98d45"/>
+      <stop offset="1" stop-color="#6f4c1f"/>
+    </linearGradient>
+    <linearGradient id="light" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#fff1bd"/>
+      <stop offset="1" stop-color="#d6ae63"/>
+    </linearGradient>
+    <filter id="shadow" x="-30%" y="-30%" width="160%" height="160%">
+      <feDropShadow dx="0" dy="9" stdDeviation="10" flood-color="#000" flood-opacity=".55"/>
+    </filter>
+  </defs>
+  <rect width="1200" height="630" fill="#171717"/>
+  <g transform="translate(405 40) scale(.76)" filter="url(#shadow)">
+    <path d="M100 218 256 84l156 134-25 29-35-30v151H160V217l-35 30z" fill="url(#gold)"/>
+    <path d="M123 220 256 107l133 113" fill="none" stroke="#e5c37d" stroke-width="10" stroke-linejoin="round"/>
+    <path d="M143 212h74v156h-74zM295 212h74v156h-74z" fill="#9d7132"/>
+    <path d="M143 212h21v-34h24v34h29v-34h24v34M295 212h29v-34h24v34h21" fill="none" stroke="#d7b26c" stroke-width="16"/>
+    <path d="M205 368V253c0-31 23-56 51-56s51 25 51 56v115z" fill="#2a2118" stroke="#e1bd73" stroke-width="9"/>
+    <path d="M218 365V259c0-24 17-43 38-43s38 19 38 43v106z" fill="url(#light)"/>
+    <path d="M256 252a25 25 0 0 1 15 45l19 52h-68l19-52a25 25 0 0 1 15-45z" fill="#171717"/>
+    <path d="M160 368h192" stroke="#e0bc73" stroke-width="8" stroke-linecap="round"/>
+  </g>
+  <text x="600" y="485" text-anchor="middle" fill="#ead09a" font-family="Georgia, 'Times New Roman', serif" font-size="124" font-weight="700" letter-spacing="2">Folkhold</text>
+  <text x="600" y="548" text-anchor="middle" fill="#a9906d" font-family="Georgia, 'Times New Roman', serif" font-size="28" letter-spacing="8">YOUR PLACE. YOUR PEOPLE.</text>
+</svg>
