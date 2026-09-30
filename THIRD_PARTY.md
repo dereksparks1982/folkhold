@@ -4,6 +4,8 @@
 
 Folkhold's browser UI remains intentionally lightweight and uses browser-standard HTML, CSS and JavaScript. Server-side account and deployment tooling now includes the following audited dependencies.
 
+**Folkhold itself is proprietary source-available software under the repository `LICENSE`.** The Folkhold license does not replace, narrow, or override rights granted directly by third-party licensors for their own components.
+
 ### Better Auth
 
 - Project: https://www.better-auth.com/
