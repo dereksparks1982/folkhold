@@ -10,19 +10,22 @@
 
 **Your place. Your people.**
 
-Folkhold is an experimental social web project built around personal spaces rather than flat profiles. Each member has a **Hold** containing rooms for the things they care about, and access to private Holds is granted through individually revocable **Keys** rather than shared passwords.
+Folkhold is a social web project built around personal places rather than flat profiles. Each member has a **Hold** containing rooms for the things they care about, and access to private Holds is granted through individually revocable **Keys** rather than shared passwords.
 
 > **Advertising pays for Folkhold. Your private life does not.**
 
-## Prototype
+## Version 1
 
-Folkhold now has a static GitHub Pages frontend plus a live Cloudflare Worker backend. The Public Square / Global Chat uses a Cloudflare Durable Object for realtime WebSocket conversation and persistent recent history.
+**Folkhold v1 closed out on September 30, 2026.**
 
-Current prototype areas:
+The v1 baseline establishes the Hub, Holds, town spaces, live Public Square chat, Key-based access concepts, the approved Folkhold visual identity, GitHub Pages frontend, and Cloudflare backend foundation.
 
+Current v1 areas:
+
+- **Hub** — the main Folkhold landing place and navigation center
 - **My Hold** — personal space and rooms
-- **Public Square / Global Chat** — live global chronological conversation through Cloudflare
-- **Notice Board** — Witcher-style persistent public notices
+- **Public Square / Global Chat** — live global chronological conversation through Cloudflare WebSockets
+- **Notice Board** — persistent public notices
 - **The Tavern** — adults-only, one-time warning, intentionally minimal moderation within a platform-wide legal/safety floor
 - **Tea Room** — heavily moderated civility-first alternative
 - **Directory** — broad or narrow people discovery
@@ -43,7 +46,11 @@ Current prototype areas:
 
 ## Branding
 
-The approved Folkhold brand identity is the **borderless intertwined FH monogram** with ornate blade-like gilded lettering on the dark textured background. The brand mark returns to the **Hub**. Holds use their own separate home/tower identity so the Folkhold brand and a member's Hold remain visually distinct. The live UI uses `assets/folk-hold-brand.png` for the Folkhold brand mark, browser/app icon, and Hub navigation.
+The approved Folkhold brand identity is the **borderless intertwined FH monogram** with ornate gilded lettering on the dark textured background. The brand mark returns to the **Hub**. Holds use their own separate home/tower identity so the Folkhold brand and a member's Hold remain visually distinct.
+
+The live UI uses `assets/folk-hold-brand.png` for the Folkhold brand mark and Hub navigation. Browser, iPhone, and PWA icon handling is tracked separately because those platforms require different icon sizes and cache behavior.
+
+The v1 desktop side navigation is intentionally stripped down so the navigation buttons float directly over the leather background instead of sitting inside a full sidebar panel.
 
 ## Accounts
 
@@ -55,9 +62,15 @@ The Cloudflare Worker also proxies the current GitHub Pages frontend so `folkhol
 
 The ad slot is provider-neutral. Google AdSense is wired for ordinary pages but remains disabled until an approved publisher ID and responsive display-ad slot are supplied. See `docs/ADSENSE.md` for the activation path and the root-domain `ads.txt` note.
 
+## Next after v1
+
+The first planned post-v1 feature is the **Town Crier** on the Hub.
+
+The Town Crier is intended to feel like an Ultima Online-style town crier rather than a news app: one major world story roughly once per hour, quiet between proclamations, with the ability for Folkhold announcements to replace an hourly story when needed. Truly extraordinary alerts may interrupt the normal proclamation, but Folkhold will not become a continuous headline feed.
+
 ## Hosting
 
-GitHub remains the source repository and project history. GitHub Pages hosts the public prototype frontend. Cloudflare Workers currently provides the realtime backend and is being expanded to accounts, persistence, secure Keys, uploads, and private access control.
+GitHub remains the source repository and project history. GitHub Pages hosts the public frontend. Cloudflare Workers provides the realtime backend and is being expanded to accounts, persistence, secure Keys, uploads, and private access control.
 
 ## License
 
@@ -69,4 +82,4 @@ See [`LICENSE`](LICENSE) for the full terms. Third-party dependencies remain und
 
 ## Status
 
-Active early prototype. Global Chat is live; account infrastructure is staged but not yet activated until its D1 database and secrets are connected.
+**v1 baseline closed.** Global Chat is live. Account infrastructure is staged but not yet activated until its D1 database and secrets are connected. New feature work should build from this v1 baseline.
