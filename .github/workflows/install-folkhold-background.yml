@@ -1,0 +1,74 @@
+name: Install exact Folkhold background
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/install-folkhold-background.yml
+
+permissions:
+  contents: write
+
+jobs:
+  install-background:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out Folkhold
+        uses: actions/checkout@v4
+
+      - name: Install exact generated PNG
+        shell: bash
+        run: |
+          set -euo pipefail
+          curl -fL 'https://sdmntpreastus2.oaiusercontent.com/files/00000000-7c90-81f6-b383-fd54a792ddf7/raw?se=2026-09-30T19%3A27%3A07Z&sp=r&sv=2026-02-06&sr=b&scid=6525830c-4430-51ad-a434-73de22e981dc&skoid=c36a4874-d531-4a8d-99fc-7da0d9143d9c&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-09-30T18%3A26%3A00Z&ske=2026-10-01T18%3A26%3A00Z&sks=b&skv=2026-02-06&sig=Ll7iMAt4FfDm0MKECRRjlsIq3rQEshtcM15hAMps/DQ%3D' -o assets/folkhold-background.png
+          echo '7f948c8a0da59f35d949aaafcd2925c51e70cfafca29de3c2e3ee30183f03208  assets/folkhold-background.png' | sha256sum -c -
+          test "$(stat -c '%s' assets/folkhold-background.png)" = '3288361'
+
+      - name: Wire the artwork into the app background
+        shell: bash
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('styles.css')
+          text = p.read_text()
+          start = '/* FOLKHOLD_BACKGROUND_START */'
+          end = '/* FOLKHOLD_BACKGROUND_END */'
+          block = '''/* FOLKHOLD_BACKGROUND_START */
+          html { background: #090a0d; }
+          body {
+            background-color: var(--fh-bg);
+            background-image: url("assets/folkhold-background.png");
+            background-position: center center;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+          }
+          @media (max-width: 980px) {
+            body {
+              background-color: var(--fh-bg);
+              background-image: url("assets/folkhold-background.png");
+              background-position: center center;
+              background-size: 100vw 100vh;
+              background-repeat: no-repeat;
+              background-attachment: fixed;
+            }
+          }
+          /* FOLKHOLD_BACKGROUND_END */'''
+          if start in text and end in text:
+              before, rest = text.split(start, 1)
+              _, after = rest.split(end, 1)
+              text = before.rstrip() + '\n\n' + block + after
+          else:
+              text = text.rstrip() + '\n\n' + block + '\n'
+          p.write_text(text)
+          PY
+
+      - name: Commit exact background
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add assets/folkhold-background.png styles.css
+          git commit -m 'design: add engraved leather Folkhold background'
+          git push
