@@ -1,6 +1,6 @@
 {
-  "name": "Folk Hold",
-  "short_name": "Folk Hold",
+  "name": "Folkhold",
+  "short_name": "Folkhold",
   "description": "Your place. Your people. Your keys.",
   "start_url": "./",
   "scope": "./",
@@ -9,8 +9,8 @@
   "theme_color": "#171717",
   "icons": [
     {
-      "src": "assets/folk-hold-brand.png?v=2",
-      "sizes": "160x160",
+      "src": "assets/folk-hold-brand.png?v=3",
+      "sizes": "192x192",
       "type": "image/png",
       "purpose": "any"
     }
