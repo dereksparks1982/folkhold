@@ -19,7 +19,8 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
 
   function applyApprovedBrandIcon() {
     const iconPath = 'assets/folk-hold-brand.png?v=7';
-    const appIconPath = 'assets/folkhold-mark.svg?v=8';
+    const faviconPath = 'assets/folkhold-app-icon-192.png?v=9';
+    const appleIconPath = 'assets/folkhold-app-icon-180.png?v=9';
 
     document.querySelectorAll(
       '.brand-mark img, .side-rail [data-view="home"] img, .mobile-nav [data-view="home"] img, img[src="assets/folkhold-home.png"], img[src$="/folkhold-home.png"], img[src="assets/folkhold-home-fh.png"], img[src^="assets/folkhold-home-fh.png?"]'
@@ -28,18 +29,18 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
     });
 
     document.querySelectorAll('link[rel="icon"]').forEach((link) => {
-      link.href = appIconPath;
-      link.type = 'image/svg+xml';
-      link.removeAttribute('sizes');
+      link.href = faviconPath;
+      link.type = 'image/png';
+      link.setAttribute('sizes', '192x192');
     });
 
     document.querySelectorAll('link[rel="apple-touch-icon"]').forEach((link) => {
-      link.href = appIconPath;
-      link.removeAttribute('sizes');
+      link.href = appleIconPath;
+      link.setAttribute('sizes', '180x180');
     });
 
     const manifest = document.querySelector('link[rel="manifest"]');
-    if (manifest) manifest.href = 'site.webmanifest?v=8';
+    if (manifest) manifest.href = 'site.webmanifest?v=9';
 
     document.querySelectorAll('meta[property="og:image"], meta[name="twitter:image"]').forEach((meta) => {
       meta.content = 'https://dereksparks1982.github.io/folkhold/assets/folk-hold-brand.png?v=7';
