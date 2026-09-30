@@ -47,6 +47,14 @@ The ad slot is provider-neutral. Google AdSense is wired for ordinary pages but 
 
 GitHub remains the source repository and project history. GitHub Pages hosts the public prototype frontend. Cloudflare Workers currently provides the realtime backend and is being expanded to accounts, persistence, secure Keys, uploads, and private access control.
 
+## License
+
+**Folkhold is proprietary source-available software, not open source.**
+
+The repository may be viewed for personal, non-commercial evaluation, but the Folkhold code, design, documentation, and assets may not be commercially used, redistributed, republished, modified, rebranded, forked for deployment, or used to create derivative services without prior written permission from the copyright holder(s).
+
+See [`LICENSE`](LICENSE) for the full terms. Third-party dependencies remain under their own licenses as documented in [`THIRD_PARTY.md`](THIRD_PARTY.md).
+
 ## Status
 
 Active early prototype. Global Chat is live; account infrastructure is staged but not yet activated until its D1 database and secrets are connected.
