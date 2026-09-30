@@ -3,6 +3,7 @@
   "name": "folkhold",
   "main": "src/index.js",
   "compatibility_date": "2026-09-29",
+  "compatibility_flags": ["nodejs_compat"],
   "durable_objects": {
     "bindings": [
       {
@@ -18,6 +19,7 @@
     }
   },
   "vars": {
-    "ALLOWED_ORIGINS": "https://dereksparks1982.github.io"
+    "ALLOWED_ORIGINS": "https://dereksparks1982.github.io",
+    "PUBLIC_SITE_ORIGIN": "https://dereksparks1982.github.io/folkhold"
   }
 }
