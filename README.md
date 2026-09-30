@@ -1,8 +1,12 @@
 # Folkhold
 
 <p align="center">
-  <img src="assets/folkhold-logo.svg" alt="Folkhold — house as castle with keyhole" width="520">
+  <a href="https://dereksparks1982.github.io/folkhold/">
+    <img src="assets/folkhold-home-fh.png" alt="Folkhold FH monogram" width="160">
+  </a>
 </p>
+
+<p align="center"><strong><a href="https://dereksparks1982.github.io/folkhold/">Open Folkhold</a></strong></p>
 
 **Your place. Your people.**
 
@@ -39,7 +43,7 @@ Current prototype areas:
 
 ## Branding
 
-The current approved mark is the **house-as-castle** concept: a protected personal Hold with a keyhole doorway. The compact mark lives at `assets/folkhold-mark.svg`; the full wordmark lockup is `assets/folkhold-logo.svg`. The site header, Home navigation, favicon metadata, web-app manifest, and social metadata now reference this identity.
+The approved Home identity is the **intertwined FH monogram** with blade-like medieval lettering in a square gilded frame. The live UI uses `assets/folkhold-home-fh.png` for the Folkhold mark beside the app name and for Home navigation. Individual rooms are getting their own distinct medieval identities and borders rather than sharing one generic symbol.
 
 ## Accounts
 
