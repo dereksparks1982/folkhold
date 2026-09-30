@@ -1,0 +1,50 @@
+FOLKHOLD PROPRIETARY SOURCE-AVAILABLE LICENSE
+Version 1.0
+
+Copyright © 2026. All rights reserved by the copyright holder(s).
+
+This software, source code, documentation, visual design, branding, assets, and related materials (collectively, the "Software") are proprietary.
+
+Permission is granted only to view the Software and to download or retain an unmodified copy solely for personal, non-commercial evaluation and reference.
+
+You may NOT, without prior written permission from the copyright holder(s):
+
+1. use the Software, in whole or in part, for any commercial purpose, revenue-generating activity, paid service, advertising-supported service, subscription service, business operation, consulting engagement, hosted service, software-as-a-service offering, or other activity intended to produce direct or indirect commercial benefit;
+
+2. copy, publish, upload, mirror, redistribute, transmit, sell, rent, lease, sublicense, share, republish, or otherwise provide the Software or any substantial portion of it to any third party;
+
+3. modify, adapt, translate, transform, alter, patch, remix, port, rebrand, create derivative works from, or otherwise change the Software or any substantial portion of it;
+
+4. deploy, host, operate, or make available any copy, modified version, derivative, fork, clone, or substantially similar service based on the Software;
+
+5. remove, obscure, or alter copyright notices, proprietary notices, attribution notices, trademarks, service marks, branding, or other rights-management information;
+
+6. use the Software, its source code, documentation, assets, or substantial extracts as training data, evaluation data, benchmark data, retrieval corpus, or dataset material for machine-learning or artificial-intelligence systems without prior written permission;
+
+7. use the Folkhold name, logos, icons, trade dress, visual identity, or other branding in a manner that implies endorsement, affiliation, sponsorship, or ownership;
+
+8. circumvent, disable, or remove technical restrictions, access controls, licensing mechanisms, or security measures included with the Software.
+
+NO REDISTRIBUTION OR FORKING LICENSE
+
+Public visibility of this repository does not make the Software open source and does not grant permission to redistribute, publish, operate, or modify it. Any copy or fork created through a hosting platform remains subject to this License and may not be redistributed, deployed, modified, or used commercially except with prior written permission.
+
+THIRD-PARTY COMPONENTS
+
+Third-party software, libraries, services, or assets incorporated into or used by Folkhold remain governed by their respective licenses and terms. Nothing in this License limits rights granted directly by those third-party licensors. See THIRD_PARTY.md for known third-party components.
+
+RESERVATION OF RIGHTS
+
+No patent, trademark, copyright, trade-secret, or other intellectual-property license is granted except the narrow personal evaluation permission stated above. All rights not expressly granted are reserved.
+
+TERMINATION
+
+Any permission granted under this License terminates automatically upon violation of these terms. Upon termination, you must stop using the Software and delete or destroy copies in your possession or control, except where retention is required by law.
+
+NO WARRANTY
+
+THE SOFTWARE IS PROVIDED "AS IS" WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE, TITLE, AND NON-INFRINGEMENT. TO THE MAXIMUM EXTENT PERMITTED BY LAW, THE COPYRIGHT HOLDER(S) SHALL NOT BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER LIABILITY ARISING FROM OR RELATED TO THE SOFTWARE OR ITS USE.
+
+COMMERCIAL LICENSING AND OTHER PERMISSIONS
+
+Any permission for commercial use, redistribution, modification, derivative works, hosting, integration, or other use outside the limited permission above requires a separate written license from the copyright holder(s).
