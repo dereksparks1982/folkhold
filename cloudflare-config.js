@@ -86,7 +86,7 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
 
     const style = document.createElement('style');
     style.id = 'folkhold-side-rail-translucent-style';
-    style.textContent = '.side-rail{background:rgba(24,18,14,.68)!important;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px)}';
+    style.textContent = '.side-rail{background:rgba(24,18,14,.32)!important;backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px)}';
     document.head.append(style);
   }
 
