@@ -81,6 +81,19 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
     });
   }
 
+  function applyBareSideRail() {
+    if (document.getElementById('folkhold-bare-side-rail-style')) return;
+
+    const style = document.createElement('style');
+    style.id = 'folkhold-bare-side-rail-style';
+    style.textContent = [
+      '.side-rail{background:transparent!important;border:none!important;box-shadow:none!important;outline:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}',
+      '.side-rail::before,.side-rail::after,.app-shell::before,.app-shell::after{content:none!important;display:none!important}',
+      '.app-shell,main{border:none!important;box-shadow:none!important;outline:none!important}'
+    ].join('');
+    document.head.append(style);
+  }
+
   function ensureMobileDirectoryNav() {
     const nav = document.querySelector('.mobile-nav');
     if (!nav || nav.querySelector('[data-view="directory"]')) return;
@@ -113,6 +126,7 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
   function bootFolkholdUiFixes() {
     applyApprovedBrandIcon();
     applyFolkholdNaming();
+    applyBareSideRail();
     ensureMobileDirectoryNav();
   }
 
