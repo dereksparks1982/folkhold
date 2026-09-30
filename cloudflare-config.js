@@ -1,7 +1,7 @@
 /*
- * Folk Hold Cloudflare backend configuration.
+ * Folkhold Cloudflare backend configuration.
  *
- * This workers.dev endpoint is the live Folk Hold backend.
+ * This workers.dev endpoint is the live Folkhold backend.
  */
 window.FOLKHOLD_CLOUDFLARE = Object.freeze({
   apiBase: "https://folkhold.dereksparks1982.workers.dev",
@@ -18,10 +18,10 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
   }
 
   function applyApprovedBrandIcon() {
-    const iconPath = 'assets/folk-hold-brand.png?v=2';
+    const iconPath = 'assets/folk-hold-brand.png?v=3';
 
     document.querySelectorAll(
-      'img[src="assets/folkhold-home.png"], img[src$="/folkhold-home.png"], img[src="assets/folkhold-home-fh.png"], img[src^="assets/folkhold-home-fh.png?"]'
+      '.brand-mark img, .side-rail [data-view="home"] img, .mobile-nav [data-view="home"] img, img[src="assets/folkhold-home.png"], img[src$="/folkhold-home.png"], img[src="assets/folkhold-home-fh.png"], img[src^="assets/folkhold-home-fh.png?"]'
     ).forEach((img) => {
       img.src = iconPath;
     });
@@ -31,26 +31,26 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
     });
 
     document.querySelectorAll('meta[property="og:image"], meta[name="twitter:image"]').forEach((meta) => {
-      meta.content = 'https://dereksparks1982.github.io/folkhold/assets/folk-hold-brand.png?v=2';
+      meta.content = 'https://dereksparks1982.github.io/folkhold/assets/folk-hold-brand.png?v=3';
     });
   }
 
-  function applyFolkHoldNaming() {
-    document.title = 'Folk Hold';
+  function applyFolkholdNaming() {
+    document.title = 'Folkhold';
 
     const description = document.querySelector('meta[name="description"]');
-    if (description) description.content = 'Folk Hold: your place, your people, your keys.';
+    if (description) description.content = 'Folkhold: your place, your people, your keys.';
 
     document.querySelectorAll('meta[property="og:title"], meta[name="twitter:title"]').forEach((meta) => {
-      meta.content = 'Folk Hold';
+      meta.content = 'Folkhold';
     });
 
     document.querySelectorAll('.brand-copy strong').forEach((node) => {
-      node.textContent = 'Folk Hold';
+      node.textContent = 'Folkhold';
     });
 
     const brandButton = document.querySelector('.brand[data-view="home"]');
-    if (brandButton) brandButton.setAttribute('aria-label', 'Folk Hold Hub');
+    if (brandButton) brandButton.setAttribute('aria-label', 'Folkhold Hub');
 
     document.querySelectorAll('.side-rail [data-view="home"], .mobile-nav [data-view="home"]').forEach((button) => {
       button.childNodes.forEach((node) => {
@@ -62,13 +62,13 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
     let node;
     while ((node = walker.nextNode())) {
-      if (node.nodeValue.includes('Folkhold') || node.nodeValue.includes('FOLKHOLD')) {
-        node.nodeValue = node.nodeValue.replace(/FOLKHOLD/g, 'FOLK HOLD').replace(/Folkhold/g, 'Folk Hold');
+      if (node.nodeValue.includes('Folk Hold') || node.nodeValue.includes('FOLK HOLD')) {
+        node.nodeValue = node.nodeValue.replace(/FOLK HOLD/g, 'FOLKHOLD').replace(/Folk Hold/g, 'Folkhold');
       }
     }
 
-    document.querySelectorAll('[aria-label="Folkhold places"]').forEach((node) => {
-      node.setAttribute('aria-label', 'Folk Hold places');
+    document.querySelectorAll('[aria-label="Folk Hold places"]').forEach((node) => {
+      node.setAttribute('aria-label', 'Folkhold places');
     });
   }
 
@@ -103,7 +103,7 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
 
   function bootFolkholdUiFixes() {
     applyApprovedBrandIcon();
-    applyFolkHoldNaming();
+    applyFolkholdNaming();
     ensureMobileDirectoryNav();
   }
 
