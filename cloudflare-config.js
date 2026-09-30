@@ -96,6 +96,17 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
       <button type="button" data-view="keys"><span aria-hidden="true">🔑</span><small>Key Ring</small></button>
       <button type="button" data-action="ad-settings"><span aria-hidden="true">⚙</span><small>Ads</small></button>
     `;
+
+    const syncActiveState = () => {
+      const current = location.hash.replace('#', '') || 'home';
+      nav.querySelectorAll('[data-view]').forEach((button) => {
+        button.classList.toggle('active', button.dataset.view === current);
+      });
+    };
+
+    nav.addEventListener('click', () => setTimeout(syncActiveState, 0));
+    window.addEventListener('hashchange', syncActiveState);
+    syncActiveState();
   }
 
   function applyDesktopLayout() {
