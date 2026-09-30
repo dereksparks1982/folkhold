@@ -1,0 +1,18 @@
+{
+  "name": "Folkhold",
+  "short_name": "Folkhold",
+  "description": "Your place. Your people. Your keys.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#171717",
+  "theme_color": "#171717",
+  "icons": [
+    {
+      "src": "assets/folkhold-mark.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
