@@ -90,9 +90,9 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
 
     nav.innerHTML = `
       <button type="button" data-view="home"><span aria-hidden="true">⌂</span><small>Hub</small></button>
+      <button type="button" data-view="square"><span aria-hidden="true">🏛</span><small>Village Square</small></button>
+      <button type="button" data-view="notice"><span aria-hidden="true">📌</span><small>Notice Board</small></button>
       <button type="button" data-view="hold"><span aria-hidden="true">🏠</span><small>My Hold</small></button>
-      <button type="button" data-view="square"><span aria-hidden="true">🏛</span><small>Square</small></button>
-      <button type="button" data-view="notice"><span aria-hidden="true">📌</span><small>Notices</small></button>
       <button type="button" data-view="tavern"><span aria-hidden="true">🍺</span><small>Tavern</small><b class="top-age-chip">18+</b></button>
       <button type="button" data-view="tea"><span aria-hidden="true">☕</span><small>Tea Room</small></button>
       <button type="button" data-view="directory"><span aria-hidden="true">📖</span><small>Directory</small></button>
