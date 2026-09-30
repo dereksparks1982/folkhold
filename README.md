@@ -12,8 +12,6 @@
 
 Folkhold is a social web project built around personal places rather than flat profiles. Each member has a **Hold** containing rooms for the things they care about, and access to private Holds is granted through individually revocable **Keys** rather than shared passwords.
 
-> **Advertising pays for Folkhold. Your private life does not.**
-
 ## Version 1
 
 **Folkhold v1 closed out on September 30, 2026.**
