@@ -1,5 +1,9 @@
 # Folkhold
 
+<p align="center">
+  <img src="assets/folkhold-logo.svg" alt="Folkhold — house as castle with keyhole" width="520">
+</p>
+
 **Your place. Your people.**
 
 Folkhold is an experimental social web project built around personal spaces rather than flat profiles. Each member has a **Hold** containing rooms for the things they care about, and access to private Holds is granted through individually revocable **Keys** rather than shared passwords.
@@ -32,6 +36,10 @@ Current prototype areas:
 - Public discovery should be broad when the user wants it broad and precise when they want it precise.
 - A future AI People Finder may help locate old friends using only information members explicitly make discoverable.
 - Folkhold is intended to be a web application first. A separate native mobile application is not required for the core experience.
+
+## Branding
+
+The current approved mark is the **house-as-castle** concept: a protected personal Hold with a keyhole doorway. The compact mark lives at `assets/folkhold-mark.svg`; the full wordmark lockup is `assets/folkhold-logo.svg`. The site header, Home navigation, favicon metadata, web-app manifest, and social metadata now reference this identity.
 
 ## Accounts
 
