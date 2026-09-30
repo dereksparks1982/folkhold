@@ -81,16 +81,47 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
     });
   }
 
-  function applyBareSideRail() {
-    if (document.getElementById('folkhold-bare-side-rail-style')) return;
+  function configureDesktopNavigation() {
+    const nav = document.querySelector('.desktop-nav');
+    if (!nav) return;
+
+    nav.innerHTML = `
+      <button type="button" data-view="home"><span aria-hidden="true">⌂</span><small>Hub</small></button>
+      <button type="button" data-view="hold"><span aria-hidden="true">🏠</span><small>My Hold</small></button>
+      <button type="button" data-view="square"><span aria-hidden="true">🏛</span><small>Square</small></button>
+      <button type="button" data-view="notice"><span aria-hidden="true">📌</span><small>Notices</small></button>
+      <button type="button" data-view="tavern"><span aria-hidden="true">🍺</span><small>Tavern</small><b class="top-age-chip">18+</b></button>
+      <button type="button" data-view="tea"><span aria-hidden="true">☕</span><small>Tea Room</small></button>
+      <button type="button" data-view="directory"><span aria-hidden="true">📖</span><small>Directory</small></button>
+      <button type="button" data-view="keys"><span aria-hidden="true">🔑</span><small>Key Ring</small></button>
+      <button type="button" data-action="ad-settings"><span aria-hidden="true">⚙</span><small>Ads</small></button>
+    `;
+  }
+
+  function applyDesktopLayout() {
+    if (document.getElementById('folkhold-desktop-topnav-style')) return;
 
     const style = document.createElement('style');
-    style.id = 'folkhold-bare-side-rail-style';
-    style.textContent = [
-      '.side-rail{background:transparent!important;border:none!important;box-shadow:none!important;outline:none!important;backdrop-filter:none!important;-webkit-backdrop-filter:none!important}',
-      '.side-rail::before,.side-rail::after,.app-shell::before,.app-shell::after{content:none!important;display:none!important}',
-      '.app-shell,main{border:none!important;box-shadow:none!important;outline:none!important}'
-    ].join('');
+    style.id = 'folkhold-desktop-topnav-style';
+    style.textContent = `
+      @media (min-width:761px) {
+        .side-rail{display:none!important}
+        .app-shell{display:block!important;max-width:1280px!important;margin:0 auto!important;border:0!important;outline:0!important;box-shadow:none!important}
+        .app-shell::before,.app-shell::after{content:none!important;display:none!important}
+        main{width:100%!important;max-width:1120px!important;margin:0 auto!important;padding-left:24px!important;padding-right:24px!important;border:0!important;outline:0!important;box-shadow:none!important}
+        .ad-strip{left:0!important}
+        .topbar{display:flex!important;gap:14px!important;padding-left:18px!important;padding-right:18px!important}
+        .brand{flex:0 0 auto}
+        .desktop-nav{display:flex!important;align-items:stretch!important;justify-content:center!important;gap:3px!important;min-width:0!important;flex:1 1 auto!important;margin-left:0!important;overflow-x:auto!important;scrollbar-width:none}
+        .desktop-nav::-webkit-scrollbar{display:none}
+        .desktop-nav button{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:5px!important;min-width:max-content!important;padding:8px 9px!important;border-radius:9px!important;color:#d8cbb7!important;white-space:nowrap!important}
+        .desktop-nav button>span{font-size:16px!important;line-height:1!important}
+        .desktop-nav button>small{font:12px Georgia,'Times New Roman',serif!important;color:inherit!important}
+        .desktop-nav button:hover,.desktop-nav button.active{background:#302a23!important;color:#fff!important}
+        .top-age-chip{font:8px Arial,sans-serif!important;background:var(--red)!important;color:#fff!important;padding:1px 3px!important;border-radius:4px!important;margin-left:1px!important}
+        .avatar-button{flex:0 0 auto}
+      }
+    `;
     document.head.append(style);
   }
 
@@ -126,7 +157,8 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
   function bootFolkholdUiFixes() {
     applyApprovedBrandIcon();
     applyFolkholdNaming();
-    applyBareSideRail();
+    configureDesktopNavigation();
+    applyDesktopLayout();
     ensureMobileDirectoryNav();
   }
 
