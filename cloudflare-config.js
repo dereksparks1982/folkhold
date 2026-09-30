@@ -18,9 +18,9 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
   }
 
   function applyApprovedBrandIcon() {
-    const iconPath = 'assets/folk-hold-brand.png?v=6';
-    const faviconPath = 'favicon.ico?v=6';
-    const appleIconPath = 'apple-touch-icon.png?v=6';
+    const iconPath = 'assets/folk-hold-brand.png?v=7';
+    const faviconPath = 'favicon.ico?v=7';
+    const appleIconPath = 'apple-touch-icon.png?v=7';
 
     document.querySelectorAll(
       '.brand-mark img, .side-rail [data-view="home"] img, .mobile-nav [data-view="home"] img, img[src="assets/folkhold-home.png"], img[src$="/folkhold-home.png"], img[src="assets/folkhold-home-fh.png"], img[src^="assets/folkhold-home-fh.png?"]'
@@ -31,15 +31,16 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
     document.querySelectorAll('link[rel="icon"]').forEach((link) => {
       link.href = faviconPath;
       link.type = 'image/x-icon';
+      link.removeAttribute('sizes');
     });
 
     document.querySelectorAll('link[rel="apple-touch-icon"]').forEach((link) => {
       link.href = appleIconPath;
-      link.setAttribute('sizes', '180x180');
+      link.removeAttribute('sizes');
     });
 
     document.querySelectorAll('meta[property="og:image"], meta[name="twitter:image"]').forEach((meta) => {
-      meta.content = 'https://dereksparks1982.github.io/folkhold/assets/folk-hold-brand.png?v=6';
+      meta.content = 'https://dereksparks1982.github.io/folkhold/assets/folk-hold-brand.png?v=7';
     });
   }
 
