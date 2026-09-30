@@ -52,3 +52,25 @@ main{padding:30px 32px 110px;min-width:0}.view{display:none;animation:fade .2s e
 dialog{border:0;padding:0;background:transparent;max-width:min(680px,calc(100vw - 24px))}dialog::backdrop{background:rgba(8,7,6,.78);backdrop-filter:blur(3px)}.dialog-card{background:var(--cream);color:var(--ink);border:2px solid var(--brass);border-radius:18px;padding:30px;box-shadow:0 30px 100px #000}.dialog-card h1{font-size:40px}.dialog-card p{line-height:1.52}.consent-check{display:flex;gap:10px;background:#efe3d0;padding:14px;border-radius:10px;margin:20px 0}.consent-check input{transform:scale(1.25)}.ad-options{display:grid;grid-template-columns:1fr 1fr;gap:7px 15px;margin:18px 0}.ad-options label{background:#efe4d4;padding:10px;border-radius:8px}.range-label{display:grid;gap:8px;margin-top:20px}.toast{position:fixed;z-index:80;right:20px;bottom:70px;background:#171717;color:#fff8ee;border:1px solid var(--brass);padding:12px 15px;border-radius:10px;box-shadow:0 10px 35px #0005;opacity:0;transform:translateY(10px);pointer-events:none;transition:.2s}.toast.show{opacity:1;transform:none}
 @media(max-width:1050px){.desktop-nav{display:none}.town-grid{grid-template-columns:1fr 1fr}.room-grid{grid-template-columns:1fr 1fr}.notice-board{grid-template-columns:1fr 1fr}.hero{padding:38px}.chat-layout{grid-template-columns:1fr}.now-panel{display:none}}
 @media(max-width:760px){body{background:#eee3d3}.topbar{height:64px;padding:0 12px}.brand-mark{width:40px;height:40px}.brand-copy strong{font-size:21px}.brand-copy small{display:none}.avatar-button{margin-left:auto}.app-shell{display:block}.side-rail{display:none}main{padding:17px 12px 120px}.hero{grid-template-columns:1fr;min-height:auto;padding:27px 22px}.hero h1{font-size:40px}.hero p{font-size:17px}.hero-door{display:none}.town-grid{grid-template-columns:1fr 1fr;gap:9px}.place-card{min-height:160px;padding:17px}.place-card strong{font-size:18px}.place-card small{font-size:12px}.principle{padding:23px}.hold-cover{padding:24px;align-items:flex-start;flex-direction:column}.room-grid{grid-template-columns:1fr}.section-heading{align-items:flex-start;flex-direction:column}.section-heading h1{font-size:39px}.chat-message{grid-template-columns:42px 90px 1fr;font-size:14px}.chat-stream{height:55vh;padding:10px}.notice-board{grid-template-columns:1fr;padding:24px 18px}.paper-note{transform:none}.keys-layout{grid-template-columns:1fr}.person-card{grid-template-columns:auto 1fr}.person-card>.secondary{grid-column:2;justify-self:start}.mobile-nav{position:fixed;z-index:45;left:0;right:0;bottom:45px;height:58px;background:#171717;display:grid;grid-template-columns:repeat(5,1fr);border-top:1px solid #55432f}.mobile-nav button{border:0;background:transparent;color:#cbbca7;font:11px Arial,sans-serif;display:grid;place-items:center;padding:4px}.mobile-nav button span{font-size:18px}.mobile-nav button.active{color:#f5d9a5;background:#28231e}.ad-strip{left:0;bottom:0;min-height:45px;gap:7px;padding:7px;font-size:11px}.ad-strip span:not(.ad-label){display:none}.ad-options{grid-template-columns:1fr}}
+
+/* FOLKHOLD_BACKGROUND_START */
+html { background: #090a0d; }
+body {
+  background-color: var(--fh-bg);
+  background-image: url("assets/folkhold-background.png");
+  background-position: center center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+@media (max-width: 980px) {
+  body {
+    background-color: var(--fh-bg);
+    background-image: url("assets/folkhold-background.png");
+    background-position: center center;
+    background-size: 100vw 100vh;
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+  }
+}
+/* FOLKHOLD_BACKGROUND_END */
