@@ -1,5 +1,28 @@
 # Folkhold Project Log
 
+## 2026-09-30 — Version 1 closeout
+
+### v1 baseline
+- **Folkhold v1 is closed out as the current baseline.**
+- GitHub `main` is the authoritative branch.
+- The Hub, My Hold, Public Square / Global Chat, Notice Board, Tavern, Tea Room, Directory, Key Ring, advertising shell, branding system, GitHub Pages frontend, and Cloudflare backend foundation are part of the v1 baseline.
+- Global Chat is live through Cloudflare WebSockets / Durable Objects.
+- Better Auth account UI/backend is staged, but D1 and deployment secrets are still required before account activation.
+
+### Hub and navigation
+- The main Folkhold landing page is called the **Hub**.
+- The approved FH brand mark returns to the Hub.
+- Holds retain their separate home/tower visual identity.
+- The desktop left navigation panel itself has been removed visually so the buttons, TOWN label, divider, and Ad choices sit directly over the leather background.
+- The remaining sidebar edge/divider styling was explicitly neutralized at runtime as part of the v1 polish pass.
+
+### Post-v1 direction
+- The first planned post-v1 feature is the **Town Crier**.
+- Town Crier belongs front-and-center on the Hub rather than as a separate news section.
+- Intended behavior: roughly one significant world story per hour, quiet between proclamations, with a short summary and source link.
+- Folkhold announcements can replace an hourly world story when needed.
+- Truly extraordinary alerts may interrupt the current proclamation, but the feature must not evolve into a continuous news feed or dedicated news app.
+
 ## 2026-09-30 — Brand naming and icon handling
 
 ### Brand name
