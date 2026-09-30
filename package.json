@@ -1,6 +1,7 @@
 {
   "name": "folkhold",
   "private": true,
+  "license": "UNLICENSED",
   "type": "module",
   "scripts": {
     "deploy": "wrangler deploy"
