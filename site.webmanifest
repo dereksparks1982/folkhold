@@ -9,10 +9,10 @@
   "theme_color": "#171717",
   "icons": [
     {
-      "src": "assets/folkhold-mark.svg",
-      "sizes": "any",
-      "type": "image/svg+xml",
-      "purpose": "any maskable"
+      "src": "assets/folkhold-home-icon.png",
+      "sizes": "64x64",
+      "type": "image/png",
+      "purpose": "any"
     }
   ]
 }
