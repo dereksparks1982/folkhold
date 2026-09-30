@@ -136,13 +136,13 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
     document.head.append(style);
   }
 
-  function applySquareHeadingPanel() {
-    if (document.getElementById('folkhold-square-heading-style')) return;
+  function applySectionHeadingPanels() {
+    if (document.getElementById('folkhold-section-heading-style')) return;
 
     const style = document.createElement('style');
-    style.id = 'folkhold-square-heading-style';
+    style.id = 'folkhold-section-heading-style';
     style.textContent = `
-      [data-screen="square"] > .section-heading {
+      .view > .section-heading {
         background:rgba(255,248,238,.94);
         border:1px solid var(--line);
         border-radius:var(--radius);
@@ -187,7 +187,7 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
     applyFolkholdNaming();
     configureDesktopNavigation();
     applyDesktopLayout();
-    applySquareHeadingPanel();
+    applySectionHeadingPanels();
     ensureMobileDirectoryNav();
   }
 
