@@ -9,8 +9,8 @@
   "theme_color": "#171717",
   "icons": [
     {
-      "src": "assets/folk-hold-brand.png?v=4",
-      "sizes": "128x128",
+      "src": "assets/folk-hold-brand.png?v=5",
+      "sizes": "64x64",
       "type": "image/png",
       "purpose": "any"
     }
