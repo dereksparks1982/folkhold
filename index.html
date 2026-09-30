@@ -26,6 +26,12 @@
     .side-rail .folkhold-home-icon img{width:23px;height:23px;border-radius:0;display:block}
     .mobile-nav .folkhold-home-icon{display:grid;place-items:center}
     .mobile-nav .folkhold-home-icon img{width:29px;height:29px;border-radius:0;display:block}
+    .folkhold-room-icon{width:23px;height:23px;display:grid;place-items:center}
+    .folkhold-room-icon img{width:23px;height:23px;display:block;object-fit:cover}
+    .place-icon.folkhold-place-art{width:38px;height:38px;margin-bottom:18px}
+    .place-icon.folkhold-place-art img{width:100%;height:100%;display:block;object-fit:cover}
+    .room-title-with-icon{display:flex;align-items:center;gap:12px}
+    .room-title-with-icon img{width:46px;height:46px;display:block;object-fit:cover}
   </style>
 </head>
 <body>
@@ -56,7 +62,7 @@
       <button type="button" data-view="square"><span>🏛</span> Public Square</button>
       <button type="button" data-view="notice"><span>📌</span> Notice Board</button>
       <button type="button" data-view="tavern"><span>🍺</span> Tavern <b class="age-chip">18+</b></button>
-      <button type="button" data-view="tea"><span>🫖</span> Tea Room</button>
+      <button type="button" data-view="tea"><span class="folkhold-room-icon"><img src="assets/folkhold-tea-room.png" alt=""></span> Tea Room</button>
       <button type="button" data-view="directory"><span>📖</span> Directory</button>
       <button type="button" data-view="keys"><span>🔑</span> Key Ring</button>
       <div class="rail-rule"></div>
@@ -93,7 +99,7 @@
             <span class="place-icon">🍺</span><strong>The Tavern</strong><small>Adults only. Minimal moderation. Enter knowingly.</small>
           </button>
           <button class="place-card tea-card" type="button" data-view="tea">
-            <span class="place-icon">🫖</span><strong>Tea Room</strong><small>Strictly moderated, civility-first conversation.</small>
+            <span class="place-icon folkhold-place-art"><img src="assets/folkhold-tea-room.png" alt=""></span><strong>Tea Room</strong><small>Strictly moderated, civility-first conversation.</small>
           </button>
         </section>
 
@@ -176,7 +182,7 @@
       </section>
 
       <section class="view" data-screen="tea">
-        <div class="section-heading"><div><span class="eyebrow">CIVILITY-FIRST</span><h1>🫖 Tea Room</h1><p>A deliberately heavily moderated alternative for people who want calmer conversation.</p></div><span class="calm-pill">Quiet table</span></div>
+        <div class="section-heading"><div><span class="eyebrow">CIVILITY-FIRST</span><h1 class="room-title-with-icon"><img src="assets/folkhold-tea-room.png" alt="">Tea Room</h1><p>A deliberately heavily moderated alternative for people who want calmer conversation.</p></div><span class="calm-pill">Quiet table</span></div>
         <section class="panel discussion-list">
           <article><div class="mini-avatar">E</div><div><h2>What are you reading this week?</h2><p>Elena • 18 replies • 6 minutes ago</p></div></article>
           <article><div class="mini-avatar">T</div><div><h2>Show us something you repaired instead of replacing</h2><p>TomM • 42 replies • 19 minutes ago</p></div></article>
