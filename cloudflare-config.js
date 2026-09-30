@@ -1,7 +1,7 @@
 /*
- * Folkhold Cloudflare backend configuration.
+ * Folk Hold Cloudflare backend configuration.
  *
- * This workers.dev endpoint is the live Folkhold backend.
+ * This workers.dev endpoint is the live Folk Hold backend.
  */
 window.FOLKHOLD_CLOUDFLARE = Object.freeze({
   apiBase: "https://folkhold.dereksparks1982.workers.dev",
@@ -17,15 +17,58 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
     document.head.append(script);
   }
 
-  function applyApprovedHomeIcon() {
-    const iconPath = 'assets/folkhold-home-fh.png?v=1';
+  function applyApprovedBrandIcon() {
+    const iconPath = 'assets/folk-hold-brand.png?v=2';
 
-    document.querySelectorAll('img[src="assets/folkhold-home.png"], img[src$="/folkhold-home.png"]').forEach((img) => {
+    document.querySelectorAll(
+      'img[src="assets/folkhold-home.png"], img[src$="/folkhold-home.png"], img[src="assets/folkhold-home-fh.png"], img[src^="assets/folkhold-home-fh.png?"]'
+    ).forEach((img) => {
       img.src = iconPath;
     });
 
     document.querySelectorAll('link[rel="icon"], link[rel="apple-touch-icon"]').forEach((link) => {
       link.href = iconPath;
+    });
+
+    document.querySelectorAll('meta[property="og:image"], meta[name="twitter:image"]').forEach((meta) => {
+      meta.content = 'https://dereksparks1982.github.io/folkhold/assets/folk-hold-brand.png?v=2';
+    });
+  }
+
+  function applyFolkHoldNaming() {
+    document.title = 'Folk Hold';
+
+    const description = document.querySelector('meta[name="description"]');
+    if (description) description.content = 'Folk Hold: your place, your people, your keys.';
+
+    document.querySelectorAll('meta[property="og:title"], meta[name="twitter:title"]').forEach((meta) => {
+      meta.content = 'Folk Hold';
+    });
+
+    document.querySelectorAll('.brand-copy strong').forEach((node) => {
+      node.textContent = 'Folk Hold';
+    });
+
+    const brandButton = document.querySelector('.brand[data-view="home"]');
+    if (brandButton) brandButton.setAttribute('aria-label', 'Folk Hold Hub');
+
+    document.querySelectorAll('.side-rail [data-view="home"], .mobile-nav [data-view="home"]').forEach((button) => {
+      button.childNodes.forEach((node) => {
+        if (node.nodeType === Node.TEXT_NODE) node.nodeValue = node.nodeValue.replace(/Home/g, 'Hub');
+      });
+      button.setAttribute('aria-label', 'Hub');
+    });
+
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT);
+    let node;
+    while ((node = walker.nextNode())) {
+      if (node.nodeValue.includes('Folkhold') || node.nodeValue.includes('FOLKHOLD')) {
+        node.nodeValue = node.nodeValue.replace(/FOLKHOLD/g, 'FOLK HOLD').replace(/Folkhold/g, 'Folk Hold');
+      }
+    }
+
+    document.querySelectorAll('[aria-label="Folkhold places"]').forEach((node) => {
+      node.setAttribute('aria-label', 'Folk Hold places');
     });
   }
 
@@ -59,7 +102,8 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
   }
 
   function bootFolkholdUiFixes() {
-    applyApprovedHomeIcon();
+    applyApprovedBrandIcon();
+    applyFolkHoldNaming();
     ensureMobileDirectoryNav();
   }
 
