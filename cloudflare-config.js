@@ -136,6 +136,23 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
     document.head.append(style);
   }
 
+  function applySquareHeadingPanel() {
+    if (document.getElementById('folkhold-square-heading-style')) return;
+
+    const style = document.createElement('style');
+    style.id = 'folkhold-square-heading-style';
+    style.textContent = `
+      [data-screen="square"] > .section-heading {
+        background:rgba(255,248,238,.94);
+        border:1px solid var(--line);
+        border-radius:var(--radius);
+        box-shadow:var(--shadow);
+        padding:24px 28px;
+      }
+    `;
+    document.head.append(style);
+  }
+
   function ensureMobileDirectoryNav() {
     const nav = document.querySelector('.mobile-nav');
     if (!nav || nav.querySelector('[data-view="directory"]')) return;
@@ -170,6 +187,7 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
     applyFolkholdNaming();
     configureDesktopNavigation();
     applyDesktopLayout();
+    applySquareHeadingPanel();
     ensureMobileDirectoryNav();
   }
 
