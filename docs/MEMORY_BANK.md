@@ -115,7 +115,7 @@ Derek defined a durable relationship between the projects:
 
 Derek intends the Game Room's first major game world to be **UO Folkhold**.
 
-Preserved inputs supplied in the Folkhold thread and verified directly on September 30, 2026:
+Preserved outer inputs verified directly on September 30, 2026:
 
 - `RunUO_2.0_Final_Repack_02-03-2011.7z`
   - 26,072,522 bytes
@@ -124,7 +124,25 @@ Preserved inputs supplied in the Folkhold thread and verified directly on Septem
   - 4,455,659 bytes
   - SHA-256 `e2004f75f391abf255c69247c3baf7ee0243e82b6543ef3f40448649422b71ac`
 
-The repack is intentional and should not be replaced with a newer emulator without Derek's approval. Exact client compatibility remains unresolved and must be proven against the repack and its map data, with Ocllo/Occlo used as a regression location. Historical stock RunUO 2.0 Final compatibility guidance can inform the investigation but is not enough to pin this repack's client by itself.
+Forensic discoveries that must survive thread changes:
+
+- The outer RunUO archive is Derek's later **working tree**, with 2026 save/backup/runtime state. Do not publish its private saves/accounts casually.
+- It contains an embedded repack baseline archive, SHA-256 `9cf93288a184ab67edcf78a98c15a0868e70b394d274bc8ea98d4fc68ee85b4b`.
+- The outer patch contains a nested 2012 patch payload, SHA-256 `00dd5263508d2fe96a35401951239272f6e7953c24156eccdb3d1f941b7e366c`.
+- Patch vs embedded baseline Scripts: **392 added, 67 changed, 0 removed**.
+- Derek's outer working Scripts vs embedded baseline: **1 added, 44 removed, 5 changed**. Therefore the 2012 patch is **not applied wholesale** to Derek's preserved working state.
+- The repack uses **Mondain's Legacy**.
+- The repack's own `UPDATES.TXT` warns not to use clients above **6.0.0.0** because of TID/token issues.
+- That same history says **7.0.4.2** caused many teleporters to spawn underground, directly matching the kind of world/ground mismatch Derek wants to avoid.
+- Derek's preserved 2026 `DataPath.cs` explicitly points to **`uoml_setup_fully_patched_5.0.9.1`**. This makes **5.0.9.1 Candidate A** for runtime testing, not yet the accepted final client.
+- A controlled **6.0.0.0-era** data set is Candidate B/reference if needed.
+- Do not start client testing in 7.x.
+- Ocllo/Occlo is a required terrain/static regression location before accepting a client.
+- The 2012 patch points to `C:\RunUO 2.0\World Data` but does not contain that World Data directory.
+- Preserved `RunUO.exe` SHA-256 is `43cf9055f8c52f5b45059ba081803ef85df97fff72020156005b6d1f51e77005`, File/Product version `2.0.3567.2838`, and is a Mono/.NET assembly.
+- Linux strategy begins by attempting that preserved assembly under a compatible Mono runtime with minimal path/runtime adaptation. Do not replace the emulator merely because newer software is easier.
+
+Full evidence: `docs/UO_FORENSICS_2026-09-30.md` and `docs/UO_FOLKHOLD.md`.
 
 ## What belongs in the future dedicated external-memory repository
 
