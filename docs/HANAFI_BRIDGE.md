@@ -1,6 +1,6 @@
 # Hanafi ↔ Folkhold Majlis Bridge
 
-Status: **Roadmap / documented, not yet built**
+Status: **Reciprocal links live; Majlis origin-aware bridge remains roadmap work**
 
 ## Why this exists
 
@@ -12,6 +12,16 @@ Derek's design metaphor is:
 - **Folkhold is the father**: community, people, rooms, gathering, and social life.
 
 This is a product metaphor, not a technical dependency. Each application must remain useful and independently deployable.
+
+## Current cross-link foundation
+
+The first simple doorway now exists without pretending the full Majlis bridge is finished:
+
+- Folkhold's GitHub README has a proper **Links** section that points to the Folkhold Web App and Hanafi Learning Deck.
+- Hanafi's existing Web App **Links** page now contains a **Folkhold** card linking to the Folkhold Web App.
+- The broken decorative image and standalone **Open Folkhold** link were removed from the top of Folkhold's README.
+
+These are normal links only. They do not yet carry Hanafi origin/session context and do not add a **← Hanafi** control inside Folkhold.
 
 ## Name
 
@@ -62,4 +72,6 @@ The intended destination is Folkhold's public gathering side, currently best rep
 
 ## Breadcrumb
 
-This concept was defined during the Folkhold v1.1.0 closeout discussion after Derek described the two projects as complementary parents and chose **Majlis** as the one-word Islamic name for the gathering button.
+The concept was defined during the Folkhold v1.1.0 closeout discussion after Derek described the two projects as complementary parents and chose **Majlis** as the one-word Islamic name for the gathering button.
+
+The first reciprocal-link foundation was then added on September 30, 2026: Folkhold gained a normal README Links section pointing to Hanafi, and Hanafi's existing Links page gained a Folkhold card. The origin-aware Majlis behavior deliberately remains a later slice.
