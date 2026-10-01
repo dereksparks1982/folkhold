@@ -1,16 +1,14 @@
 # Folkhold
 
-<p align="center">
-  <a href="https://dereksparks1982.github.io/folkhold/">
-    <img src="assets/folk-hold-brand.png" alt="Folkhold FH monogram" width="160">
-  </a>
-</p>
-
-<p align="center"><strong><a href="https://dereksparks1982.github.io/folkhold/">Open Folkhold</a></strong></p>
-
 **Your place. Your people.**
 
 Folkhold is a social web project built around personal places rather than flat profiles. Each member has a **Hold** containing rooms for the things they care about, and access to private Holds is granted through individually revocable **Keys** rather than shared passwords.
+
+## Links
+
+- **Folkhold Web App:** https://dereksparks1982.github.io/folkhold/
+- **Hanafi Learning Deck:** https://dereksparks1982.github.io/Hanafi-Islam-Learning-Deck/
+- **Hanafi Learning Deck repository:** https://github.com/dereksparks1982/Hanafi-Islam-Learning-Deck
 
 ## v1.1.0 — Hold Door and Navigation Closeout
 
