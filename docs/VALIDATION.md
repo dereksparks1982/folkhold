@@ -8,8 +8,9 @@ This file records what has actually been observed or verified. It is intentional
 
 - `main` was verified as the authoritative branch before closeout work.
 - The pre-closeout user-facing source head was `778579fba287960c92d3b7882618277410288715` (`Refresh medieval Hold door UI`).
-- The v1.1.0 closeout documentation is intended to advance from that accepted UI state without changing the user-facing implementation.
-- `package.json` is advanced from `1.0.0` to `1.1.0` as part of closeout bookkeeping.
+- The v1.1.0 closeout commit is `cb6f15004679df432fb59470f40c392c7dca5547`.
+- GitHub Pages workflow run `36803870310` completed successfully for that exact closeout commit.
+- `package.json` reports `1.1.0`.
 
 ### Door / Knock
 
@@ -67,21 +68,95 @@ The v1.1.0 closeout work does not intentionally alter Global Chat logic. No clai
 - Better Auth work remains staged.
 - Production account activation is not considered validated until D1/secrets/provider configuration are connected and exercised.
 
-### UO preservation inputs
+## UO Folkhold forensic validation
 
-Directly verified from the uploaded files on September 30, 2026:
+The following was verified directly from the uploaded archive bytes without modifying the originals.
+
+### Outer preservation inputs
 
 `RunUO_2.0_Final_Repack_02-03-2011.7z`
 
 - bytes: `26,072,522`
 - SHA-256: `d8fc7e8461ceb1e3709b0b66572843ab594b9aa545d4c9239951183f4902963c`
+- archive entries: `9,595`
+- regular files: `9,016`
 
 `Patch_05-27-2012.7z`
 
 - bytes: `4,455,659`
 - SHA-256: `e2004f75f391abf255c69247c3baf7ee0243e82b6543ef3f40448649422b71ac`
 
-Archive-content/client compatibility is a separate future validation slice and is not claimed complete here.
+### Embedded repack baseline
+
+- nested archive bytes: `9,037,377`
+- SHA-256: `9cf93288a184ab67edcf78a98c15a0868e70b394d274bc8ea98d4fc68ee85b4b`
+- entries: `9,536`
+- regular files: `8,980`
+- regular Scripts files: `3,446`
+
+### Nested 2012 patch
+
+- bytes: `4,455,194`
+- SHA-256: `00dd5263508d2fe96a35401951239272f6e7953c24156eccdb3d1f941b7e366c`
+- entries: `4,356`
+- regular files: `3,838`
+- all regular payload files are under `Scripts/`
+
+### Generated forensic manifests
+
+Full regular-file SHA-256/size/path manifests were generated during analysis:
+
+- embedded baseline manifest: `8,980` records, `998,645` bytes, SHA-256 `7e9af2dc494322035caa096195c4fa9ef27cea249575da91464c41159e624547`
+- nested patch manifest: `3,838` records, `477,438` bytes, SHA-256 `e06ed3e4eed1a58a0bfe188551a2baa5598d741ea50da2a0584a0138e482aa10`
+
+### Patch comparison
+
+2012 patch Scripts vs embedded baseline Scripts:
+
+- added: `392`
+- removed: `0`
+- changed: `67`
+- unchanged common files: `3,379`
+
+Outer preserved working Scripts vs embedded baseline Scripts:
+
+- added: `1`
+- removed: `44`
+- changed: `5`
+- unchanged common files: `3,397`
+
+This validates that the 2012 patch is **not applied wholesale** to Derek's outer working tree.
+
+### RunUO executable
+
+The baseline and outer working tree contain the same `RunUO.exe`:
+
+- bytes: `585,728`
+- SHA-256: `43cf9055f8c52f5b45059ba081803ef85df97fff72020156005b6d1f51e77005`
+- identified as a PE32 i386 Mono/.NET console assembly
+- embedded File/Product version: `2.0.3567.2838`
+
+### Client/data evidence recovered
+
+Verified from preserved source/history:
+
+- `CurrentExpansion.cs` uses `Expansion.ML`.
+- `MapDefinitions.cs` has `TileMatrixPatch.Enabled = false` with comment `OSI client patch 6.0.0.0`.
+- embedded `UPDATES.TXT` recommends not using client patches above `6.0.0.0` because of `TID: Provided Token Out Of Range` problems.
+- embedded `UPDATES.TXT` states the repack had originally been created with client patch `7.0.4.2` and that many teleporters were spawned underground; the world was subsequently cleared/redecorated/respawned.
+- Derek's later outer working `DataPath.cs` explicitly points at `uoml_setup_fully_patched_5.0.9.1`.
+- 2012 patch `DataPath.cs` points at `C:\RunUO 2.0\World Data`, but the patch archive does not include that World Data directory.
+- baseline ClientVerification auto-detects the configured `client.exe` requirement with `LenientKick`; the 2012 patch disables automatic requirement detection and changes old-client handling to `Ignore`.
+
+### What remains unvalidated
+
+- `5.0.9.1` is **Candidate A**, not an accepted client baseline yet.
+- no candidate client has been launched against the server in this environment
+- Ocllo/Occlo has not yet been visually/runtime checked
+- Mono execution on Linux has not yet been attempted
+- the 2012 patch has not been applied
+
+See `docs/UO_FORENSICS_2026-09-30.md` for the forensic report.
 
 ## Validation language rule
 
