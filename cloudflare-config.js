@@ -156,6 +156,129 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
     document.head.append(style);
   }
 
+  function applyMedievalHoldDoor() {
+    const heroDoor = document.querySelector('.hero-door');
+    const door = heroDoor?.querySelector('.door');
+    const sign = heroDoor?.querySelector('.door-sign');
+    const welcome = heroDoor?.querySelector('.doormat');
+    if (!heroDoor || !door) return;
+
+    heroDoor.removeAttribute('aria-hidden');
+    if (sign) sign.textContent = "Derek's Hold";
+    if (welcome) welcome.textContent = 'Everyone is Welcome';
+
+    door.setAttribute('role', 'button');
+    door.setAttribute('tabindex', '0');
+    door.setAttribute('aria-label', "Knock on Derek's Hold");
+    door.setAttribute('title', 'Double-click to knock');
+
+    if (!document.getElementById('folkhold-medieval-door-style')) {
+      const style = document.createElement('style');
+      style.id = 'folkhold-medieval-door-style';
+      style.textContent = `
+        .hero-door{width:250px!important}
+        .door-sign{background:#3b2a1d!important;color:#f1dfbf!important;border:3px solid #8d6a39!important;padding:8px 18px!important;box-shadow:0 6px 10px rgba(0,0,0,.22)!important}
+        .hero-door .door{
+          height:285px!important;
+          width:185px!important;
+          margin:14px auto 0!important;
+          border:10px solid #34271c!important;
+          border-bottom:0!important;
+          border-radius:92px 92px 3px 3px!important;
+          background:
+            linear-gradient(90deg,rgba(255,255,255,.035),rgba(0,0,0,.08)),
+            repeating-linear-gradient(90deg,#684827 0 28px,#3e2a19 28px 31px,#795334 31px 57px)!important;
+          box-shadow:inset 0 0 0 4px #8b6338,inset 0 -20px 30px rgba(0,0,0,.2),0 18px 22px rgba(0,0,0,.2)!important;
+          position:relative!important;
+          cursor:pointer!important;
+        }
+        .hero-door .door::before{
+          content:""!important;
+          position:absolute!important;
+          left:7px!important;
+          right:7px!important;
+          top:72px!important;
+          height:12px!important;
+          border:1px solid #0d0b09!important;
+          background:
+            radial-gradient(circle at 9px 50%,#8a7657 0 2px,transparent 3px),
+            radial-gradient(circle at calc(100% - 9px) 50%,#8a7657 0 2px,transparent 3px),
+            #24201c!important;
+          box-shadow:0 92px 0 #24201c!important;
+          border-radius:2px!important;
+        }
+        .hero-door .door::after{
+          content:""!important;
+          position:absolute!important;
+          inset:10px!important;
+          border:2px solid rgba(173,134,86,.55)!important;
+          border-radius:80px 80px 2px 2px!important;
+          pointer-events:none!important;
+        }
+        .hero-door .door-keyhole{
+          position:absolute!important;
+          right:31px!important;
+          top:143px!important;
+          width:15px!important;
+          height:15px!important;
+          border-radius:50%!important;
+          background:#15110e!important;
+          color:transparent!important;
+          box-shadow:0 0 0 2px #a27a43!important;
+          z-index:3!important;
+        }
+        .hero-door .door-keyhole::after{
+          content:"";
+          position:absolute;
+          left:4px;
+          top:10px;
+          width:7px;
+          height:15px;
+          background:#15110e;
+          clip-path:polygon(50% 0,100% 100%,0 100%);
+        }
+        .doormat{font:11px Georgia,'Times New Roman',serif!important;letter-spacing:.06em!important;background:#4d3726!important;color:#ead7b7!important;padding:10px!important;width:225px!important;margin:auto!important;text-transform:none!important}
+        .hero-door .door:focus-visible{outline:3px solid var(--brass-light)!important;outline-offset:5px!important}
+        .knock-dialog{border:0;padding:0;background:transparent;max-width:min(420px,calc(100vw - 28px))}
+        .knock-card{background:var(--cream);color:var(--ink);border:2px solid var(--brass);border-radius:14px;padding:24px;box-shadow:0 24px 70px rgba(0,0,0,.55);text-align:center}
+        .knock-card h2{margin:0 0 18px;font-size:25px}
+        .knock-actions{display:flex;justify-content:center;gap:10px}
+        .knock-actions button{min-width:90px;border-radius:9px;padding:9px 14px}
+      `;
+      document.head.append(style);
+    }
+
+    if (!document.getElementById('folkhold-knock-dialog')) {
+      const dialog = document.createElement('dialog');
+      dialog.id = 'folkhold-knock-dialog';
+      dialog.className = 'knock-dialog';
+      dialog.innerHTML = `
+        <form method="dialog" class="knock-card">
+          <h2>Do you wish to leave a knock?</h2>
+          <div class="knock-actions">
+            <button class="secondary" value="no">No</button>
+            <button class="primary" value="yes">Yes</button>
+          </div>
+        </form>
+      `;
+      document.body.append(dialog);
+      dialog.addEventListener('close', () => {
+        if (dialog.returnValue === 'yes') {
+          window.dispatchEvent(new CustomEvent('folkhold:knock', { detail: { hold: "Derek's Hold" } }));
+        }
+      });
+    }
+
+    const openKnockDialog = () => document.getElementById('folkhold-knock-dialog')?.showModal();
+    door.addEventListener('dblclick', openKnockDialog);
+    door.addEventListener('keydown', (event) => {
+      if (event.key === 'Enter' || event.key === ' ') {
+        event.preventDefault();
+        openKnockDialog();
+      }
+    });
+  }
+
   function ensureMobileDirectoryNav() {
     const nav = document.querySelector('.mobile-nav');
     if (!nav || nav.querySelector('[data-view="directory"]')) return;
@@ -191,6 +314,7 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
     configureDesktopNavigation();
     applyDesktopLayout();
     applySectionHeadingPanels();
+    applyMedievalHoldDoor();
     ensureMobileDirectoryNav();
   }
 
