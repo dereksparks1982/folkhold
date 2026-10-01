@@ -2,16 +2,39 @@
 
 This file records what has actually been observed or verified. It is intentionally narrower than the roadmap or implementation claims.
 
+## Hanafi / Folkhold bridge validation
+
+Source/deployment verified on October 1, 2026:
+
+- Folkhold loads `hanafi-bridge.js?v=1` after `cloudflare-config.js`.
+- `hanafi-bridge.js` detects `?from=hanafi`.
+- It stores the Hanafi navigation origin in `sessionStorage` under `folkhold.navigationOrigin`.
+- While that context exists, it inserts **← Hanafi** into the Folkhold top bar.
+- The return link targets the Hanafi Learning Deck deployment and clears the origin context when used.
+- A normal entry without a `from` marker clears the stored Hanafi origin.
+- GitHub Pages workflow run `36902962625` completed successfully for exact Folkhold commit `98eba8af4d1a3db05640bcb26cdadbeaaefa6e41` (`Add Hanafi origin-aware return bridge`).
+
+This validates the Folkhold half in source and deployment. It does **not** yet validate the complete Hanafi → Majlis → Folkhold → Hanafi round trip, because the Hanafi-side intentional **Majlis** entry still needs to be added/validated.
+
 ## Reciprocal Hanafi / Folkhold links
 
 Source-verified on September 30, 2026:
 
 - Folkhold `README.md` no longer contains the broken decorative image block or standalone centered **Open Folkhold** link at the top.
-- Folkhold `README.md` now has a normal **Links** section containing the Folkhold Web App and Hanafi Learning Deck links.
+- Folkhold `README.md` has a normal **Links** section containing the Folkhold Web App and Hanafi Learning Deck links.
 - Hanafi `web-viewer/links/index.html` contains a **Folkhold** card linking to `https://dereksparks1982.github.io/folkhold/`.
 - Hanafi workflow **Main Web App Build** run `36806544061` completed successfully for exact commit `081c4429f5c046e1c3fd5af1e7f7180e403f5db9`.
 
-This validates the simple reciprocal-link foundation only. The future **Majlis** origin marker and **← Hanafi** session-aware return button are not claimed as implemented.
+This validates the ordinary reciprocal-link foundation separately from the origin-aware bridge.
+
+## Backgammon validation boundary
+
+Backgammon is currently **documented and sliced, not implemented**.
+
+- `docs/BACKGAMMON.md` defines the AI-first architecture and acceptance conditions.
+- Slice 13 is local browser Backgammon against a real evaluating/searching AI.
+- Slice 14 is later remote play with friends.
+- No rules engine, AI strength, rendered board, or remote transport has been validated yet.
 
 ## v1.1.0 closeout validation
 
