@@ -5,15 +5,16 @@ This file turns the roadmap into small, finishable pieces. Each slice should be 
 Status values:
 
 - **CLOSED** — accepted baseline/history
+- **REVIEW** — work/evidence is complete enough for Derek to review, but only Derek can accept/close it
 - **READY** — can be taken next without another dependency
 - **BLOCKED** — needs a prerequisite or owner-provided external credential/resource
 - **ROADMAP** — intentionally not active yet
 
 ## Slice 0 — v1.1.0 documentation and closeout
 
-**Status: CLOSED when the v1.1.0 closeout commit reaches `main` and its documentation is verified.**
+**Status: CLOSED**
 
-Scope:
+Scope completed:
 
 - version `1.1.0`
 - README closeout
@@ -26,31 +27,45 @@ Scope:
 - UO Folkhold preservation plan
 - Hanafi Majlis bridge design
 
-No new user-facing feature belongs in this slice.
+The exact v1.1.0 closeout commit deployed successfully through GitHub Pages.
 
 ## Slice 1 — UO Folkhold archive forensics
 
-**Status: READY**
+**Status: REVIEW**
 
 Goal: understand the exact preserved RunUO package before changing it.
 
-Work:
+Completed work:
 
-- inventory both supplied 7z archives without modifying originals
-- record full file manifests and hashes
-- extract repack and patch into isolated working directories
-- diff patch against base
-- locate documentation, version gates, data-path assumptions, Mono scripts/project files, expansion flags, packet/version branches, map/MUL/UOP handling
-- identify clues to the intended UO client and data era
-- update `docs/UO_FOLKHOLD.md` with evidence, not guesses
+- verified both supplied outer archive hashes
+- identified and fingerprinted the embedded repack baseline
+- identified and fingerprinted the nested 2012 patch payload
+- generated full regular-file SHA-256/size/path manifests for baseline and patch
+- diffed 2012 patch Scripts against the embedded baseline
+- distinguished Derek's later outer working tree from both the baseline and patch
+- inspected `UPDATES.TXT`, `DataPath.cs`, `ClientVerification.cs`, `CurrentExpansion.cs`, `MapDefinitions.cs`, `ServerList.cs`, and executable identity
+- recovered direct evidence that the repack authors warned against clients newer than `6.0.0.0`
+- recovered direct evidence that `7.0.4.2` had caused underground teleporter/world-placement problems
+- found Derek's preserved 2026 DataPath pointing at `uoml_setup_fully_patched_5.0.9.1`
+- narrowed the runtime client matrix to **5.0.9.1 first**, with a controlled **6.0.0.0-era** data set as the second/reference test
+- documented the missing separate `World Data` expectation in the 2012 patch
+- documented that the preserved `RunUO.exe` is a Mono/.NET assembly, making direct Mono runtime testing the first Linux strategy
 
-Acceptance boundary: a documented forensic report and a narrowed client test matrix. No Folkhold UI integration yet.
+Evidence: `docs/UO_FORENSICS_2026-09-30.md` and `docs/UO_FOLKHOLD.md`.
+
+Acceptance boundary: forensic evidence and client test matrix only. No patch was applied, no client was declared accepted, and no Linux runtime claim was made.
 
 ## Slice 2 — UO Folkhold client pinning
 
-**Status: BLOCKED until Slice 1 identifies the plausible client/data range and the required client installers/data are available.**
+**Status: BLOCKED until the candidate UO client/data set is available for runtime testing.**
 
 Goal: prove one exact client/data set against the preserved server.
+
+Candidate order:
+
+1. **UO ML 5.0.9.1** — strongest exact breadcrumb in Derek's preserved working tree
+2. **controlled 6.0.0.0-era data** — boundary/reference comparison if needed
+3. do not begin with 7.x; the repack itself documents 7.0.4.2 world-placement failures
 
 Work:
 
@@ -61,22 +76,29 @@ Work:
 - record client executable version and hashes of accepted data files
 - freeze the accepted client package against auto-patching
 
-Acceptance boundary: exact client/data baseline documented with evidence.
+Acceptance boundary: exact client/data baseline documented with runtime evidence.
 
-## Slice 3 — UO Folkhold Linux/Mono port
+## Slice 3 — UO Folkhold Linux/Mono runtime adaptation
 
-**Status: BLOCKED by Slice 1 baseline understanding; final validation benefits from Slice 2.**
+**Status: BLOCKED by candidate client/data availability for full validation.**
 
 Goal: run the preferred RunUO 2.0 repack on Linux while preserving its behavior.
 
-Work:
+Current forensic direction:
 
-- establish untouched reference behavior
-- compile with the closest practical Mono/.NET compatibility path
-- fix portability failures minimally and document every change
-- preserve game logic unless a Linux compatibility repair requires it
-- validate world load, scripts, accounts, networking, saves, restart, clean shutdown
-- document any Linux-only wrapper/service layer separately from preserved RunUO logic
+- first attempt the preserved `RunUO.exe` under a compatible Mono runtime
+- adapt filesystem/config/runtime assumptions minimally
+- do not reconstruct or replace the core before proving the preserved assembly cannot be used
+- rebuild script cache from source rather than treating the old `Scripts.CS.dll` as the Linux target
+
+Validation work:
+
+- world/scripts load
+- accounts/login
+- networking
+- saves/restart
+- clean shutdown
+- Ocllo/Occlo and other map checks with the pinned client
 
 Acceptance boundary: standalone UO Folkhold server reliably runs on Linux before Folkhold embedding.
 
@@ -232,5 +254,5 @@ At the end of every completed slice:
 4. update `docs/KNOWN_ISSUES.md`
 5. update `docs/VALIDATION.md`
 6. update roadmap/memory/Bible only when the slice changes those truths
-7. advance version according to `COMPANY_BIBLE.md`
+7. advance version according to `COMPANY_BIBLE.md` when a release/version boundary is actually reached
 8. keep `main` as the only branch
