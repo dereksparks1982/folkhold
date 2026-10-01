@@ -1,6 +1,6 @@
 # Hanafi ↔ Folkhold Majlis Bridge
 
-Status: **Reciprocal links live; Majlis origin-aware bridge remains roadmap work**
+Status: **Folkhold origin-aware return is implemented; Hanafi Majlis entry remains to be completed**
 
 ## Why this exists
 
@@ -15,13 +15,28 @@ This is a product metaphor, not a technical dependency. Each application must re
 
 ## Current cross-link foundation
 
-The first simple doorway now exists without pretending the full Majlis bridge is finished:
+The projects already have ordinary reciprocal links:
 
-- Folkhold's GitHub README has a proper **Links** section that points to the Folkhold Web App and Hanafi Learning Deck.
-- Hanafi's existing Web App **Links** page now contains a **Folkhold** card linking to the Folkhold Web App.
-- The broken decorative image and standalone **Open Folkhold** link were removed from the top of Folkhold's README.
+- Folkhold's GitHub README has a **Links** section that points to the Folkhold Web App and Hanafi Learning Deck.
+- Hanafi's existing Web App **Links** page contains a **Folkhold** card linking to the Folkhold Web App.
 
-These are normal links only. They do not yet carry Hanafi origin/session context and do not add a **← Hanafi** control inside Folkhold.
+## Implemented Folkhold origin behavior
+
+Folkhold now loads `hanafi-bridge.js`.
+
+When Folkhold is entered with:
+
+`?from=hanafi`
+
+it:
+
+- records `hanafi` as the browser-session navigation origin
+- adds **← Hanafi** to the Folkhold top bar
+- preserves that return control while the Hanafi session-origin remains active
+- clears the origin when the visitor deliberately returns to Hanafi
+- clears stale Hanafi origin on a normal direct Folkhold entry without a source marker
+
+The origin marker is **navigation context only**. It grants no authentication, Keys, Room access, moderation privileges, or other authorization.
 
 ## Name
 
@@ -31,32 +46,24 @@ The Hanafi button that opens the community side is called:
 
 `Majlis` is preferred over `Shura` because the feature is a gathering place, not an accredited religious council or formal consultative authority.
 
-## Intended user flow
+## Intended complete user flow
 
 1. A visitor is using Hanafi.
 2. They select **Majlis**.
-3. Hanafi opens the appropriate Folkhold public gathering view.
+3. Hanafi opens the appropriate Folkhold public gathering view with the Hanafi origin marker.
 4. Folkhold records only enough origin context to know the visitor entered from Hanafi.
 5. Folkhold keeps its normal navigation unchanged.
-6. An additional **← Hanafi** button appears for that visit/session.
+6. **← Hanafi** appears for that visit/session.
 7. The visitor can move around Folkhold and still return to Hanafi with that button.
 8. A person who enters Folkhold normally does not see the Hanafi-return button.
 
-## Recommended implementation shape
+## Remaining work
 
-Use a normal cross-site link with a harmless origin marker, for example:
+The Folkhold half of the origin-aware behavior is implemented and deployed. The remaining bridge work is on Hanafi:
 
-`...?from=hanafi`
-
-On Folkhold:
-
-- detect the marker on entry
-- store a short-lived origin value in session storage
-- show **← Hanafi** while that session-origin value exists
-- preserve the normal Folkhold/Hub navigation
-- clear the context when the session ends or when the visitor deliberately enters Folkhold normally
-
-The origin marker is **navigation context only**. It must never grant authentication, Keys, Room access, moderation privileges, or any other authorization.
+- add/use **Majlis** as the intentional community doorway
+- target Folkhold's public gathering destination with the Hanafi origin marker
+- validate the complete round trip on deployed desktop and mobile surfaces
 
 ## Entry destination
 
@@ -74,4 +81,4 @@ The intended destination is Folkhold's public gathering side, currently best rep
 
 The concept was defined during the Folkhold v1.1.0 closeout discussion after Derek described the two projects as complementary parents and chose **Majlis** as the one-word Islamic name for the gathering button.
 
-The first reciprocal-link foundation was then added on September 30, 2026: Folkhold gained a normal README Links section pointing to Hanafi, and Hanafi's existing Links page gained a Folkhold card. The origin-aware Majlis behavior deliberately remains a later slice.
+The first reciprocal-link foundation was added on September 30, 2026. On October 1, 2026 Folkhold's origin-aware return half was implemented in `hanafi-bridge.js` and deployed successfully. The Hanafi-side Majlis entry remains the final half of this slice.
