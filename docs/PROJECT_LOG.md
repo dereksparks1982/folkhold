@@ -1,5 +1,18 @@
 # Folkhold Project Log
 
+## 2026-09-30 — Reciprocal Hanafi / Folkhold links cleanup
+
+### Repository presentation
+- Removed the broken decorative image from the top of the Folkhold GitHub README.
+- Removed the standalone centered **Open Folkhold** link from the top of the README.
+- Added a normal **Links** section near the top of the README instead.
+- The Folkhold Links section now points to the Folkhold Web App and to the Hanafi Learning Deck project.
+
+### Hanafi reciprocal link
+- Added **Folkhold** to Hanafi's existing Web App **Links** page rather than creating a duplicate social/community page inside Hanafi.
+- The two projects now provide a direct navigational breadcrumb to one another while remaining independent applications and repositories.
+- This is ordinary cross-linking only. It does **not** implement the future **Majlis** origin-aware bridge or the temporary **← Hanafi** return control.
+
 ## 2026-09-30 — UO Folkhold archive-forensics slice
 
 ### What was examined
