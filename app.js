@@ -32,7 +32,7 @@
     .then(() => window.FolkholdAds?.showForView(state.view))
     .catch((error) => console.warn('Folkhold ad module did not load.', error));
 
-  loadLocalScript('cloudflare-config.js?v=16')
+  loadLocalScript('cloudflare-config.js?v=17')
     .then(() => {
       const brandIcon = document.querySelector('.brand-mark img');
       if (brandIcon) brandIcon.src = 'assets/folkhold-app-icon-192.png?v=10';
@@ -161,6 +161,11 @@
     adCount.addEventListener('input', () => adCountLabel.textContent = adCount.value);
   }
   adDialog.addEventListener('close', () => showToast('Ad preferences saved locally for the prototype.'));
+
+  window.addEventListener('folkhold:knock', (event) => {
+    const holdName = event.detail?.hold || 'this Hold';
+    showToast(`You left a knock at ${holdName}.`);
+  });
 
   window.addEventListener('hashchange', () => setView(location.hash.replace('#', '') || 'home', false));
   setView(state.view, false);
