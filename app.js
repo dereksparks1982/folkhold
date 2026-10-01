@@ -38,6 +38,8 @@
       if (brandIcon) brandIcon.src = 'assets/folkhold-app-icon-192.png?v=10';
       return loadLocalScript('hanafi-bridge.js?v=1');
     })
+    .then(() => loadLocalScript('backgammon-engine.js?v=1'))
+    .then(() => loadLocalScript('backgammon.js?v=1'))
     .then(() => loadLocalScript('global-chat.js'))
     .catch((error) => console.warn('Folkhold runtime module did not load.', error));
 
