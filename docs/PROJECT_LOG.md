@@ -1,5 +1,25 @@
 # Folkhold Project Log
 
+## 2026-10-01 — Backgammon roadmap and Majlis bridge reconciliation
+
+### Backgammon added to the Game Room roadmap
+- Derek specified that Folkhold should include **Backgammon** with a real AI opponent first.
+- The AI target is an actual evaluating/searching opponent, not a random legal-move bot wearing an AI label.
+- Rules/state, AI, and presentation are to remain separate so the same rules model can later support networking.
+- Local browser play is the first target and does not depend on accounts or another user being online.
+- **Remote play with friends** is the later second stage, with server-authoritative dice/state, synchronized turns, reconnect/resume, and Folkhold member invitations.
+- Added `docs/BACKGAMMON.md`.
+- Added **Slice 13** (Backgammon vs AI) and **Slice 14** (remote play) to `docs/TASK_SLICES.md`.
+
+### Hanafi Majlis documentation reconciled with source
+- Folkhold's origin-aware half is no longer merely roadmap work.
+- `hanafi-bridge.js` is loaded by the Folkhold runtime.
+- `?from=hanafi` stores the Hanafi navigation origin for the browser session and adds **← Hanafi** to the Folkhold top bar.
+- Direct Folkhold entry clears stale Hanafi origin context.
+- GitHub Pages run `36902962625` succeeded for exact commit `98eba8af4d1a3db05640bcb26cdadbeaaefa6e41` (`Add Hanafi origin-aware return bridge`).
+- The remaining bridge work is the Hanafi-side **Majlis** doorway and deployed round-trip validation.
+- Updated roadmap, task slices, known issues, memory bank, Hanafi bridge docs, and validation records to tell the same story.
+
 ## 2026-09-30 — Reciprocal Hanafi / Folkhold links cleanup
 
 ### Repository presentation
