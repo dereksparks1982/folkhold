@@ -49,13 +49,23 @@ This file records unresolved or intentionally incomplete work. An item remains h
 
 ## UO Folkhold
 
-- The supplied RunUO 2.0 Final Repack and 2012 patch hashes have been verified.
-- Archive contents have not yet been fully inventoried in this closeout slice.
-- Exact compatible UO client/data version is not yet pinned.
-- Ocllo/Occlo terrain/static regression still must be tested against candidate clients.
-- Linux/Mono port work has not begun.
+Archive forensics are complete enough for review, but runtime work remains:
+
+- The outer working archive is not a pristine 2011 snapshot; it contains later runtime state and must be treated as private preserved state.
+- The embedded repack baseline and nested 2012 patch have been identified and fingerprinted.
+- The 2012 patch is **not applied wholesale** to Derek's uploaded working tree.
+- The patch expects `C:\RunUO 2.0\World Data`, but that World Data directory is not contained in the patch archive.
+- The exact accepted UO client/data version is still not runtime-pinned.
+- **5.0.9.1 is Candidate A**, because Derek's preserved DataPath explicitly points at it.
+- A controlled **6.0.0.0-era** data set is Candidate B/reference if required.
+- Do not begin with 7.x; the repack's own history documents 7.0.4.2 causing underground teleporter/world-placement problems.
+- Ocllo/Occlo terrain/static regression still must be runtime-tested against the candidate client.
+- Mono/Linux execution of the preserved `RunUO.exe` has not yet been tested.
+- The 2012 patch has not been applied.
 - Folkhold Game Room integration has not begun.
+
+See `docs/UO_FORENSICS_2026-09-30.md`.
 
 ## General validation boundary
 
-GitHub source state, browser behavior, Cloudflare services, iOS Home Screen behavior, and Derek's local Linux/runtime environment are separate validation surfaces. Success in one must not be reported as proof of another.
+GitHub source state, browser behavior, Cloudflare services, iOS Home Screen behavior, Derek's local Linux/runtime environment, and a UO client/data set are separate validation surfaces. Success in one must not be reported as proof of another.
