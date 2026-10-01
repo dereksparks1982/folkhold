@@ -6,7 +6,7 @@ This file records unresolved or intentionally incomplete work. An item remains h
 
 - Better Auth UI/backend scaffolding exists, but production account activation still depends on Cloudflare D1 binding and deployment secrets.
 - Google/Apple provider activation still depends on valid provider credentials if those sign-in methods remain enabled.
-- Holds, Rooms, Keys, Knocks, notices, preferences, and most social state are not yet fully persistent production data.
+- Holds, Rooms, Keys, Knocks, notices, preferences, games, and most social state are not yet fully persistent production data.
 
 ## Knocks
 
@@ -43,9 +43,17 @@ This file records unresolved or intentionally incomplete work. An item remains h
 
 ## Hanafi Majlis bridge
 
-- Documented but not implemented.
-- Hanafi repository/current deployment must be verified before changes.
-- Final Folkhold entry destination should be confirmed during implementation; Village Square is the current default recommendation.
+- Folkhold's origin-aware return half is implemented and deployed.
+- `?from=hanafi` stores a browser-session origin and shows **← Hanafi** in Folkhold.
+- Hanafi still needs the intentional **Majlis** entry that targets Folkhold with that origin marker.
+- The full round trip still needs deployed desktop/mobile validation after the Hanafi-side entry is added.
+
+## Backgammon
+
+- Documented but not implemented yet.
+- Slice 13 is the first playable target: complete browser Backgammon against a real evaluating/searching AI opponent.
+- Remote play with friends is a separate later slice and depends on both a validated local rules engine and account/realtime persistence.
+- No claim is made yet about AI strength, rules completeness, or multiplayer transport because those have not been built or tested.
 
 ## UO Folkhold
 
