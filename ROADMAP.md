@@ -65,13 +65,13 @@ The staged Better Auth work still needs production activation:
 
 Hanafi and Folkhold remain independent sites but deliberately open doors into one another.
 
-- Hanafi community button is named **Majlis**.
-- Majlis opens Folkhold's public gathering side, initially the Village Square unless a better dedicated destination is approved later.
-- Folkhold now recognizes `?from=hanafi`, stores the origin for the browser session, and displays **← Hanafi** while that origin context is active.
+- Hanafi's intentional community doorway is named **Majlis**.
+- Hanafi now links Majlis to Folkhold's Village Square with `?from=hanafi` origin context.
+- Folkhold recognizes that origin, stores it for the browser session, and displays **← Hanafi** while the origin context is active.
 - Normal Folkhold navigation remains unchanged.
 - The origin marker is navigation context only and never grants Keys, authentication, moderation rights, or Room access.
 - A normal direct Folkhold visit clears the Hanafi-origin context and does not show the return control.
-- The remaining cross-site slice is to add/use **Majlis** on the Hanafi side as the intentional doorway into the origin-aware Folkhold entry.
+- Source and deployment work are complete on both sides; owner round-trip observation is the remaining acceptance check.
 
 See `docs/HANAFI_BRIDGE.md`.
 
