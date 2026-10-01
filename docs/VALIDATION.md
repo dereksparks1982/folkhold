@@ -2,6 +2,17 @@
 
 This file records what has actually been observed or verified. It is intentionally narrower than the roadmap or implementation claims.
 
+## Reciprocal Hanafi / Folkhold links
+
+Source-verified on September 30, 2026:
+
+- Folkhold `README.md` no longer contains the broken decorative image block or standalone centered **Open Folkhold** link at the top.
+- Folkhold `README.md` now has a normal **Links** section containing the Folkhold Web App and Hanafi Learning Deck links.
+- Hanafi `web-viewer/links/index.html` contains a **Folkhold** card linking to `https://dereksparks1982.github.io/folkhold/`.
+- Hanafi workflow **Main Web App Build** run `36806544061` completed successfully for exact commit `081c4429f5c046e1c3fd5af1e7f7180e403f5db9`.
+
+This validates the simple reciprocal-link foundation only. The future **Majlis** origin marker and **← Hanafi** session-aware return button are not claimed as implemented.
+
 ## v1.1.0 closeout validation
 
 ### Repository / source
