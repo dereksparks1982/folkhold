@@ -4,7 +4,7 @@ This roadmap is the current planning record. Items are not implementation author
 
 ## Current baseline
 
-- **v1.1.0** is the current closeout target.
+- **v1.1.0** is the current closed baseline.
 - GitHub `main` is authoritative.
 - Desktop navigation is top-centered, the desktop side rail is gone, the app/browser icon uses a generic placeholder, room/page heading panels are readable, and Derek's Hold has a generic medieval CSS door with a working double-click Knock interaction.
 - Folkhold documentation now follows explicit version/change/validation/memory records so the project leaves breadcrumbs instead of relying on conversation history alone.
@@ -17,7 +17,7 @@ A normal modern bell icon is functional but thematically weak. Folkhold should m
 
 - An unread Knock lights a small **Hall Lantern** or otherwise changes a Hold-themed status indicator.
 - Selecting it opens a **Visitor Ledger** rather than a generic notification drawer.
-- The ledger can eventually contain Knocks, Key invitations, accepted/revoked Keys, private-room invitations, and other direct Hold activity.
+- The ledger can eventually contain Knocks, Key invitations, accepted/revoked Keys, private-room invitations, game invitations, and other direct Hold activity.
 - Broadcast/world information stays with the Town Crier rather than being mixed into personal Hold activity.
 - Exact naming and final visual treatment remain owner decisions.
 
@@ -58,20 +58,20 @@ The staged Better Auth work still needs production activation:
 - deployment secrets
 - Google/Apple credentials if those providers remain enabled
 - member/Hold identity tables
-- persistent Rooms, Keys, Knocks, notices, preferences, and moderation state
+- persistent Rooms, Keys, Knocks, notices, preferences, games, and moderation state
 - access-control checks enforced server-side rather than only in UI
 
 ## 4. Hanafi ↔ Folkhold Majlis bridge
 
-Hanafi and Folkhold should remain independent sites but deliberately open doors into one another.
+Hanafi and Folkhold remain independent sites but deliberately open doors into one another.
 
 - Hanafi community button is named **Majlis**.
 - Majlis opens Folkhold's public gathering side, initially the Village Square unless a better dedicated destination is approved later.
-- Folkhold detects an origin marker such as `?from=hanafi` and retains that context for the browser session.
+- Folkhold now recognizes `?from=hanafi`, stores the origin for the browser session, and displays **← Hanafi** while that origin context is active.
 - Normal Folkhold navigation remains unchanged.
-- While the origin context is active, Folkhold shows an additional **← Hanafi** return button.
 - The origin marker is navigation context only and never grants Keys, authentication, moderation rights, or Room access.
-- A normal Folkhold visitor never sees the Hanafi-return button.
+- A normal direct Folkhold visit clears the Hanafi-origin context and does not show the return control.
+- The remaining cross-site slice is to add/use **Majlis** on the Hanafi side as the intentional doorway into the origin-aware Folkhold entry.
 
 See `docs/HANAFI_BRIDGE.md`.
 
@@ -124,7 +124,37 @@ Primary goals:
 
 See `docs/UO_FOLKHOLD.md` for the preservation baseline, client-compatibility gate, and Linux-port plan.
 
-## 8. Room system maturation
+## 8. Game Room: Backgammon
+
+Folkhold should include a proper playable **Backgammon** table.
+
+### Stage A: player vs real AI
+
+The first version is local browser play against a genuine computer opponent, not a random-move bot.
+
+- complete legal backgammon move generation and validation
+- dice, doubles, bar entry, bearing off, blocked points, turn sequencing, win detection, gammons/backgammons where match scoring uses them
+- separate rules engine from presentation so the AI and future remote transport share the same authoritative game model
+- AI evaluates board positions and legal move sequences and searches alternatives before choosing a move
+- difficulty can later adjust search depth/evaluation strength without making low difficulty intentionally nonsensical
+- no account, server, or network dependency for the first playable AI version
+
+### Stage B: remote play with friends
+
+Remote play comes later after identity/persistence/realtime foundations are ready.
+
+- invite another Folkhold member to a match
+- server-authoritative dice and game state
+- synchronized legal moves
+- reconnect/resume
+- match invitations surfaced through the Hold activity / Visitor Ledger system
+- optional private/public tables later
+
+The target sequence is therefore **real AI first, remote play with friends later**.
+
+See `docs/BACKGAMMON.md`.
+
+## 9. Room system maturation
 
 - real Room creation/editing
 - Room-specific permissions
@@ -133,7 +163,7 @@ See `docs/UO_FOLKHOLD.md` for the preservation baseline, client-compatibility ga
 - Room-specific live chat where appropriate
 - optional media/game integrations without turning every Room into the same template
 
-## 9. Keys
+## 10. Keys
 
 - unique per-person Keys
 - granular Room permissions
@@ -142,7 +172,7 @@ See `docs/UO_FOLKHOLD.md` for the preservation baseline, client-compatibility ga
 - Key requests and invitation flow
 - clear distinction between account login and Hold access
 
-## 10. Directory and discovery
+## 11. Directory and discovery
 
 - member-chosen discoverability fields
 - old usernames
@@ -150,7 +180,7 @@ See `docs/UO_FOLKHOLD.md` for the preservation baseline, client-compatibility ga
 - mutuals
 - future AI People Finder restricted to information members explicitly chose to make discoverable
 
-## 11. Documentation and release discipline
+## 12. Documentation and release discipline
 
 For every accepted patch/add-on/feature:
 
