@@ -1,0 +1,167 @@
+# Folkhold Roadmap
+
+This roadmap is the current planning record. Items are not implementation authorization by themselves.
+
+## Current baseline
+
+- **v1.1.0** is the current closeout target.
+- GitHub `main` is authoritative.
+- Desktop navigation is top-centered, the desktop side rail is gone, the app/browser icon uses a generic placeholder, room/page heading panels are readable, and Derek's Hold has a generic medieval CSS door with a working double-click Knock interaction.
+- Folkhold documentation now follows explicit version/change/validation/memory records so the project leaves breadcrumbs instead of relying on conversation history alone.
+
+## 1. Hold presence, Knocks, and a better notification model
+
+A normal modern bell icon is functional but thematically weak. Folkhold should make personal activity feel like something happening at your Hold.
+
+### Working concept: Hall Lantern + Visitor Ledger
+
+- An unread Knock lights a small **Hall Lantern** or otherwise changes a Hold-themed status indicator.
+- Selecting it opens a **Visitor Ledger** rather than a generic notification drawer.
+- The ledger can eventually contain Knocks, Key invitations, accepted/revoked Keys, private-room invitations, and other direct Hold activity.
+- Broadcast/world information stays with the Town Crier rather than being mixed into personal Hold activity.
+- Exact naming and final visual treatment remain owner decisions.
+
+### Knock persistence
+
+The current Knock interaction is a working browser prototype. Production work needs:
+
+- account identity attached to a Knock
+- persisted Knock records
+- timestamp/read state
+- owner notification/signal
+- optional reply, visitor profile/Hold link, block/report controls
+- duplicate/rate limiting and abuse controls
+
+## 2. Hold Front Door Designer
+
+A Hold's front door should be a public identity surface that every visitor sees.
+
+Planned customization can include:
+
+- generic medieval door style presets
+- wood/stone/metal palette
+- arch/door shape
+- iron bands, hinges, knocker, handle/keyhole
+- name plate text
+- welcome phrase
+- open/closed visual state
+
+The default can remain code/CSS based. Final artwork is optional rather than required.
+
+**Access model:** the front door/foyer may be open to everyone while individual Rooms still enforce public, Keyed, or private access. Derek's default message is **Everyone is Welcome**.
+
+## 3. Account activation and persistent Folkhold data
+
+The staged Better Auth work still needs production activation:
+
+- Cloudflare D1 binding
+- deployment secrets
+- Google/Apple credentials if those providers remain enabled
+- member/Hold identity tables
+- persistent Rooms, Keys, Knocks, notices, preferences, and moderation state
+- access-control checks enforced server-side rather than only in UI
+
+## 4. Hanafi ↔ Folkhold Majlis bridge
+
+Hanafi and Folkhold should remain independent sites but deliberately open doors into one another.
+
+- Hanafi community button is named **Majlis**.
+- Majlis opens Folkhold's public gathering side, initially the Village Square unless a better dedicated destination is approved later.
+- Folkhold detects an origin marker such as `?from=hanafi` and retains that context for the browser session.
+- Normal Folkhold navigation remains unchanged.
+- While the origin context is active, Folkhold shows an additional **← Hanafi** return button.
+- The origin marker is navigation context only and never grants Keys, authentication, moderation rights, or Room access.
+- A normal Folkhold visitor never sees the Hanafi-return button.
+
+See `docs/HANAFI_BRIDGE.md`.
+
+## 5. Town Crier
+
+Town Crier stays front-and-center on the Hub and must not become a news application.
+
+- roughly one significant world story per hour
+- short proclamation plus source link
+- quiet between proclamations
+- Folkhold announcement can replace a normal hourly story
+- extraordinary emergency interruption only for truly exceptional situations
+- same proclamation for everyone, not personalized
+- Cloudflare scheduled worker fetches/selects/stores the current proclamation
+
+## 6. Tavern: private Upstairs Rooms
+
+A future paid Tavern feature for two consenting adults who want a temporary private space without exchanging outside contact information.
+
+Required flow:
+
+1. One person selects **Invite Upstairs**.
+2. The other person sees and accepts or declines the invitation.
+3. **No charge occurs before acceptance.**
+4. After acceptance, the inviter pays the real displayed room price.
+5. Temporary private text opens immediately.
+6. Video remains off until both participants explicitly enable it.
+7. Either participant may disable video or leave at any time.
+8. The room expires unless extended.
+
+Payment principles:
+
+- real currencies only
+- localized supported currency at checkout where available
+- settlement to the owner's selected supported currency
+- keep the base room inexpensive enough that moving to an outside free service is not the obvious choice
+- adult-capable payment provider and age-verification requirements must be rechecked immediately before implementation
+
+## 7. Game Room: UO Folkhold
+
+The planned first major Game Room world is **UO Folkhold**, a private/free Ultima Online shard built from Derek's preserved **RunUO 2.0 Final Repack** rather than replacing it with a newer emulator simply because newer software exists.
+
+Primary goals:
+
+- preserve the behavior and feel of the preferred RunUO 2.0 repack
+- determine and pin the exact compatible classic UO client/data set
+- eliminate terrain/ground mismatches, including the kind of Ocllo/Occlo visual mismatch caused by client/map-data changes
+- port or compatibility-adapt the server to Linux
+- prove the shard works standalone before embedding its launcher/status/join flow into Folkhold's Game Room
+
+See `docs/UO_FOLKHOLD.md` for the preservation baseline, client-compatibility gate, and Linux-port plan.
+
+## 8. Room system maturation
+
+- real Room creation/editing
+- Room-specific permissions
+- public/Keyed/private states
+- Room membership/activity indicators
+- Room-specific live chat where appropriate
+- optional media/game integrations without turning every Room into the same template
+
+## 9. Keys
+
+- unique per-person Keys
+- granular Room permissions
+- revoke one Key without changing anyone else's access
+- issuance/acceptance history
+- Key requests and invitation flow
+- clear distinction between account login and Hold access
+
+## 10. Directory and discovery
+
+- member-chosen discoverability fields
+- old usernames
+- hometown/school/year and other user-approved fields
+- mutuals
+- future AI People Finder restricted to information members explicitly chose to make discoverable
+
+## 11. Documentation and release discipline
+
+For every accepted patch/add-on/feature:
+
+- update `CHANGELOG.md`
+- update `docs/PROJECT_LOG.md`
+- update README when the current user-visible state changes
+- update this roadmap when future scope changes
+- add or update a feature-specific document for substantial subsystems
+- update `docs/KNOWN_ISSUES.md` and `docs/VALIDATION.md` when applicable
+- record repeatable lessons in `docs/MEMORY_BANK.md` and, when they become operating law, `COMPANY_BIBLE.md`
+
+## Execution slices
+
+The ordered work breakdown lives in `docs/TASK_SLICES.md`. It is intentionally sliced so each feature can be built, checked, documented, and accepted without turning Folkhold into one giant mystery commit.

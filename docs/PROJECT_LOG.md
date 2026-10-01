@@ -1,9 +1,81 @@
 # Folkhold Project Log
 
+## 2026-09-30 — v1.1.0 closeout
+
+### Release bookkeeping
+- Folkhold now uses explicit `MAJOR.MINOR.PATCH` tracking.
+- **v1.1.0** is closed as the current baseline.
+- `main` remains the only authorized branch.
+- Added canonical operating/documentation files: `COMPANY_BIBLE.md`, `ROADMAP.md`, `CHANGELOG.md`, and `docs/MEMORY_BANK.md`.
+- Added `docs/KNOWN_ISSUES.md`, `docs/VALIDATION.md`, and `docs/TASK_SLICES.md` so future work has explicit unresolved-state, evidence, and execution records.
+- Added `docs/UO_FOLKHOLD.md` for the planned Game Room shard.
+- Added `docs/HANAFI_BRIDGE.md` for the planned Hanafi ↔ Folkhold Majlis doorway.
+
+### Company-rule consolidation
+- Available DKLab/Elderred Softworks Library handoffs and Company Bible excerpts were searched during closeout.
+- Recovered recurring rules were distilled into Folkhold's Bible and memory bank: owner authority, approval gates, stop-immediately behavior, no guessing, read-current-docs/source first, warnings-as-errors for compiled work, behavior validation, README/release closeout law, truthful known-issue reporting, no unauthorized side projects/branches/GitHub writes, safe package/manifest/hash practices, and owner-only acceptance.
+- The memory bank is explicitly a supplement to current source/docs, not a replacement for reading them.
+
+### Desktop/navigation polish
+- Desktop navigation lives at the top; the old desktop side panel is removed.
+- Current desktop order: Hub, Village Square, Notice Board, My Hold, Tavern, Tea Room, Directory, Key Ring, Ads.
+- Major top-of-page section headings have runtime cream backing panels over the leather background. Prior cross-device visibility trouble remains a regression item in `docs/KNOWN_ISSUES.md` rather than being forgotten.
+
+### Generic app icon decision
+- Browser/PWA/iPhone/app-icon surfaces now use a simple generic placeholder PNG set rather than repeatedly fighting the ornate FH asset on platform-specific icon surfaces.
+- The approved FH artwork remains preserved as an approved brand asset and is not to be regenerated or redrawn.
+
+### Hold front door and Knocks
+- Derek's Hold uses a generic medieval CSS door with plank styling, iron bands/rivets, and a keyhole.
+- Door sign: **Derek's Hold**.
+- Welcome strip: **Everyone is Welcome**.
+- The Hold front/foyer concept is public-facing even when individual rooms remain Keyed/private.
+- Double-clicking the door asks **Do you wish to leave a knock?** with Yes/No choices.
+- Derek confirmed the Knock interaction works.
+- Production Knock persistence, identity, unread state, abuse controls, and owner signaling are roadmapped.
+
+### Notification direction
+- Avoid a generic modern notification bell as the only metaphor.
+- Roadmap working concept: a Hold-themed **Hall Lantern** signal plus **Visitor Ledger** for personal activity such as Knocks and Key invitations. Names remain provisional until owner approval.
+
+### Hanafi ↔ Folkhold Majlis concept
+- Derek defined the projects as complementary rather than redundant: **Hanafi as the mother**, centered on learning/faith/practice, and **Folkhold as the father**, centered on community/people/gathering.
+- They remain separate applications and repositories.
+- The Hanafi button that opens the community side is named **Majlis**.
+- `Majlis` was chosen rather than `Shura` because the site is not presenting itself as an accredited/formal religious council.
+- Planned navigation: Hanafi's **Majlis** opens Folkhold's public gathering side; when Folkhold detects a Hanafi-origin visit it adds **← Hanafi** while retaining normal Folkhold navigation.
+- No bridge UI was built in this v1.1.0 closeout. The design is documented in `docs/HANAFI_BRIDGE.md`.
+
+### Advertising/private-room wording
+- Removed the site-wide slogan **Advertising pays for Folkhold. Your private life does not.** because planned paid private rooms make the absolute statement inaccurate.
+- Paid Tavern Upstairs Room concept remains roadmap only: invitation first, acceptance second, charge after acceptance, private text, mutual-consent video, temporary room.
+- Real currencies only; no fake Folkhold currency.
+
+### UO Folkhold roadmap
+- Planned Game Room shard name: **UO Folkhold**.
+- Preserve and use Derek's supplied `RunUO_2.0_Final_Repack_02-03-2011.7z` rather than replacing it with a newer emulator merely for convenience.
+- Supplied later patch: `Patch_05-27-2012.7z`.
+- Archive size/SHA-256 fingerprints were computed directly from the uploaded bytes and recorded in `docs/UO_FOLKHOLD.md` and `docs/VALIDATION.md`.
+- Exact client version is deliberately unresolved until the repack/patch are inventoried and Ocllo/Occlo terrain/static behavior is tested.
+- Linux adaptation and Folkhold Game Room integration remain separate later slices.
+
+### Work-slicing rule
+- Roadmap implementation is now broken into explicit slices in `docs/TASK_SLICES.md`.
+- Each slice is expected to leave its own source changes, validation evidence, known-issue updates, and project-history breadcrumbs.
+- UO archive forensics is the first READY deep-work slice after closeout; Hanafi Majlis bridge is separately ready once the Hanafi repository/deployment is verified.
+
+### Method refinement
+- Runtime-injected styles/scripts must be checked when static CSS changes appear ineffective.
+- Source deployment and visible browser deployment are separate states; do not report the latter until verified.
+- Do not image-generate unless Derek explicitly asks for a picture/image edit.
+- Generic placeholders are acceptable and preferred over repeatedly producing bad approximations.
+- Every accepted patch/add-on now updates version/documentation records.
+- `docs/VALIDATION.md` distinguishes implemented, deployed, observed, validated, and accepted states.
+
 ## 2026-09-30 — Version 1 closeout
 
 ### v1 baseline
-- **Folkhold v1 is closed out as the current baseline.**
+- **Folkhold v1.0.0 closed out as the initial baseline.**
 - GitHub `main` is the authoritative branch.
 - The Hub, My Hold, Public Square / Global Chat, Notice Board, Tavern, Tea Room, Directory, Key Ring, advertising shell, branding system, GitHub Pages frontend, and Cloudflare backend foundation are part of the v1 baseline.
 - Global Chat is live through Cloudflare WebSockets / Durable Objects.
@@ -11,13 +83,11 @@
 
 ### Hub and navigation
 - The main Folkhold landing page is called the **Hub**.
-- The approved FH brand mark returns to the Hub.
-- Holds retain their separate home/tower visual identity.
-- The desktop left navigation panel itself has been removed visually so the buttons, TOWN label, divider, and Ad choices sit directly over the leather background.
-- The remaining sidebar edge/divider styling was explicitly neutralized at runtime as part of the v1 polish pass.
+- Holds retain their separate personal-space identity.
+- Earlier v1 work removed/neutralized the desktop left navigation panel before the navigation was subsequently moved fully to the top in v1.1.0.
 
 ### Post-v1 direction
-- The first planned post-v1 feature is the **Town Crier**.
+- The first planned post-v1 feature was the **Town Crier**.
 - Town Crier belongs front-and-center on the Hub rather than as a separate news section.
 - Intended behavior: roughly one significant world story per hour, quiet between proclamations, with a short summary and source link.
 - Folkhold announcements can replace an hourly world story when needed.
@@ -28,12 +98,11 @@
 ### Brand name
 - Official product/brand spelling: **Folkhold** — one word.
 - Do not change the brand to “Folk Hold” unless Derek explicitly authorizes a later naming change.
-- Existing UI/code references using “Folk Hold” should be corrected to **Folkhold** on the next authorized build/change pass.
 
 ### Approved FH brand artwork
-- The approved brand artwork is the current **borderless FH monogram** approved by Derek in this thread.
+- The approved brand artwork is the current borderless FH monogram approved by Derek in the Folkhold project.
 - Do **not** redesign, redraw, reinterpret, crop, recolor, or otherwise alter the FH artwork unless explicitly authorized.
-- Canonical approved-source fingerprint for this build:
+- Preserved approved-source fingerprint from the v1 documentation:
   - Format: PNG
   - Dimensions: 1254 × 1254
   - Color mode: RGB
@@ -41,24 +110,12 @@
   - SHA-256: `137acd3927def8cf7c2e2250c15a13f6f16d1c2a16b47e7d949e3f99c234c2a3`
 
 ### Binary-safe image / favicon procedure
-When adding or replacing Folkhold brand icons:
+When adding or replacing Folkhold image assets:
 1. Treat PNG/ICO image assets as **binary files**, not UTF-8 text.
 2. Do not pass binary image contents through the normal text-file updater.
-3. Before upload, verify the source image dimensions, byte size, and SHA-256 hash.
+3. Before upload, verify source dimensions, byte size, and SHA-256 hash.
 4. Upload binary assets through a binary-safe Git/GitHub path and verify the stored file after upload.
-5. Generate platform-specific icon sizes only from the approved source artwork. Resizing/exporting is allowed when required for favicon/PWA/iOS compatibility; redesigning the artwork is not.
-6. Update the complete icon chain together so platforms do not fall back to stale or mismatched artwork:
-   - browser favicon references
-   - web-app manifest icons
-   - Apple touch icon
-   - social preview image references
-   - any PWA/service-worker/cache references that include icon assets
-7. Verify the manifest `sizes` metadata matches the actual generated file dimensions.
-8. After deployment, account for browser/PWA icon caching before assuming an asset is still wrong.
-
-### Build application
-- Keep the approved artwork unchanged except for deterministic downscaling needed for icon export.
-- Brand mark and Hub navigation use the approved FH artwork.
-- Hold navigation remains visually separate with its home/tower icon.
-- Official spelling is **Folkhold** everywhere.
-- Browser/iPhone icon repair uses a fresh cache version so stale broken icons are not reused.
+5. Generate platform-specific sizes only from an approved source when artwork is being used; redesigning is not allowed without explicit permission.
+6. Verify browser favicon, manifest, Apple touch icon, in-app slot, and social preview separately.
+7. Verify manifest `sizes` metadata matches actual dimensions.
+8. Account for browser/PWA/iOS caching before diagnosing a deployed icon as unchanged.

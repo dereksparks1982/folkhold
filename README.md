@@ -12,63 +12,98 @@
 
 Folkhold is a social web project built around personal places rather than flat profiles. Each member has a **Hold** containing rooms for the things they care about, and access to private Holds is granted through individually revocable **Keys** rather than shared passwords.
 
-## Version 1
+## v1.1.0 — Hold Door and Navigation Closeout
 
-**Folkhold v1 closed out on September 30, 2026.**
+**Folkhold v1.1.0 closed out on September 30, 2026.**
 
-The v1 baseline establishes the Hub, Holds, town spaces, live Public Square chat, Key-based access concepts, the approved Folkhold visual identity, GitHub Pages frontend, and Cloudflare backend foundation.
+This closeout gathers the post-v1 interface work into the first tracked minor release:
 
-Current v1 areas:
+- desktop navigation moved to the top and the old desktop side rail is gone
+- top navigation order places **Village Square**, **Notice Board**, then **My Hold** near the center
+- generic app/browser PNG icons replace the troublesome ornate icon on platform icon surfaces for now
+- major section headings have readable cream backing panels over the leather background
+- Derek's Hold now has a generic medieval CSS front door with wood planks, iron bands, rivets, and a keyhole
+- double-clicking the Hold door asks **Do you wish to leave a knock?** and Derek confirmed the prototype Knock interaction works
+- Derek's Hold welcome message is **Everyone is Welcome** while individual rooms may still require Keys
+- the inaccurate site-wide slogan **Advertising pays for Folkhold. Your private life does not.** has been removed
+- Folkhold now has explicit version/change/roadmap/validation/memory documentation so the project's story does not depend on one conversation thread
+
+Release history is tracked in [`CHANGELOG.md`](CHANGELOG.md). Current operating rules are in [`COMPANY_BIBLE.md`](COMPANY_BIBLE.md), future work is in [`ROADMAP.md`](ROADMAP.md), work slices are in [`docs/TASK_SLICES.md`](docs/TASK_SLICES.md), unresolved items are in [`docs/KNOWN_ISSUES.md`](docs/KNOWN_ISSUES.md), validation evidence is in [`docs/VALIDATION.md`](docs/VALIDATION.md), and distilled cross-thread/project memory is in [`docs/MEMORY_BANK.md`](docs/MEMORY_BANK.md).
+
+## Version 1 baseline
+
+**Folkhold v1.0.0 closed out on September 30, 2026.**
+
+The v1 baseline established the Hub, Holds, town spaces, live Public Square chat, Key-based access concepts, the Folkhold visual identity, GitHub Pages frontend, and Cloudflare backend foundation.
+
+Current areas:
 
 - **Hub** — the main Folkhold landing place and navigation center
 - **My Hold** — personal space and rooms
-- **Public Square / Global Chat** — live global chronological conversation through Cloudflare WebSockets
+- **Village/Public Square / Global Chat** — live global chronological conversation through Cloudflare WebSockets
 - **Notice Board** — persistent public notices
 - **The Tavern** — adults-only, one-time warning, intentionally minimal moderation within a platform-wide legal/safety floor
 - **Tea Room** — heavily moderated civility-first alternative
 - **Directory** — broad or narrow people discovery
 - **Key Ring** — individually issued and revocable access keys
-- **Advertising** — one quiet banner per page, with Google AdSense wired as the first eligible provider and room-specific providers planned where needed
+- **Advertising** — provider-neutral advertising shell with ordinary-page provider work staged separately
 - **Accounts** — email/password, Google, and Apple account UI/backend staged with Better Auth; activation awaits the Cloudflare D1 binding and deployment secrets
 
 ## Core ideas
 
 - A member owns a **Hold**, not merely a profile.
 - A Hold may contain public rooms, keyed rooms, and private rooms.
+- A Hold's front door may welcome everyone even when rooms behind it require Keys.
 - Every gifted Key is unique so one person's access can be revoked without changing everybody else's access.
-- A listed Hold may still be locked. People without a Key can **Knock**.
+- A listed Hold may still restrict individual rooms. People can **Knock** at the front door.
 - Members will be allowed substantial sandboxed HTML/CSS customization, inspired by the creative freedom of the early social web.
 - Public discovery should be broad when the user wants it broad and precise when they want it precise.
 - A future AI People Finder may help locate old friends using only information members explicitly make discoverable.
 - Folkhold is intended to be a web application first. A separate native mobile application is not required for the core experience.
 
-## Branding
+## Branding and placeholders
 
-The approved Folkhold brand identity is the **borderless intertwined FH monogram** with ornate gilded lettering on the dark textured background. The brand mark returns to the **Hub**. Holds use their own separate home/tower identity so the Folkhold brand and a member's Hold remain visually distinct.
+The approved ornate borderless FH monogram remains preserved as an approved Folkhold brand asset.
 
-The live UI uses `assets/folk-hold-brand.png` for the Folkhold brand mark and Hub navigation. Browser, iPhone, and PWA icon handling is tracked separately because those platforms require different icon sizes and cache behavior.
+For troublesome browser/iPhone/PWA and top-left app-icon surfaces, Folkhold currently uses a **generic placeholder app icon**. This is intentional. The project will prefer a reliable generic placeholder over repeatedly corrupting or redrawing approved artwork. Final icon replacement can happen later when Derek explicitly chooses it.
 
-The v1 desktop side navigation is intentionally stripped down so the navigation buttons float directly over the leather background instead of sitting inside a full sidebar panel.
+Holds have their own identity, including a visible front door that can eventually be customized by the Hold owner.
+
+## Hanafi ↔ Folkhold
+
+Hanafi and Folkhold are being treated as separate but complementary applications.
+
+Derek's product metaphor is **Hanafi as the mother** and **Folkhold as the father**: Hanafi centers learning, faith, practice, reference, and guidance; Folkhold centers community, people, rooms, and gathering.
+
+The planned Hanafi community button is named **Majlis**. It will open Folkhold's public gathering side without merging the sites. When a visitor arrives through Hanafi, Folkhold can temporarily add **← Hanafi** while keeping its normal navigation intact. The bridge is documented but not yet implemented. See [`docs/HANAFI_BRIDGE.md`](docs/HANAFI_BRIDGE.md).
 
 ## Accounts
 
-Authentication is separated from Folkhold identity. Better Auth handles login/session state; Folkhold stores the member's username, display name, Hold ownership, rooms, keys, and social state separately.
+Authentication is separated from Folkhold identity. Better Auth handles login/session state; Folkhold stores the member's username, display name, Hold ownership, rooms, keys, knocks, and social state separately.
 
 The Cloudflare Worker also proxies the current GitHub Pages frontend so `folkhold.dereksparks1982.workers.dev` can become the same-origin account-capable application address without duplicating the UI. See `docs/ACCOUNTS.md` for the D1, secret, Google, and Apple activation steps.
 
 ## Advertising prototype
 
-The ad slot is provider-neutral. Google AdSense is wired for ordinary pages but remains disabled until an approved publisher ID and responsive display-ad slot are supplied. See `docs/ADSENSE.md` for the activation path and the root-domain `ads.txt` note.
+The ad slot is provider-neutral. Ordinary-page provider support remains staged and room-specific/adult-capable providers can be evaluated where required. See `docs/ADSENSE.md` for the existing ordinary-page AdSense activation notes.
 
-## Next after v1
+## Roadmap highlights
 
-The first planned post-v1 feature is the **Town Crier** on the Hub.
+The active roadmap includes:
 
-The Town Crier is intended to feel like an Ultima Online-style town crier rather than a news app: one major world story roughly once per hour, quiet between proclamations, with the ability for Folkhold announcements to replace an hourly story when needed. Truly extraordinary alerts may interrupt the normal proclamation, but Folkhold will not become a continuous headline feed.
+- a Hold-themed Knock/activity signal and Visitor Ledger instead of a generic notification bell
+- customizable Hold front doors
+- account/D1 persistence and real server-side Keys/Knocks
+- the Hanafi **Majlis** doorway into Folkhold
+- the Hub **Town Crier** with roughly one major proclamation per hour
+- temporary paid Tavern **Upstairs Rooms** with invite-first/charge-after-acceptance flow and mutual video consent
+- **UO Folkhold**, an Ultima Online free shard based on Derek's preserved RunUO 2.0 Final Repack, with exact client pinning and Linux compatibility work before Folkhold Game Room integration
+
+See [`ROADMAP.md`](ROADMAP.md), [`docs/TASK_SLICES.md`](docs/TASK_SLICES.md), [`docs/UO_FOLKHOLD.md`](docs/UO_FOLKHOLD.md), and [`docs/HANAFI_BRIDGE.md`](docs/HANAFI_BRIDGE.md).
 
 ## Hosting
 
-GitHub remains the source repository and project history. GitHub Pages hosts the public frontend. Cloudflare Workers provides the realtime backend and is being expanded to accounts, persistence, secure Keys, uploads, and private access control.
+GitHub remains the source repository and project history. GitHub Pages hosts the public frontend. Cloudflare Workers provides the realtime backend and is being expanded to accounts, persistence, secure Keys, uploads, private access control, and future scheduled services such as Town Crier.
 
 ## License
 
@@ -80,4 +115,4 @@ See [`LICENSE`](LICENSE) for the full terms. Third-party dependencies remain und
 
 ## Status
 
-**v1 baseline closed.** Global Chat is live. Account infrastructure is staged but not yet activated until its D1 database and secrets are connected. New feature work should build from this v1 baseline.
+**v1.1.0 closed.** Global Chat is live. Knock interaction works as a browser prototype. Account infrastructure is staged but not yet activated until its D1 database and secrets are connected. The Hanafi Majlis bridge, Town Crier, persistent Knock ledger, Hold door designer, Tavern Upstairs Rooms, and UO Folkhold are documented future slices rather than completed v1.1.0 features.
