@@ -36,9 +36,10 @@
     .then(() => {
       const brandIcon = document.querySelector('.brand-mark img');
       if (brandIcon) brandIcon.src = 'assets/folkhold-app-icon-192.png?v=10';
-      return loadLocalScript('global-chat.js');
+      return loadLocalScript('hanafi-bridge.js?v=1');
     })
-    .catch((error) => console.warn('Folkhold Global Chat module did not load.', error));
+    .then(() => loadLocalScript('global-chat.js'))
+    .catch((error) => console.warn('Folkhold runtime module did not load.', error));
 
   function showToast(message) {
     toast.textContent = message;
