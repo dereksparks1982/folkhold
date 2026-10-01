@@ -121,25 +121,26 @@ Acceptance boundary: Folkhold can manage/discover the shard without becoming res
 
 ## Slice 5 — Hanafi Majlis bridge
 
-**Status: READY. Simple reciprocal links are already in place; origin-aware Majlis behavior remains to be built.**
+**Status: READY. Folkhold's origin-aware return half is implemented; Hanafi's intentional Majlis entry remains.**
 
 Goal: connect the two sites without merging them.
 
-Foundation already completed:
+Foundation completed:
 
 - Folkhold README has a normal Links section linking the Folkhold Web App and Hanafi Learning Deck
 - Hanafi's existing Web App Links page has a Folkhold card
-- this cross-linking grants no authorization and carries no origin state
+- Folkhold loads `hanafi-bridge.js`
+- entry with `?from=hanafi` stores Hanafi origin in session storage
+- Folkhold displays **← Hanafi** while that origin context is active
+- clicking the return clears the origin context
+- a normal direct Folkhold entry clears the Hanafi context
+- this navigation context grants no authorization
 
 Remaining work:
 
 - Hanafi adds **Majlis** as the intentional community doorway
-- Majlis opens Folkhold's public gathering destination
-- origin marker such as `?from=hanafi`
-- Folkhold session-preserves origin context
-- Folkhold shows **← Hanafi** only when appropriate
-- normal Folkhold navigation remains unchanged
-- origin context never grants authorization
+- Majlis opens Folkhold's public gathering destination with the Hanafi origin marker
+- verify the complete round trip from the deployed Hanafi site on desktop and mobile
 
 See `docs/HANAFI_BRIDGE.md`.
 
@@ -249,6 +250,54 @@ Work:
 - hometown/school/year as user-selected fields
 - mutuals
 - later AI-assisted search only over explicitly discoverable information
+
+## Slice 13 — Backgammon: player vs real AI
+
+**Status: READY**
+
+Goal: add a proper Backgammon table to the Folkhold Game Room that is worth playing even when nobody else is online.
+
+Stage-A requirements:
+
+- complete legal move/rule engine
+- dice and doubles
+- bar entry and blocked points
+- bearing off
+- legal move-sequence enumeration for a roll
+- win detection and scoring foundations
+- UI separated from the game-state/rules engine
+- genuine AI opponent that scores positions and searches legal move sequences rather than choosing randomly
+- deterministic test positions for move legality and AI decisions
+- playable entirely in the browser without account or network dependencies
+
+Design direction:
+
+- keep the first AI self-contained and reliable
+- do not fake intelligence with random weighted moves
+- expose difficulty later by changing search/evaluation strength, not by breaking rules
+- keep the engine architecture reusable for remote matches
+
+Acceptance boundary: Derek can play a complete legal game against an AI opponent from Folkhold.
+
+See `docs/BACKGAMMON.md`.
+
+## Slice 14 — Backgammon: remote play with friends
+
+**Status: BLOCKED by Slice 6 and a validated Slice 13 rules engine.**
+
+Goal: allow two Folkhold members to play the same Backgammon game remotely.
+
+Future work:
+
+- member-to-member match invitation
+- server-authoritative dice and match state
+- legal-move validation on the server side
+- realtime synchronized turns
+- reconnect/resume
+- match invitation surfaced through the Hold activity / Visitor Ledger system
+- optional public/private tables later
+
+Acceptance boundary: two authenticated Folkhold members can complete the same match from separate browsers without state divergence.
 
 ## Slice discipline
 
