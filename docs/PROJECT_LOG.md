@@ -1,5 +1,45 @@
 # Folkhold Project Log
 
+## 2026-09-30 — UO Folkhold archive-forensics slice
+
+### What was examined
+- Read the supplied `RunUO_2.0_Final_Repack_02-03-2011.7z` and `Patch_05-27-2012.7z` without modifying the originals.
+- Identified an embedded repack baseline archive inside Derek's larger working archive.
+- Identified the nested 2012 patch payload.
+- Generated full per-file SHA-256/size/path manifests for the embedded baseline and nested patch.
+- Compared the patch Scripts tree to the embedded baseline and separately compared Derek's outer working Scripts tree to the baseline.
+
+### Important preservation discovery
+- Derek's outer RunUO archive is a preserved **working tree**, not simply the pristine 2011 package. It contains 2026 save/backup/runtime state and a later DataPath edit.
+- The embedded repack archive is the better baseline reference for historical comparisons.
+- Private account/save material in the outer archive is not to be published casually.
+
+### Patch relationship
+- 2012 patch vs embedded baseline Scripts: **392 added, 67 changed, 0 removed, 3,379 unchanged common files**.
+- Outer working Scripts vs embedded baseline: **1 added, 44 removed, 5 changed, 3,397 unchanged common files**.
+- Therefore the 2012 patch is **not applied wholesale** to Derek's current preserved working tree.
+- The 2012 patch changes client enforcement and DataPath behavior, but points to a separate `C:\RunUO 2.0\World Data` directory that is not supplied by the patch archive itself.
+
+### Client-era evidence
+- The repack is configured for **Mondain's Legacy**.
+- The repack's own `UPDATES.TXT` warns against using clients above **6.0.0.0** because of TID/token issues.
+- The same history states the repack was originally created using **7.0.4.2**, which caused many teleporters to spawn underground; the world was then cleared/redecorated/respawned.
+- Derek's preserved 2026 `DataPath.cs` explicitly points to **`uoml_setup_fully_patched_5.0.9.1`**.
+- Resulting test order: **5.0.9.1 first**, controlled **6.0.0.0-era** data second/reference if needed, and do not begin with 7.x.
+- Ocllo/Occlo remains a required runtime terrain/static regression location before a client is accepted.
+
+### Linux direction refined
+- The preserved `RunUO.exe` is a PE32 i386 **Mono/.NET assembly**, File/Product version `2.0.3567.2838`.
+- The package does not include a complete modern core-source build tree beside it.
+- First Linux strategy is therefore to attempt the preserved assembly under a compatible Mono runtime and make minimal path/runtime adaptations, not to replace or reconstruct the core before proving that necessary.
+- No Mono/Linux run was claimed during this forensic slice.
+
+### Evidence trail
+- Detailed report: `docs/UO_FORENSICS_2026-09-30.md`
+- Updated preservation plan: `docs/UO_FOLKHOLD.md`
+- Validation evidence: `docs/VALIDATION.md`
+- Task status: Slice 1 moved to **REVIEW**; Slice 2 client pinning is blocked until the candidate client/data set is available.
+
 ## 2026-09-30 — v1.1.0 closeout
 
 ### Release bookkeeping
