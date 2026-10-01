@@ -121,13 +121,19 @@ Acceptance boundary: Folkhold can manage/discover the shard without becoming res
 
 ## Slice 5 — Hanafi Majlis bridge
 
-**Status: READY after both repositories are verified.**
+**Status: READY. Simple reciprocal links are already in place; origin-aware Majlis behavior remains to be built.**
 
 Goal: connect the two sites without merging them.
 
-Work:
+Foundation already completed:
 
-- Hanafi adds **Majlis**
+- Folkhold README has a normal Links section linking the Folkhold Web App and Hanafi Learning Deck
+- Hanafi's existing Web App Links page has a Folkhold card
+- this cross-linking grants no authorization and carries no origin state
+
+Remaining work:
+
+- Hanafi adds **Majlis** as the intentional community doorway
 - Majlis opens Folkhold's public gathering destination
 - origin marker such as `?from=hanafi`
 - Folkhold session-preserves origin context
