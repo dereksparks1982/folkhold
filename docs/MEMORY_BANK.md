@@ -83,9 +83,24 @@ Derek defined a durable relationship between the projects:
 - They complement one another but remain separate applications/repositories.
 - The Hanafi button that opens the community side is named **Majlis**.
 - `Majlis` was chosen because the feature is a gathering place, not an accredited religious council; therefore **Shura** is not the chosen label.
-- A Hanafi-origin visitor should receive a temporary **← Hanafi** return button inside Folkhold while normal Folkhold navigation remains intact.
+- Folkhold's origin-aware half is implemented: `?from=hanafi` creates session navigation context and adds **← Hanafi** while normal Folkhold navigation remains intact.
+- The Hanafi-side **Majlis** doorway still needs to target that origin-aware entry.
 - A source/origin marker is navigation context only and must never grant authorization.
 - See `docs/HANAFI_BRIDGE.md`.
+
+## Backgammon decision
+
+Derek wants **Backgammon** inside Folkhold's Game Room.
+
+Durable direction:
+
+- First playable target is a complete browser game against **real AI**.
+- “Real AI” means an opponent that generates legal move sequences, evaluates resulting positions, and searches alternatives rather than choosing random legal moves.
+- Rules/state, AI, and UI should be separate layers so the same rules engine can later power remote matches.
+- The local AI game should work without accounts or networking.
+- Later, add **remote play with friends** using server-authoritative dice/state, synchronized turns, reconnect/resume, and Folkhold member invitations.
+- Remote play is a separate later slice because it depends on persistent identity/realtime infrastructure.
+- See `docs/BACKGAMMON.md` and Slices 13–14 in `docs/TASK_SLICES.md`.
 
 ## Visual rules learned the hard way
 
