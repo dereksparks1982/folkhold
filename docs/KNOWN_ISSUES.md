@@ -84,3 +84,9 @@ GitHub source state, browser behavior, Cloudflare services, iOS Home Screen beha
 - Touch scrolling and spacing need validation on the real iPhone.
 - Audible browser autoplay, especially on iPhone, may be blocked until the first user gesture.
 - Publicly hosted music must have redistribution rights. YouTube downloads are not assumed to have those rights.
+
+
+## iPhone Radio rendering
+
+- Owner screenshot showed duplicate previous/next arrowheads (Unicode characters rendered as emoji on iOS) and a narrow current-track panel. The candidate replaces those characters with inline SVG and removes the old fixed-footer player CSS.
+- The phone volume slider is intentionally hidden. Playback, spacing and device button behavior still require iPhone owner validation before closing the issue.

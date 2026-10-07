@@ -7,6 +7,11 @@
 
   const VOLUME_KEY = 'folkhold.radio.volume';
   const DEFAULT_VOLUME = 0.32;
+  // Single, consistently rendered SVG controls. Never use emoji presentation for transport icons.
+  const PLAY_ICON = '<svg viewBox="0 0 24 24" focusable="false" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>';
+  const PAUSE_ICON = '<svg viewBox="0 0 24 24" focusable="false" aria-hidden="true"><path d="M9 5v14M15 5v14"/></svg>';
+  const PREVIOUS_ICON = '<svg viewBox="0 0 24 24" focusable="false" aria-hidden="true"><path d="M5 5v14M19 6L8 12l11 6z"/></svg>';
+  const NEXT_ICON = '<svg viewBox="0 0 24 24" focusable="false" aria-hidden="true"><path d="M19 5v14M5 6l11 6-11 6z"/></svg>';
   let index = 0;
   let autoplayBlocked = false;
   let unlockArmed = false;
@@ -37,52 +42,51 @@
     if (document.getElementById('folkhold-radio-style')) return;
     const style = document.createElement('style');
     style.id = 'folkhold-radio-style';
+    // The radio has its own screen. Do not inherit old floating-footer CSS:
+    // that compressed the album panel on iPhone and shrank the controls.
     style.textContent = `
-      :root{--fh-radio-height:58px}
-      body{padding-bottom:var(--fh-radio-height)}
-      .folkhold-radio{position:fixed;z-index:70;left:0;right:0;bottom:0;height:var(--fh-radio-height);display:grid;grid-template-columns:auto minmax(150px,1fr) minmax(120px,320px) auto;align-items:center;gap:12px;padding:7px 16px;background:rgba(20,18,16,.98);color:#f2e7d5;border-top:1px solid #80623f;box-shadow:0 -8px 24px #0005;font-family:Georgia,'Times New Roman',serif}
-      .fh-radio-controls{display:flex;align-items:center;gap:6px}.fh-radio-controls button{width:38px;height:38px;border:1px solid #826c4d;border-radius:50%;background:#2a241f;color:#f2e7d5;padding:0;display:grid;place-items:center}.fh-radio-controls button:hover{background:#3a3028}.fh-radio-controls .fh-radio-play{width:42px;height:42px;background:#355e4a;border-color:#6f8d78}
-      .fh-radio-now{min-width:0;display:grid;gap:2px}.fh-radio-label{font:700 9px Arial,sans-serif;letter-spacing:.14em;color:#d5b77e}.fh-radio-title{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-weight:bold}.fh-radio-artist{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:#baa98d;font:11px Arial,sans-serif}
-      .fh-radio-progress{display:grid;grid-template-columns:34px minmax(80px,1fr) 34px;align-items:center;gap:7px;font:10px Arial,sans-serif;color:#bcae99}.fh-radio-progress input{width:100%;accent-color:#b08d57}
-      .fh-radio-volume{display:flex;align-items:center;gap:7px;font:11px Arial,sans-serif;color:#baa98d}.fh-radio-volume input{width:92px;accent-color:#b08d57}
-      .fh-radio-status{position:absolute;right:12px;top:-23px;max-width:min(420px,85vw);padding:4px 8px;border-radius:7px 7px 0 0;background:#2b241d;color:#e8d7bd;font:10px Arial,sans-serif;border:1px solid #80623f;border-bottom:0}
-      .fh-radio-status[hidden]{display:none}
-      .ad-strip{bottom:var(--fh-radio-height)!important}.mobile-nav{bottom:calc(45px + var(--fh-radio-height))!important}.toast{bottom:calc(70px + var(--fh-radio-height))!important}
-      @media(max-width:760px){:root{--fh-radio-height:64px}main{padding-bottom:calc(180px + var(--fh-radio-height))!important}.folkhold-radio{grid-template-columns:auto minmax(0,1fr) auto;gap:8px;padding:7px 9px}.fh-radio-progress{display:none}.fh-radio-volume input{width:62px}.fh-radio-label{display:none}.fh-radio-artist{font-size:10px}.fh-radio-title{font-size:13px}.fh-radio-controls button{width:34px;height:34px}.fh-radio-controls .fh-radio-play{width:38px;height:38px}}
-      @media(max-width:440px){.fh-radio-volume span{display:none}.fh-radio-volume input{width:54px}.fh-radio-controls{gap:3px}.fh-radio-now{max-width:38vw}}
-    `;
-    style.textContent += `
       .fh-radio-page{padding:24px 28px;margin:20px 0 30px;background:rgba(255,248,238,.96)}
-      .fh-radio-page .folkhold-radio{position:static!important;z-index:auto!important;left:auto!important;right:auto!important;bottom:auto!important;width:100%!important;height:auto!important;display:grid!important;grid-template-columns:1fr!important;gap:19px!important;padding:0!important;background:transparent!important;color:#2c2926!important;border:0!important;box-shadow:none!important}
-      .fh-radio-page .fh-radio-controls{justify-content:center;gap:14px}
-      .fh-radio-page .fh-radio-now{padding:23px 12px;border-radius:12px;background:#29221c;color:#f2e7d5;text-align:center}
-      .fh-radio-page .fh-radio-title{font-size:clamp(24px,4vw,36px);white-space:normal;overflow-wrap:anywhere}
-      .fh-radio-page .fh-radio-progress{display:grid!important;grid-template-columns:42px minmax(0,1fr) 42px;gap:9px;color:#645443}
-      .fh-radio-page .fh-radio-volume{justify-content:center;color:#645443}
-      .fh-radio-page .fh-radio-volume input{width:min(300px,65vw)}
-      .fh-radio-page .fh-radio-label{display:block!important}
-      .fh-radio-page .fh-radio-artist{font-size:13px}
-      .fh-radio-page .fh-radio-status{position:static!important;max-width:none;border-radius:8px;border:1px solid #80623f;padding:11px;line-height:1.5}
-      .fh-radio-list-heading{font:700 12px Arial,sans-serif;letter-spacing:.13em;color:#645138;text-transform:uppercase;margin:6px 0 10px}
-      .fh-radio-playlist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
-      .fh-radio-playlist button{width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:13px 15px;background:#f7ebd9;color:#3a2c20;border:1px solid #c6ae87;border-radius:10px}
-      .fh-radio-playlist button:hover{background:#f0ddc0}
-      .fh-radio-playlist button[aria-current="true"]{border-color:#355e4a;background:#e0e9de}
-      .fh-radio-track-number{font:700 12px Arial,sans-serif;min-width:22px;color:#705a3b}
-      .fh-radio-track-info{display:grid;gap:3px;min-width:0}
-      .fh-radio-track-info small{font:12px Arial,sans-serif;color:#6d6256}
-      body{padding-bottom:0!important}
-      .ad-strip{bottom:0!important}
-      .mobile-nav{bottom:45px!important}
-      .toast{bottom:70px!important}
-      @media(max-width:760px){main{padding-bottom:140px!important}.fh-radio-page{padding:18px 14px}.fh-radio-page .fh-radio-progress{display:grid!important}.fh-radio-page .fh-radio-volume input{width:min(260px,60vw)}}
-    `;
-    style.textContent += `
-      .fh-radio-stations{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}
-      .fh-radio-stations button{border:1px solid #aa906b;border-radius:99px;padding:9px 14px;background:#efe0c8;color:#473523;font:600 13px Arial,sans-serif}
-      .fh-radio-stations button[aria-pressed="true"]{background:#355e4a;border-color:#355e4a;color:white}
-      .fh-radio-credits{font:12px Arial,sans-serif;line-height:1.55;color:#6c5a46}
-      .fh-radio-credits a{color:#355e4a}
+      .fh-radio-page,.fh-radio-page *{box-sizing:border-box}
+      .fh-radio-page .folkhold-radio{position:static;width:100%;min-width:0;display:grid;grid-template-columns:minmax(0,1fr);gap:19px;padding:0;background:transparent;color:#2c2926;border:0;box-shadow:none;font-family:Georgia,'Times New Roman',serif}
+      .fh-radio-page .fh-radio-stations{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}
+      .fh-radio-page .fh-radio-stations button{border:1px solid #aa906b;border-radius:99px;padding:10px 14px;min-height:44px;background:#efe0c8;color:#473523;font:600 13px Arial,sans-serif;touch-action:manipulation}
+      .fh-radio-page .fh-radio-stations button[aria-pressed="true"]{background:#355e4a;border-color:#355e4a;color:white}
+      .fh-radio-page .fh-radio-controls{display:grid;grid-template-columns:50px 62px 50px;justify-content:center;align-items:center;gap:15px;width:100%;margin:0 auto}
+      .fh-radio-page .fh-radio-controls button{display:grid;place-items:center;width:50px;height:50px;min-width:50px;min-height:50px;border:1px solid #826c4d;border-radius:50%;background:#2a241f;color:#f2e7d5;padding:0;cursor:pointer;touch-action:manipulation;box-shadow:0 2px 5px #0003}
+      .fh-radio-page .fh-radio-controls button:hover{background:#3a3028}
+      .fh-radio-page .fh-radio-controls .fh-radio-play{width:62px;height:62px;min-width:62px;min-height:62px;background:#355e4a;border-color:#6f8d78}
+      .fh-radio-page .fh-radio-controls svg{width:24px;height:24px;display:block;fill:none;stroke:currentColor;stroke-width:2.5;stroke-linecap:round;stroke-linejoin:round}
+      .fh-radio-page .fh-radio-controls .fh-radio-play svg{width:29px;height:29px}
+      .fh-radio-page .fh-radio-now{width:100%;min-width:0;max-width:none;padding:23px 16px;border-radius:12px;background:#29221c;color:#f2e7d5;text-align:center;display:grid;gap:5px}
+      .fh-radio-page .fh-radio-label{font:700 10px Arial,sans-serif;letter-spacing:.14em;color:#d5b77e}
+      .fh-radio-page .fh-radio-title{font-size:clamp(24px,4vw,36px);font-weight:bold;white-space:normal;overflow-wrap:anywhere}
+      .fh-radio-page .fh-radio-artist{color:#baa98d;font:13px Arial,sans-serif;white-space:normal;overflow-wrap:anywhere;line-height:1.45}
+      .fh-radio-page .fh-radio-progress{display:grid;grid-template-columns:42px minmax(0,1fr) 42px;gap:9px;align-items:center;color:#645443;font:12px Arial,sans-serif}
+      .fh-radio-page .fh-radio-progress input{width:100%;min-width:0;accent-color:#b08d57}
+      .fh-radio-page .fh-radio-volume{display:flex;align-items:center;justify-content:center;gap:9px;color:#645443;font:12px Arial,sans-serif}
+      .fh-radio-page .fh-radio-volume input{width:min(300px,65vw);accent-color:#b08d57}
+      .fh-radio-page .fh-radio-status{position:static;max-width:none;border-radius:8px;border:1px solid #80623f;padding:11px;line-height:1.5;background:#2b241d;color:#e8d7bd;font:12px Arial,sans-serif}
+      .fh-radio-page .fh-radio-status[hidden]{display:none}
+      .fh-radio-page .fh-radio-list-heading{font:700 12px Arial,sans-serif;letter-spacing:.13em;color:#645138;text-transform:uppercase;margin:6px 0 10px}
+      .fh-radio-page .fh-radio-playlist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+      .fh-radio-page .fh-radio-playlist button{width:100%;display:flex;min-height:48px;align-items:center;gap:12px;text-align:left;padding:13px 15px;background:#f7ebd9;color:#3a2c20;border:1px solid #c6ae87;border-radius:10px;touch-action:manipulation}
+      .fh-radio-page .fh-radio-playlist button:hover{background:#f0ddc0}
+      .fh-radio-page .fh-radio-playlist button[aria-current="true"]{border-color:#355e4a;background:#e0e9de}
+      .fh-radio-page .fh-radio-track-number{font:700 12px Arial,sans-serif;min-width:22px;color:#705a3b}
+      .fh-radio-page .fh-radio-track-info{display:grid;gap:3px;min-width:0}
+      .fh-radio-page .fh-radio-track-info small{font:12px Arial,sans-serif;color:#6d6256}
+      .fh-radio-page .fh-radio-credits{font:12px Arial,sans-serif;line-height:1.55;color:#6c5a46}
+      .fh-radio-page .fh-radio-credits a{color:#355e4a}
+      @media(max-width:760px){
+        .fh-radio-page{padding:18px 14px;max-width:100%;overflow:hidden}
+        .fh-radio-page .folkhold-radio{width:100%;min-width:0}
+        .fh-radio-page .fh-radio-now{padding:23px 13px;max-width:none}
+        .fh-radio-page .fh-radio-title{font-size:clamp(22px,6vw,29px)}
+        .fh-radio-page .fh-radio-controls{grid-template-columns:48px 60px 48px;gap:14px}
+        .fh-radio-page .fh-radio-controls button{width:48px;height:48px;min-width:48px;min-height:48px}
+        .fh-radio-page .fh-radio-controls .fh-radio-play{width:60px;height:60px;min-width:60px;min-height:60px}
+        .fh-radio-page .fh-radio-volume{display:none!important}
+      }
     `;
     document.head.append(style);
   }
@@ -94,9 +98,9 @@
     bar.innerHTML = `
       <div class="fh-radio-stations" data-radio-stations aria-label="Music stations"></div>
       <div class="fh-radio-controls">
-        <button type="button" data-radio-prev aria-label="Previous song">◀◀</button>
-        <button type="button" class="fh-radio-play" data-radio-play aria-label="Play">▶</button>
-        <button type="button" data-radio-next aria-label="Next song">▶▶</button>
+        <button type="button" data-radio-prev aria-label="Previous song">${PREVIOUS_ICON}</button>
+        <button type="button" class="fh-radio-play" data-radio-play aria-label="Play">${PLAY_ICON}</button>
+        <button type="button" data-radio-next aria-label="Next song">${NEXT_ICON}</button>
       </div>
       <div class="fh-radio-now">
         <span class="fh-radio-label">FOLKHOLD RADIO</span>
@@ -124,7 +128,9 @@
     const bar = buildBar();
     const audio = new Audio();
     audio.preload = 'auto';
-    audio.volume = savedVolume();
+    // iPhone uses hardware volume buttons; never inherit desktop media attenuation.
+    const phoneLayout = window.matchMedia('(max-width:760px)').matches;
+    audio.volume = phoneLayout ? 1 : savedVolume();
 
     const playButton = bar.querySelector('[data-radio-play]');
     const title = bar.querySelector('[data-radio-title]');
@@ -153,7 +159,7 @@
 
     function updatePlayButton() {
       const playing = !audio.paused && !audio.ended;
-      playButton.textContent = playing ? 'Ⅱ' : '▶';
+      playButton.innerHTML = playing ? PAUSE_ICON : PLAY_ICON;
       playButton.setAttribute('aria-label', playing ? 'Pause' : 'Play');
     }
 

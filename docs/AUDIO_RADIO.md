@@ -10,7 +10,7 @@ Folkhold Radio is the persistent music layer for the web app.
 - Audio is stored by role under `assets/audio/`; no loose sound files belong in the asset root.
 - Playback attempts to start on initial load.
 - If a browser blocks audible autoplay, the first pointer/touch/key interaction automatically retries playback.
-- Previous, play/pause, next, title/artist, seek, and volume controls are implemented.
+- Previous, play/pause, next, title/artist and seek controls are implemented. Desktop has an on-screen volume slider; on iPhone the phone's physical buttons control volume.
 - Music continues across ordinary Folkhold screen navigation, even though the controls are inside the Radio screen.
 - The Radio screen displays the playlist and lets listeners select a specific song.
 
@@ -59,3 +59,14 @@ On iPhone swipe the lower nav to Radio. Confirm that stations switch, all six so
 The six Kevin MacLeod tracks are **temporary placeholders**. The desired eventual identity is authentic, distinctive Persian, Middle Eastern, Anatolian and Nordic music, preferably real performances with characteristic instruments and provenance rather than common game/stock-soundtrack material. Research candidates by the recording's actual performer and tradition, then verify permission to redistribute the *sound recording*. A centuries-old melody does not make a modern recording public domain.
 
 Keep the current starter tracks while building the better collection. Preserve the owner-chosen default opening track until explicitly changed. Track a music candidate's title (including original script if available), performer, region, instrumentation, label/rights holder, source, license, and source quality before any public import.
+
+
+## 2026-10-07 iPhone playback controls repair
+
+- Owner screenshot confirmed double emoji-rendered arrowheads for Previous/Next and a squashed, narrow album panel.
+- Use one scalable, monochrome SVG each for Previous and Next; Play is a single **up-arrow** SVG per owner request. While playing, Play becomes a Pause icon.
+- Eliminate all leftover fixed-footer CSS from the dedicated Radio page module. Radio controls and track panel fill their normal grid rows; no inherited 38vw width cap.
+- Set mobile buttons to at least 48px targets, with 60px Play/Pause.
+- Hide the radio volume slider on iPhone/small screens. The phone's physical buttons control output; desktop keeps its slider and saved preference.
+- The accepted bottom navigation, Hub/Hold icons and background are not modified.
+- Owner iPhone retest required before acceptance.

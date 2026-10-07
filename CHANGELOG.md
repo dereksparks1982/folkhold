@@ -2,6 +2,10 @@
 
 All notable accepted Folkhold changes are recorded here from v1.1.0 forward.
 
+## Unreleased candidate - iPhone Radio layout
+
+- Replace duplicated emoji-like transport arrows with single SVG buttons (Previous / up-arrow Play or Pause / Next). Expand the song panel to page width, removing legacy compact footer layout rules. Hide mobile volume in favor of the device rocker, while preserving the desktop slider. Pending iPhone acceptance.
+
 ## Unreleased candidate - Desktop Hold tower sizing
 
 - Refined the desktop My Hold tower from 26px to 23px and raised it 2px for alignment with neighboring icons. Mobile sizing remains unchanged. Pending owner approval.

@@ -1,5 +1,16 @@
 # Folkhold Project Log
 
+## 2026-10-07 — iPhone Radio single-icon and layout repair
+
+- Owner shared an iPhone Safari screenshot confirming that Previous/Next showed two blue emoji-style arrowheads apiece, with the song title panel squeezed left.
+- Replaced the transport symbols with unambiguous inline SVG: one Previous, one upward-arrow Play / Pause, and one Next. No emoji rendering.
+- Removed obsolete footer-player CSS that was constraining Radio page layout; the playlist and song panel now use full page width.
+- Hid phone volume slider and set phone media volume to unity so physical iPhone volume buttons are used. Desktop slider remains.
+- Bumped the Radio script query string to invalidate old Safari caches.
+- No changes to the accepted mobile bottom navigation, background, Hub or Hold icons.
+- Pending real iPhone playback/layout acceptance.
+
+
 ## 2026-10-07 - Desktop tower alignment follow-up
 
 - Owner screenshot showed the 26px desktop My Hold tower slightly too large and low relative to neighboring navigation icons.

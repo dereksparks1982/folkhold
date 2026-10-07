@@ -1,3 +1,13 @@
+## 2026-10-07 iPhone Radio single-icon repair
+
+- Inspected the owner-provided iPhone screenshot showing duplicated emoji arrowheads and squeezed title/artist panel.
+- Source verified that the problem came from literal `◀◀` and `▶▶` plus a legacy `max-width:38vw` mobile CSS declaration inherited from the old radio footer.
+- Candidate player now uses one inline SVG for each Previous/Next control, an upward-arrow SVG for Play and two bars for Pause.
+- Removed retired fixed footer/ad/nav layout rules from `radio/player.js`; page-level UI now fills available width.
+- Phone-only volume slider is hidden. Desktop slider and remembered desktop volume remain.
+- Player JS syntax checked; `index.html` references a new script cache version.
+- Accepted background, navigation and icon code are untouched. Owner device validation is still required.
+
 ## 2026-10-07 Desktop tower alignment follow-up
 
 - Source-verified: the desktop My Hold tower-specific rule is now 23px with transform translateY(-2px), replacing the 26px rule.
