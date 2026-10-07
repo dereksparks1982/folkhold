@@ -97,6 +97,7 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
       <button type="button" data-view="tea"><span aria-hidden="true">☕</span><small>Tea Room</small></button>
       <button type="button" data-view="directory"><span aria-hidden="true">📖</span><small>Directory</small></button>
       <button type="button" data-view="keys"><span aria-hidden="true">🔑</span><small>Key Ring</small></button>
+      <button type="button" data-view="radio"><span aria-hidden="true">📻</span><small>Radio</small></button>
       <button type="button" data-action="ad-settings"><span aria-hidden="true">⚙</span><small>Ads</small></button>
     `;
 
