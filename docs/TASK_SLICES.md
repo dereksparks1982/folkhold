@@ -324,16 +324,16 @@ Candidate implemented:
 
 - `radio/playlist.js` is the single playlist manifest
 - `radio/player.js` owns playback/UI behavior
-- controls are fixed to the absolute bottom of every screen
+- revised candidate: controls and playlist now live on the Radio screen, selected from the swipeable mobile bottom navigation or desktop top navigation
 - previous / play-pause / next / current track / seek / volume
-- playback survives normal Folkhold screen navigation because Folkhold is a single-page shell
+- playback still survives normal screen navigation, because the audio object remains alive in the single-page shell
 - **Ibn Al-Noor** is track 1 and the default opening theme
 - initial load attempts autoplay
 - if the browser blocks audible autoplay, first user interaction retries automatically
 - uploaded MP3 moved byte-for-byte from loose `assets/` into `assets/audio/music/ibn-al-noor.mp3`
 - audio folder rules documented for music, ambience, SFX and voice
 
-Acceptance boundary: source structure and browser player candidate are ready for owner testing. Desktop/mobile audible autoplay still depends on browser policy.
+Acceptance boundary: source structure and syntax checks pass. Radio page and swipeable mobile navigation are now built but await owner visual/playback testing. Desktop/mobile audible autoplay remains browser-policy dependent.
 
 See `docs/AUDIO_RADIO.md`.
 
