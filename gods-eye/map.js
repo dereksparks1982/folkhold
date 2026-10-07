@@ -40,6 +40,7 @@
       const L = globalThis.L;
       map = L.map('gods-eye-map', {scrollWheelZoom: false, worldCopyJump: true}).setView(world, 2);
       L.tileLayer(urls.tiles, {maxZoom:19, attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap contributors</a>'}).addTo(map);
+      window.dispatchEvent(new CustomEvent('folkhold:gods-eye-map-ready', {detail: {map, leaflet: L}}));
       status('Drag or pinch to explore. Search a place or choose Use My Location.');
       setTimeout(() => map.invalidateSize(), 180);
     } catch {
@@ -59,6 +60,9 @@
       const span = document.createElement('span'); span.textContent = label; found.bindPopup(span);
     }
     map.setView([lat,lon],isOwn ? 14 : 12);
+    window.dispatchEvent(new CustomEvent('folkhold:gods-eye-point', {
+      detail: {lat, lon, label, own: isOwn}
+    }));
   }
   function label(feature) {
     const p = feature?.properties || {};
