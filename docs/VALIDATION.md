@@ -1,3 +1,12 @@
+## 2026-10-07 — God's Eye slice 1 source validation
+
+- Verified standalone God's Eye screen and Hub card use the existing Folkhold `data-view` system.
+- `gods-eye/map.js` parsed as JavaScript; no automatic position lookup, no shared user GPS records or map tile prefetch are implemented.
+- Search requests are manually submitted, limited to five Photon results, and cached per browser tab. The provider remains a limited demo.
+- Leaflet library loaded lazily via pinned CDN + integrity hashes; map data displayed with OSM attribution.
+- Confirmed iPhone bottom navigation retains seven destinations, Radio v1.2.0 and accepted wallpaper/Hub/Hold icons were not edited.
+- **Not yet confirmed:** actual external CDN/tile/search delivery, Safari GPS dialogs, iPhone map layout or owner acceptance.
+
 ## 2026-10-07 — Radio v1.2.0 owner acceptance
 
 - Evidence: owner expressly said **“radio is good”** and requested closing the build.

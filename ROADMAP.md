@@ -216,6 +216,13 @@ Initial scope:
 
 Trust rule: live prices, laws, schedules and local facts need current evidence. The assistant must not manufacture a confident answer when the data layer does not support one.
 
+### Wayfarer implementation status
+
+- **God's Eye map, slice 1 candidate:** Hub entry, interactive world map, manual place search, optional current-location marker.
+- **Still to build:** road routing, nearby category discovery, weather, currency, prayer times, translation, Fair Price and travel assistant.
+- **Backend-gated:** Key-to-Key routing must wait for authenticated accounts, persisted Keys and explicit per-contact destination sharing.
+- Prototype public mapping/geocoding services need capacity/licensing review before scale-up.
+
 ## 14. Documentation and release discipline
 
 For every accepted patch/add-on/feature:

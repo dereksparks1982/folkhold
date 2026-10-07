@@ -339,7 +339,7 @@ See `docs/AUDIO_RADIO.md`.
 
 ## Slice 16 — Wayfarer / Travel Copilot integration
 
-**Status: READY**
+**Status: IN PROGRESS (God's Eye core-map candidate built; other travel components remain separate slices)**
 
 Goal: fold the useful Midlife Crisis travel prototype into Folkhold.
 
@@ -400,3 +400,19 @@ Acceptance: two distinct accounts exchange Keys; one explicitly shares a destina
 - Maintain an organized candidate/approved catalog with musician and source credits, native titles, cultural description, sound files and licenses.
 - Replace/add recordings in self-contained curated slices only when legally usable assets are confirmed.
 - Do not replace the current opening theme without owner approval.
+
+
+## Slice 20 — God's Eye core map and search
+
+**Status: REVIEW (candidate; owner PC/iPhone validation pending)**
+
+- Add a God's Eye card on the Hub, opening its own Folkhold page.
+- Lazy-load Leaflet map, show OSM world tiles and attribution, support pan/zoom.
+- Add button-initiated GPS position marker with permission/denial/error states, no automatic location access or storage.
+- Add user-submit Photon place search, up to five selectable results, in-session cache and a per-tab query cooldown.
+- Preserve accepted seven-button mobile navigation, Hub/Hold icons, leather artwork and v1.2.0 Radio.
+- Document public map/geocoding usage constraints and plan scalable provider selection.
+
+Acceptance checks: God's Eye opens on desktop/iPhone; a user can pan, search/select places and request or deny their own location. No location prompt occurs until requested.
+
+Next slices: street route geometry, nearby discovery and travel tools; Key-to-Key shared destinations remain gated by accounts/Keys and explicit sharing.
