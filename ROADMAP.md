@@ -184,9 +184,9 @@ See `docs/BACKGAMMON.md`.
 
 Folkhold should have one persistent radio/music layer rather than page-specific audio islands.
 
-- compact controls remain at the absolute bottom of every Folkhold screen
-- previous, play/pause, next, track information, seek and volume
-- playlist continues while navigating between Folkhold screens
+- **Radio** is a separate Folkhold place; the mobile bottom navigation scrolls horizontally, and the player does not float above it
+- previous, play/pause, next, track information, seek, volume, and a visible selectable playlist
+- playlist continues while navigating between Folkhold screens; only player controls are inside the Radio place
 - the first/default opening theme is **Ibn Al-Noor** by Kevin MacLeod
 - attempt audible autoplay on initial load; when browser policy blocks it, the first user gesture starts playback
 - playlists are data-driven so adding songs does not require rewriting the player
@@ -211,7 +211,7 @@ Initial scope:
 - lightweight **Hitch** social coaching: language/cultural context and a few tools without scripting the user's entire interaction
 - one shared travel assistant that can use trip state/location/context instead of many unrelated mini-assistants
 - later connection to Folkhold itself, such as asking the Square/local Holds for current local knowledge
-- phone-first responsive UI without crowding the permanent five-button mobile bar; start with a Hub/desktop entry point
+- phone-first responsive UI; mobile bottom navigation now supports horizontal swiping, but start Wayfarer with a Hub/desktop entry point
 - reuse the `midlifecrisis` prototype as a source pool until the Folkhold implementation is accepted
 
 Trust rule: live prices, laws, schedules and local facts need current evidence. The assistant must not manufacture a confident answer when the data layer does not support one.
