@@ -131,6 +131,7 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
         .desktop-nav::-webkit-scrollbar{display:none}
         .desktop-nav button{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:5px!important;min-width:max-content!important;padding:8px 9px!important;border-radius:9px!important;color:#d8cbb7!important;white-space:nowrap!important}
         .desktop-nav button>span{font-size:16px!important;line-height:1!important}
+        .desktop-nav button[data-view="hold"]>.folkhold-hold-icon{font-size:26px!important;line-height:1!important}
         .desktop-nav button>small{font:12px Georgia,'Times New Roman',serif!important;color:inherit!important}
         .desktop-nav button:hover,.desktop-nav button.active{background:#302a23!important;color:#fff!important}
         .top-age-chip{font:8px Arial,sans-serif!important;background:var(--red)!important;color:#fff!important;padding:1px 3px!important;border-radius:4px!important;margin-left:1px!important}

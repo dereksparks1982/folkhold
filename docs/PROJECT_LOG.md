@@ -1,5 +1,12 @@
 # Folkhold Project Log
 
+## 2026-10-07 - Desktop Hold icon sizing candidate
+
+- Owner confirmed the tower symbol but noted that it rendered too small in desktop navigation.
+- Raised only the desktop My Hold tower icon from the shared 16px sizing to 26px, preserving the glyph itself and iPhone sizing.
+- Bumped the desktop runtime/app cache query strings. Pending visual acceptance on desktop.
+
+
 ## 2026-10-07 — Desktop Hold and Key-to-Key routes
 
 - Owner screenshot exposed a runtime desktop My Hold house icon despite the accepted mobile rook/tower icon. Desktop runtime icon was changed to the identical ♜ glyph, and script cache versions advanced.

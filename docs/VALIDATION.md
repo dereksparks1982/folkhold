@@ -1,3 +1,11 @@
+## 2026-10-07 Desktop Hold tower size candidate
+
+- Source-level check: the desktop navigation uses the approved ♜ tower rather than 🏠.
+- Added a targeted desktop-only font-size override (26px) after the general 16px desktop icon rule.
+- Mobile Hold tower font sizing and approved background CSS are unchanged.
+- Updated JavaScript URLs for cache invalidation.
+- Actual visual sizing is pending owner desktop verification.
+
 ## 2026-10-07 Radio navigation candidate
 
 Source-verified, not yet owner-device accepted:
