@@ -81,12 +81,12 @@ GitHub source state, browser behavior, Cloudflare services, iOS Home Screen beha
 ## Radio navigation candidate
 
 - Radio now has its own page, accessed through a mobile swipeable navigation button or the desktop top navigation. The old persistent floating bar was removed.
-- Touch scrolling and spacing need validation on the real iPhone.
+- Mobile Radio/navigation UI was accepted by the owner on October 7, 2026.
 - Audible browser autoplay, especially on iPhone, may be blocked until the first user gesture.
 - Publicly hosted music must have redistribution rights. YouTube downloads are not assumed to have those rights.
 
 
-## iPhone Radio rendering
+## Radio browser constraints
 
-- Owner screenshot showed duplicate previous/next arrowheads (Unicode characters rendered as emoji on iOS) and a narrow current-track panel. The candidate replaces those characters with inline SVG and removes the old fixed-footer player CSS.
-- The phone volume slider is intentionally hidden. Playback, spacing and device button behavior still require iPhone owner validation before closing the issue.
+- Owner accepted v1.2.0 Radio and its single SVG transport controls, track panel and phone-side hardware-volume design.
+- Audible autoplay remains governed by browser/OS permission. iOS Safari may require user interaction.

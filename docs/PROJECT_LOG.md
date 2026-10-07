@@ -1,5 +1,13 @@
 # Folkhold Project Log
 
+## 2026-10-07 — v1.2.0 owner-accepted Radio closeout
+
+- Owner explicitly said **“radio is good”** and instructed closeout before God's Eye development.
+- Accepted Radio page, persistent playback, six licensed locally hosted tracks, three station presets, SVG controls, and swipeable navigation as the v1.2.0 baseline.
+- Advanced version from 1.1.0 to 1.2.0 after owner acceptance.
+- Browser autoplay remains platform-dependent. No new artwork, other UI adjustments, or features were introduced in this closeout.
+
+
 ## 2026-10-07 — iPhone Radio single-icon and layout repair
 
 - Owner shared an iPhone Safari screenshot confirming that Previous/Next showed two blue emoji-style arrowheads apiece, with the song title panel squeezed left.

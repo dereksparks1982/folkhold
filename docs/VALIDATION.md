@@ -1,3 +1,10 @@
+## 2026-10-07 — Radio v1.2.0 owner acceptance
+
+- Evidence: owner expressly said **“radio is good”** and requested closing the build.
+- The accepted implementation includes Radio navigation and playlist/player, six licensed MP3 files, three stations, and SVG transport buttons on PC/iPhone.
+- Volume slider remains on PC; phone volume uses device buttons. Browser autoplay may require interaction.
+- This is explicit owner acceptance, not a claim of independent device/browser automated testing.
+
 ## 2026-10-07 iPhone Radio single-icon repair
 
 - Inspected the owner-provided iPhone screenshot showing duplicated emoji arrowheads and squeezed title/artist panel.

@@ -316,7 +316,7 @@ At the end of every completed slice:
 
 ## Slice 15 — Folkhold Radio + organized audio
 
-**Status: REVIEW**
+**Status: CLOSED (accepted in v1.2.0 October 7, 2026)**
 
 Goal: one persistent Folkhold music player with a clean audio-asset layout.
 
@@ -333,7 +333,7 @@ Candidate implemented:
 - uploaded MP3 moved byte-for-byte from loose `assets/` into `assets/audio/music/ibn-al-noor.mp3`
 - audio folder rules documented for music, ambience, SFX and voice
 
-Acceptance boundary: source structure and syntax checks pass. Radio page and swipeable mobile navigation are now built but await owner visual/playback testing. Desktop/mobile audible autoplay remains browser-policy dependent.
+Acceptance: owner expressly approved Radio on October 7, 2026; browser autoplay remains dependent on device policy.
 
 See `docs/AUDIO_RADIO.md`.
 
@@ -361,7 +361,7 @@ The existing `dereksparks1982/midlifecrisis` repository is a prototype/source po
 
 ## Slice 17 — Curated Folkhold Radio stations
 
-**Status: REVIEW (source and import succeeded; owner-device acceptance pending)**
+**Status: CLOSED (accepted in v1.2.0 October 7, 2026)**
 
 - Keep the existing swipeable seven-button mobile bottom navigation and standalone Radio page.
 - Add All Music, Eastern Roads and Medieval Hall station filters.
@@ -371,7 +371,7 @@ The existing `dereksparks1982/midlifecrisis` repository is a prototype/source po
 - Provide official composer-hosted fallback only if a local song is missing.
 - Verify next/previous, station-switch, track selection, and global audio continuity.
 
-Source/import verified: GitHub Actions [run 37694240022](https://github.com/dereksparks1982/folkhold/actions/runs/37694240022) succeeded. All six organized MP3 assets are present. Do not mark DONE until owner tests on iPhone and desktop.
+Source/import verified: GitHub Actions [run 37694240022](https://github.com/dereksparks1982/folkhold/actions/runs/37694240022) succeeded. All six organized MP3 assets are present. Owner expressly accepted the completed Radio candidate on October 7, 2026.
 
 
 ## Slice 18 — Key-to-Key God's Eye navigation
