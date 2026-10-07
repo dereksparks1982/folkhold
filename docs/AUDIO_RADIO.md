@@ -33,3 +33,22 @@ Folkhold is a public web app/repository. Downloading a song from YouTube does **
 - Check controls, track choice, volume, seeking and music continuing as other pages open.
 - Confirm no changes to the accepted mobile background, Hub glyph or Hold tower.
 - Verify mobile Safari audio gesture/autoplay behavior on the real device.
+
+
+## Curated stations, October 7, 2026
+
+The audio library has **six real MP3 files** under `assets/audio/music/`:
+
+- **All Music:** the complete six-track library, beginning with Ibn Al-Noor.
+- **Eastern Roads:** Ibn Al-Noor, Desert City and Dhaka.
+- **Medieval Hall:** Lord of the Land, Suonatore di Liuto and The Pyre.
+
+They are modern instrumentals by Kevin MacLeod under CC BY 4.0. Their descriptions are historically/regionally inspired, not authentic religious recitations or verified traditional Persian recordings. Full composer/source/license credits are in `THIRD_PARTY.md`.
+
+The licensed-media import workflow `.github/workflows/import-folkhold-radio.yml` **succeeded** in [run 37694240022](https://github.com/dereksparks1982/folkhold/actions/runs/37694240022) and the repository contains all six MP3 files. The original Ibn Al-Noor file was preserved. The player can fall back to composer-hosted audio if a local MP3 is unavailable.
+
+For future songs, confirm redistribution rights, upload media under `assets/audio/music/`, add track/station/source metadata in `radio/playlist.js`, and update `THIRD_PARTY.md`. YouTube availability alone is not redistribution permission.
+
+### Acceptance checks
+
+On iPhone swipe the lower nav to Radio. Confirm that stations switch, all six songs play, volume, seek and pause work, and music continues while you visit the Hold or Square. Verify that the Hub icon, Hold tower and approved leather background remain unchanged. Do the same playback/navigation checks on desktop.
