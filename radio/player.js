@@ -10,6 +10,9 @@
   let index = 0;
   let autoplayBlocked = false;
   let unlockArmed = false;
+  let station = 'All Music';
+  let fallbackAttempted = false;
+  let userPaused = false;
 
   function clamp(value, min, max) {
     return Math.max(min, Math.min(max, value));
@@ -74,6 +77,13 @@
       .toast{bottom:70px!important}
       @media(max-width:760px){main{padding-bottom:140px!important}.fh-radio-page{padding:18px 14px}.fh-radio-page .fh-radio-progress{display:grid!important}.fh-radio-page .fh-radio-volume input{width:min(260px,60vw)}}
     `;
+    style.textContent += `
+      .fh-radio-stations{display:flex;justify-content:center;gap:9px;flex-wrap:wrap}
+      .fh-radio-stations button{border:1px solid #aa906b;border-radius:99px;padding:9px 14px;background:#efe0c8;color:#473523;font:600 13px Arial,sans-serif}
+      .fh-radio-stations button[aria-pressed="true"]{background:#355e4a;border-color:#355e4a;color:white}
+      .fh-radio-credits{font:12px Arial,sans-serif;line-height:1.55;color:#6c5a46}
+      .fh-radio-credits a{color:#355e4a}
+    `;
     document.head.append(style);
   }
 
@@ -82,6 +92,7 @@
     bar.className = 'folkhold-radio';
     bar.setAttribute('aria-label', 'Folkhold Radio');
     bar.innerHTML = `
+      <div class="fh-radio-stations" data-radio-stations aria-label="Music stations"></div>
       <div class="fh-radio-controls">
         <button type="button" data-radio-prev aria-label="Previous song">◀◀</button>
         <button type="button" class="fh-radio-play" data-radio-play aria-label="Play">▶</button>
@@ -99,7 +110,8 @@
       </div>
       <label class="fh-radio-volume"><span>VOL</span><input data-radio-volume type="range" min="0" max="100" value="32" aria-label="Radio volume"></label>
       <div class="fh-radio-status" data-radio-status hidden></div>
-      <div class="fh-radio-tracks"><h2 class="fh-radio-list-heading">Playlist</h2><ol class="fh-radio-playlist" data-radio-playlist></ol></div>
+      <div class="fh-radio-tracks"><h2 class="fh-radio-list-heading">Songs</h2><ol class="fh-radio-playlist" data-radio-playlist></ol></div>
+      <p class="fh-radio-credits">Music by Kevin MacLeod (incompetech.com), licensed <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener noreferrer">CC BY 4.0</a>. These are regionally inspired instrumentals, not religious recitations.</p>
     `;
     document.getElementById('folkhold-radio-mount').append(bar);
     return bar;
@@ -123,6 +135,8 @@
     const volume = bar.querySelector('[data-radio-volume]');
     const status = bar.querySelector('[data-radio-status]');
     const playlistPanel = bar.querySelector('[data-radio-playlist]');
+    const stationsPanel = bar.querySelector('[data-radio-stations]');
+    const songQueue = () => PLAYLIST.map((track,i) => i).filter(i => station === 'All Music' || PLAYLIST[i].station === station);
 
     volume.value = String(Math.round(audio.volume * 100));
 
@@ -147,6 +161,7 @@
       if (!PLAYLIST.length) return;
       index = (nextIndex + PLAYLIST.length) % PLAYLIST.length;
       const track = PLAYLIST[index];
+      fallbackAttempted = false;
       audio.src = track.src;
       audio.load();
       title.textContent = track.title;
@@ -154,7 +169,7 @@
       seek.value = '0';
       current.textContent = '0:00';
       duration.textContent = '0:00';
-      playlistPanel.querySelectorAll('[data-radio-track]').forEach((button, pos) => button.setAttribute('aria-current', pos === index ? 'true' : 'false'));
+      playlistPanel.querySelectorAll('[data-radio-track]').forEach(button => button.setAttribute('aria-current', String(Number(button.dataset.radioTrack) === index)));
       if (shouldPlay) requestPlay();
       else updatePlayButton();
     }
@@ -164,7 +179,7 @@
       unlockArmed = true;
       const unlock = (event) => {
         if (event.target?.closest?.('[data-radio-play],[data-radio-prev],[data-radio-next],[data-radio-track]')) return;
-        if (!autoplayBlocked || !audio.paused) return;
+        if (!autoplayBlocked || !audio.paused || userPaused) return;
         const promise = audio.play();
         if (promise && typeof promise.then === 'function') {
           promise.then(() => {
@@ -180,6 +195,7 @@
     }
 
     function requestPlay() {
+      userPaused = false;
       const promise = audio.play();
       if (!promise || typeof promise.catch !== 'function') {
         updatePlayButton();
@@ -189,10 +205,14 @@
         autoplayBlocked = false;
         showStatus('', 0);
         updatePlayButton();
-      }).catch(() => {
-        autoplayBlocked = true;
-        showStatus('Your browser blocked automatic sound. Your first tap will start Folkhold Radio.');
-        armUnlock();
+      }).catch(error => {
+        if (error?.name === 'NotAllowedError') {
+          autoplayBlocked = true;
+          showStatus('Your browser blocked automatic sound. Your first tap will start Folkhold Radio.');
+          armUnlock();
+        } else if (error?.name !== 'AbortError') {
+          showStatus('This track could not be played. Choose another song.');
+        }
         updatePlayButton();
       });
     }
@@ -200,7 +220,7 @@
     playButton.addEventListener('click', () => {
       autoplayBlocked = false;
       if (audio.paused) requestPlay();
-      else { autoplayBlocked = false; audio.pause(); }
+      else { autoplayBlocked = false; userPaused = true; audio.pause(); }
     });
 
     bar.querySelector('[data-radio-prev]').addEventListener('click', () => {
@@ -208,11 +228,17 @@
         audio.currentTime = 0;
         requestPlay();
       } else {
-        loadTrack(index - 1, true);
+        move(-1);
       }
     });
 
-    bar.querySelector('[data-radio-next]').addEventListener('click', () => loadTrack(index + 1, true));
+    function move(step) {
+      const queue = songQueue();
+      if (!queue.length) return;
+      const pos = queue.indexOf(index);
+      loadTrack(queue[((pos < 0 ? 0 : pos) + step + queue.length) % queue.length],true);
+    }
+    bar.querySelector('[data-radio-next]').addEventListener('click', () => move(1));
 
     volume.addEventListener('input', () => {
       audio.volume = clamp(Number(volume.value) / 100, 0, 1);
@@ -235,41 +261,75 @@
         seek.value = String(Math.round((audio.currentTime / audio.duration) * 1000));
       }
     });
-    audio.addEventListener('ended', () => loadTrack(index + 1, true));
+    audio.addEventListener('ended', () => move(1));
     audio.addEventListener('error', () => {
-      showStatus(`Could not load ${PLAYLIST[index]?.title || 'this track'}.`, 7000);
-      updatePlayButton();
+      const track = PLAYLIST[index];
+      if (!fallbackAttempted && track?.fallbackSrc) {
+        fallbackAttempted = true;
+        audio.src = track.fallbackSrc;
+        audio.load();
+        showStatus('Using official composer audio for ' + track.title + '.');
+        if (!userPaused) requestPlay();
+      } else {
+        showStatus('Could not load ' + (track?.title || 'this track') + '. Try another song.');
+        updatePlayButton();
+      }
     });
 
-    PLAYLIST.forEach((track, pos) => {
-      const li = document.createElement('li');
-      const button = document.createElement('button');
-      button.type = 'button';
-      button.dataset.radioTrack = String(pos);
-      button.setAttribute('aria-label', 'Play ' + track.title + ' by ' + track.artist);
-      const number = document.createElement('span');
-      number.className = 'fh-radio-track-number';
-      number.textContent = String(pos + 1).padStart(2, '0');
-      const info = document.createElement('span');
-      info.className = 'fh-radio-track-info';
-      const trackTitle = document.createElement('strong');
-      trackTitle.textContent = track.title;
-      const trackArtist = document.createElement('small');
-      trackArtist.textContent = track.artist;
-      info.append(trackTitle, trackArtist);
-      button.append(number, info);
-      button.addEventListener('click', () => loadTrack(pos, true));
-      li.append(button);
-      playlistPanel.append(li);
+
+    function renderPlaylist() {
+      playlistPanel.replaceChildren();
+      stationsPanel.querySelectorAll('button').forEach(btn => {
+        btn.setAttribute('aria-pressed', String(btn.dataset.radioStation === station));
+      });
+      songQueue().forEach((pos, order) => {
+        const track = PLAYLIST[pos];
+        const li = document.createElement('li');
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.dataset.radioTrack = String(pos);
+        button.setAttribute('aria-current', String(pos === index));
+        button.setAttribute('aria-label', 'Play ' + track.title + ' by ' + track.artist);
+        const number = document.createElement('span');
+        number.className = 'fh-radio-track-number';
+        number.textContent = String(order + 1).padStart(2, '0');
+        const info = document.createElement('span');
+        info.className = 'fh-radio-track-info';
+        const trackTitle = document.createElement('strong');
+        trackTitle.textContent = track.title;
+        const artist = document.createElement('small');
+        artist.textContent = track.artist + ' · ' + track.role;
+        info.append(trackTitle, artist);
+        button.append(number, info);
+        button.addEventListener('click', () => loadTrack(pos, true));
+        li.append(button);
+        playlistPanel.append(li);
+      });
+    }
+    ['All Music', 'Eastern Roads', 'Medieval Hall'].forEach(label => {
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.dataset.radioStation = label;
+      btn.textContent = label;
+      btn.setAttribute('aria-pressed', String(label === station));
+      btn.addEventListener('click', () => {
+        if (station === label) return;
+        station = label;
+        renderPlaylist();
+        loadTrack(songQueue()[0] || 0, true);
+      });
+      stationsPanel.append(btn);
     });
+    renderPlaylist();
 
     loadTrack(0, true);
 
     globalThis.FolkholdRadio = Object.freeze({
       play: requestPlay,
-      pause: () => audio.pause(),
-      next: () => loadTrack(index + 1, true),
-      previous: () => loadTrack(index - 1, true),
+      pause: () => { userPaused = true; autoplayBlocked = false; audio.pause(); },
+      next: () => move(1),
+      previous: () => move(-1),
+      setStation: name => { if (['All Music', 'Eastern Roads', 'Medieval Hall'].includes(name)) { station = name; renderPlaylist(); loadTrack(songQueue()[0] || 0, true); } },
       playlist: () => PLAYLIST.map(track => ({ ...track })),
       currentTrack: () => ({ ...PLAYLIST[index] }),
       audio
