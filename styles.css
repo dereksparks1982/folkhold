@@ -96,3 +96,40 @@ body {
   }
 }
 /* FOLKHOLD_BACKGROUND_END */
+/* RADIO_MOBILE_SWIPE_START: approved background remains untouched */
+@media(max-width:760px) {
+  .mobile-nav {
+    display:flex!important;
+    flex-wrap:nowrap;
+    align-items:stretch;
+    bottom:45px;
+    height:64px;
+    overflow-x:auto;
+    overflow-y:hidden;
+    -webkit-overflow-scrolling:touch;
+    overscroll-behavior-x:contain;
+    scroll-snap-type:x proximity;
+    scroll-padding-inline:5px;
+    touch-action:pan-x;
+    scrollbar-width:none;
+    grid-template-columns:none!important;
+  }
+  .mobile-nav::-webkit-scrollbar{display:none}
+  .mobile-nav button {
+    display:flex;
+    flex:0 0 78px;
+    min-width:78px;
+    min-height:62px;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    gap:2px;
+    padding:5px 3px;
+    white-space:nowrap;
+    scroll-snap-align:start;
+    font-size:11px;
+  }
+  .mobile-nav button span{flex:0 0 auto}
+  main{padding-bottom:140px}
+}
+/* RADIO_MOBILE_SWIPE_END */
