@@ -40,6 +40,7 @@
     })
     .then(() => loadLocalScript('backgammon-engine.js?v=1'))
     .then(() => loadLocalScript('backgammon.js?v=1'))
+    .then(() => loadLocalScript('hold-designer.js?v=1'))
     .then(() => loadLocalScript('global-chat.js'))
     .catch((error) => console.warn('Folkhold runtime module did not load.', error));
 
@@ -96,7 +97,7 @@
       else tavernDialog.showModal();
     }
     if (action === 'ad-settings') adDialog.showModal();
-    if (action === 'customize') showToast('Hold editor comes in the next build slice.');
+    if (action === 'customize') showToast('Front Door Designer is loading.');
     if (action === 'new-room') showToast('Room creation is planned for the interactive data slice.');
     if (action === 'give-key') showToast('Key gifting UI is next. Each issued key will be unique.');
     if (action === 'knock') showToast('Knock sent. In production, the Hold owner would receive it.');
