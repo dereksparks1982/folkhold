@@ -4,7 +4,7 @@ All notable accepted Folkhold changes are recorded here from v1.1.0 forward.
 
 ## Unreleased candidate - Desktop Hold tower sizing
 
-- Increased the desktop My Hold tower icon to 26px so it is legible next to the other top-navigation icons. Mobile sizing remains unchanged. Pending owner approval.
+- Refined the desktop My Hold tower from 26px to 23px and raised it 2px for alignment with neighboring icons. Mobile sizing remains unchanged. Pending owner approval.
 
 ## v1.1.0 — Hold Door and Navigation Closeout
 

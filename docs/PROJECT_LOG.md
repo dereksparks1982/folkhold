@@ -1,5 +1,13 @@
 # Folkhold Project Log
 
+## 2026-10-07 - Desktop tower alignment follow-up
+
+- Owner screenshot showed the 26px desktop My Hold tower slightly too large and low relative to neighboring navigation icons.
+- With explicit approval, adjusted only the desktop tower to 23px and translated it upward by 2px.
+- Preserved the mobile tower and all backgrounds. Bumped the runtime script version for cache refresh.
+- Pending desktop visual approval.
+
+
 ## 2026-10-07 - Desktop Hold icon sizing candidate
 
 - Owner confirmed the tower symbol but noted that it rendered too small in desktop navigation.

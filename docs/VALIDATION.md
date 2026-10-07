@@ -1,3 +1,10 @@
+## 2026-10-07 Desktop tower alignment follow-up
+
+- Source-verified: the desktop My Hold tower-specific rule is now 23px with transform translateY(-2px), replacing the 26px rule.
+- The HTML tower glyph remains ♜ on desktop and mobile; mobile-only sizing is unchanged.
+- Background styles are untouched. Runtime script URLs were versioned to invalidate caches.
+- Actual cross-browser positioning remains for owner visual approval.
+
 ## 2026-10-07 Desktop Hold tower size candidate
 
 - Source-level check: the desktop navigation uses the approved ♜ tower rather than 🏠.
