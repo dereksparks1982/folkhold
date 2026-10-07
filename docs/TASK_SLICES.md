@@ -357,3 +357,18 @@ First build:
 - hooks for later Ask the Square / local Folkhold knowledge
 
 The existing `dereksparks1982/midlifecrisis` repository is a prototype/source pool, not the long-term product home.
+
+
+## Slice 17 — Curated Folkhold Radio stations
+
+**Status: REVIEW (source and import succeeded; owner-device acceptance pending)**
+
+- Keep the existing swipeable seven-button mobile bottom navigation and standalone Radio page.
+- Add All Music, Eastern Roads and Medieval Hall station filters.
+- Curate six Kevin MacLeod recordings licensed CC BY 4.0, retaining Ibn Al-Noor as the opening/default.
+- Preserve attribution and origin URLs in `THIRD_PARTY.md`.
+- Import approved MP3s into `assets/audio/music/` through a scoped GitHub Actions workflow.
+- Provide official composer-hosted fallback only if a local song is missing.
+- Verify next/previous, station-switch, track selection, and global audio continuity.
+
+Source/import verified: GitHub Actions [run 37694240022](https://github.com/dereksparks1982/folkhold/actions/runs/37694240022) succeeded. All six organized MP3 assets are present. Do not mark DONE until owner tests on iPhone and desktop.
