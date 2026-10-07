@@ -1,5 +1,15 @@
 # Folkhold Project Log
 
+## 2026-10-07 — God's Eye slice 1
+
+- Following accepted v1.2.0 Radio closeout, created a dedicated God's Eye place reachable from the Hub.
+- The old separate travel prototype repository was unavailable through the connected GitHub account, so this first standalone map slice is written directly into Folkhold.
+- Added lazy-loaded Leaflet map with OSM tiles, user-submitted Photon geocoding, and opt-in geolocation.
+- Map/search services are prototype-grade; there is no persistent location data, background location tracking, or member-to-member routing.
+- The accepted mobile nav (seven swipeable buttons), Hub and Hold icons, leather background and Radio were intentionally left untouched.
+- Source candidate awaits iPhone and desktop observation.
+
+
 ## 2026-10-07 — v1.2.0 owner-accepted Radio closeout
 
 - Owner explicitly said **“radio is good”** and instructed closeout before God's Eye development.

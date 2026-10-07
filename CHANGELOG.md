@@ -2,6 +2,12 @@
 
 All notable accepted Folkhold changes are recorded here from v1.1.0 forward.
 
+## Unreleased candidate — God's Eye slice 1
+
+- Added God's Eye Hub card, responsive interactive map, explicit GPS-position button, and submit-only place search.
+- GPS never requests permission on page startup. No routing or Key-to-Key location sharing is implemented in this slice.
+- Radio v1.2.0 and approved mobile background/icons/navigation remain untouched. Pending owner review.
+
 ## v1.2.0 — Folkhold Radio and mobile navigation
 
 **Accepted October 7, 2026**

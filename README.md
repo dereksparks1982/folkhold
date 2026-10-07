@@ -10,6 +10,12 @@ Folkhold is a social web project built around personal places rather than flat p
 - **Hanafi Learning Deck:** https://dereksparks1982.github.io/Hanafi-Islam-Learning-Deck/
 - **Hanafi Learning Deck repository:** https://github.com/dereksparks1982/Hanafi-Islam-Learning-Deck
 
+## Development candidate: God's Eye, slice 1
+
+The Hub now links to a mobile-friendly world map inside Folkhold, with manual place search and a separate **Use My Location** button. It never requests GPS automatically. It uses Leaflet with OpenStreetMap tiles and Photon search, whose public demo capacity is limited.
+
+Routing, nearby places and travel tools are separate later slices. The accepted background, icons, mobile bar and Radio v1.2.0 are unchanged. See `docs/GODS_EYE.md`.
+
 ## v1.2.0 — Folkhold Radio
 
 **Accepted October 7, 2026.**
