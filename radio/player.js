@@ -16,8 +16,10 @@
   }
 
   function savedVolume() {
-    const raw = Number(localStorage.getItem(VOLUME_KEY));
-    return Number.isFinite(raw) ? clamp(raw, 0, 1) : DEFAULT_VOLUME;
+    const raw = localStorage.getItem(VOLUME_KEY);
+    if (raw === null) return DEFAULT_VOLUME;
+    const parsed = Number(raw);
+    return Number.isFinite(parsed) ? clamp(parsed, 0, 1) : DEFAULT_VOLUME;
   }
 
   function formatTime(seconds) {
@@ -46,11 +48,37 @@
       @media(max-width:760px){:root{--fh-radio-height:64px}main{padding-bottom:calc(180px + var(--fh-radio-height))!important}.folkhold-radio{grid-template-columns:auto minmax(0,1fr) auto;gap:8px;padding:7px 9px}.fh-radio-progress{display:none}.fh-radio-volume input{width:62px}.fh-radio-label{display:none}.fh-radio-artist{font-size:10px}.fh-radio-title{font-size:13px}.fh-radio-controls button{width:34px;height:34px}.fh-radio-controls .fh-radio-play{width:38px;height:38px}}
       @media(max-width:440px){.fh-radio-volume span{display:none}.fh-radio-volume input{width:54px}.fh-radio-controls{gap:3px}.fh-radio-now{max-width:38vw}}
     `;
+    style.textContent += `
+      .fh-radio-page{padding:24px 28px;margin:20px 0 30px;background:rgba(255,248,238,.96)}
+      .fh-radio-page .folkhold-radio{position:static!important;z-index:auto!important;left:auto!important;right:auto!important;bottom:auto!important;width:100%!important;height:auto!important;display:grid!important;grid-template-columns:1fr!important;gap:19px!important;padding:0!important;background:transparent!important;color:#2c2926!important;border:0!important;box-shadow:none!important}
+      .fh-radio-page .fh-radio-controls{justify-content:center;gap:14px}
+      .fh-radio-page .fh-radio-now{padding:23px 12px;border-radius:12px;background:#29221c;color:#f2e7d5;text-align:center}
+      .fh-radio-page .fh-radio-title{font-size:clamp(24px,4vw,36px);white-space:normal;overflow-wrap:anywhere}
+      .fh-radio-page .fh-radio-progress{display:grid!important;grid-template-columns:42px minmax(0,1fr) 42px;gap:9px;color:#645443}
+      .fh-radio-page .fh-radio-volume{justify-content:center;color:#645443}
+      .fh-radio-page .fh-radio-volume input{width:min(300px,65vw)}
+      .fh-radio-page .fh-radio-label{display:block!important}
+      .fh-radio-page .fh-radio-artist{font-size:13px}
+      .fh-radio-page .fh-radio-status{position:static!important;max-width:none;border-radius:8px;border:1px solid #80623f;padding:11px;line-height:1.5}
+      .fh-radio-list-heading{font:700 12px Arial,sans-serif;letter-spacing:.13em;color:#645138;text-transform:uppercase;margin:6px 0 10px}
+      .fh-radio-playlist{list-style:none;margin:0;padding:0;display:grid;gap:8px}
+      .fh-radio-playlist button{width:100%;display:flex;align-items:center;gap:12px;text-align:left;padding:13px 15px;background:#f7ebd9;color:#3a2c20;border:1px solid #c6ae87;border-radius:10px}
+      .fh-radio-playlist button:hover{background:#f0ddc0}
+      .fh-radio-playlist button[aria-current="true"]{border-color:#355e4a;background:#e0e9de}
+      .fh-radio-track-number{font:700 12px Arial,sans-serif;min-width:22px;color:#705a3b}
+      .fh-radio-track-info{display:grid;gap:3px;min-width:0}
+      .fh-radio-track-info small{font:12px Arial,sans-serif;color:#6d6256}
+      body{padding-bottom:0!important}
+      .ad-strip{bottom:0!important}
+      .mobile-nav{bottom:45px!important}
+      .toast{bottom:70px!important}
+      @media(max-width:760px){main{padding-bottom:140px!important}.fh-radio-page{padding:18px 14px}.fh-radio-page .fh-radio-progress{display:grid!important}.fh-radio-page .fh-radio-volume input{width:min(260px,60vw)}}
+    `;
     document.head.append(style);
   }
 
   function buildBar() {
-    const bar = document.createElement('footer');
+    const bar = document.createElement('div');
     bar.className = 'folkhold-radio';
     bar.setAttribute('aria-label', 'Folkhold Radio');
     bar.innerHTML = `
@@ -71,13 +99,14 @@
       </div>
       <label class="fh-radio-volume"><span>VOL</span><input data-radio-volume type="range" min="0" max="100" value="32" aria-label="Radio volume"></label>
       <div class="fh-radio-status" data-radio-status hidden></div>
+      <div class="fh-radio-tracks"><h2 class="fh-radio-list-heading">Playlist</h2><ol class="fh-radio-playlist" data-radio-playlist></ol></div>
     `;
-    document.body.append(bar);
+    document.getElementById('folkhold-radio-mount').append(bar);
     return bar;
   }
 
   function start() {
-    if (document.querySelector('.folkhold-radio')) return;
+    if (document.querySelector('.folkhold-radio') || !document.getElementById('folkhold-radio-mount')) return;
 
     ensureStyles();
     const bar = buildBar();
@@ -93,6 +122,7 @@
     const duration = bar.querySelector('[data-radio-duration]');
     const volume = bar.querySelector('[data-radio-volume]');
     const status = bar.querySelector('[data-radio-status]');
+    const playlistPanel = bar.querySelector('[data-radio-playlist]');
 
     volume.value = String(Math.round(audio.volume * 100));
 
@@ -124,6 +154,7 @@
       seek.value = '0';
       current.textContent = '0:00';
       duration.textContent = '0:00';
+      playlistPanel.querySelectorAll('[data-radio-track]').forEach((button, pos) => button.setAttribute('aria-current', pos === index ? 'true' : 'false'));
       if (shouldPlay) requestPlay();
       else updatePlayButton();
     }
@@ -131,7 +162,8 @@
     function armUnlock() {
       if (unlockArmed) return;
       unlockArmed = true;
-      const unlock = () => {
+      const unlock = (event) => {
+        if (event.target?.closest?.('[data-radio-play],[data-radio-prev],[data-radio-next],[data-radio-track]')) return;
         if (!autoplayBlocked || !audio.paused) return;
         const promise = audio.play();
         if (promise && typeof promise.then === 'function') {
@@ -168,7 +200,7 @@
     playButton.addEventListener('click', () => {
       autoplayBlocked = false;
       if (audio.paused) requestPlay();
-      else audio.pause();
+      else { autoplayBlocked = false; audio.pause(); }
     });
 
     bar.querySelector('[data-radio-prev]').addEventListener('click', () => {
@@ -177,7 +209,8 @@
         requestPlay();
       } else {
         loadTrack(index - 1, true);
-      });
+      }
+    });
 
     bar.querySelector('[data-radio-next]').addEventListener('click', () => loadTrack(index + 1, true));
 
@@ -206,6 +239,28 @@
     audio.addEventListener('error', () => {
       showStatus(`Could not load ${PLAYLIST[index]?.title || 'this track'}.`, 7000);
       updatePlayButton();
+    });
+
+    PLAYLIST.forEach((track, pos) => {
+      const li = document.createElement('li');
+      const button = document.createElement('button');
+      button.type = 'button';
+      button.dataset.radioTrack = String(pos);
+      button.setAttribute('aria-label', 'Play ' + track.title + ' by ' + track.artist);
+      const number = document.createElement('span');
+      number.className = 'fh-radio-track-number';
+      number.textContent = String(pos + 1).padStart(2, '0');
+      const info = document.createElement('span');
+      info.className = 'fh-radio-track-info';
+      const trackTitle = document.createElement('strong');
+      trackTitle.textContent = track.title;
+      const trackArtist = document.createElement('small');
+      trackArtist.textContent = track.artist;
+      info.append(trackTitle, trackArtist);
+      button.append(number, info);
+      button.addEventListener('click', () => loadTrack(pos, true));
+      li.append(button);
+      playlistPanel.append(li);
     });
 
     loadTrack(0, true);
