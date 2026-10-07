@@ -30,3 +30,15 @@
 .fh-map-go-link{display:inline-block;width:fit-content;padding:11px 15px;border:1px solid #355e4a;border-radius:9px;background:#355e4a;color:#fff;text-decoration:none;font:700 13px Arial,sans-serif}
 .fh-map-go-link[hidden]{display:none}
 @media(max-width:760px){.fh-map-route{padding:14px 11px}.fh-route-form label{width:100%}.fh-route-form{gap:8px}.fh-route-actions button{flex:1 1 155px}}
+
+/* Slice 22: manually requested OSM nearby categories. */
+.fh-map-nearby{display:grid;gap:12px;margin:18px 0 0;padding:18px;border:1px solid #c1a984;border-radius:12px;background:#f9efde}
+.fh-map-nearby h2{margin:0;font:700 25px Georgia,serif;color:#3b2d1d}
+.fh-map-nearby p{margin:0;font:13px Arial,sans-serif;line-height:1.5;color:#5b4b37}
+.fh-nearby-actions{display:flex;flex-wrap:wrap;gap:9px}
+.fh-nearby-actions button{min-height:44px}
+.fh-nearby-actions button[aria-pressed="true"]{background:#355e4a;color:white}
+#gods-eye-nearby-status{font:13px Arial,sans-serif;color:#45382b}
+.fh-map-nearby .fh-map-results{margin:0}
+.fh-nearby-distance{font:12px Arial,sans-serif;color:#675947}
+@media(max-width:760px){.fh-map-nearby{padding:14px 11px}.fh-nearby-actions button{flex:1 1 115px}}
