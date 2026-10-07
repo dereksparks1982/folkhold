@@ -25,3 +25,16 @@ Folkhold's browser UI remains intentionally lightweight and uses browser-standar
 Google and Apple are external identity providers rather than bundled Folkhold software. Their OAuth credentials are deployment secrets and must never be committed to this repository.
 
 Future dependencies must be recorded here with their project URL, version, license and purpose before they become accepted parts of Folkhold.
+
+
+### Folkhold Radio opening theme: Ibn Al-Noor
+
+- Track: **Ibn Al-Noor**
+- Composer: Kevin MacLeod
+- Source: https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100706
+- License: Creative Commons Attribution 4.0 (CC BY 4.0)
+- License URL: https://creativecommons.org/licenses/by/4.0/
+- Purpose: default Folkhold Radio opening/theme track.
+- Repository asset: `assets/audio/music/ibn-al-noor.mp3`
+
+Attribution: **"Ibn Al-Noor" Kevin MacLeod (incompetech.com), licensed under Creative Commons: By Attribution 4.0 License.**

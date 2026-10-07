@@ -110,9 +110,9 @@ Payment principles:
 - keep the base room inexpensive enough that moving to an outside free service is not the obvious choice
 - adult-capable payment provider and age-verification requirements must be rechecked immediately before implementation
 
-## 7. Game Room: UO Folkhold
+## 7. Game Room: UO Folkhold — deferred
 
-The planned first major Game Room world is **UO Folkhold**, a private/free Ultima Online shard built from Derek's preserved **RunUO 2.0 Final Repack** rather than replacing it with a newer emulator simply because newer software exists.
+UO Folkhold is intentionally deferred until higher-priority Folkhold work is farther along. When resumed, it remains a private/free Ultima Online shard built from Derek's preserved **RunUO 2.0 Final Repack** rather than replacing it with a newer emulator simply because newer software exists.
 
 Primary goals:
 
@@ -180,7 +180,43 @@ See `docs/BACKGAMMON.md`.
 - mutuals
 - future AI People Finder restricted to information members explicitly chose to make discoverable
 
-## 12. Documentation and release discipline
+## 12. Folkhold Radio and shared audio system
+
+Folkhold should have one persistent radio/music layer rather than page-specific audio islands.
+
+- compact controls remain at the absolute bottom of every Folkhold screen
+- previous, play/pause, next, track information, seek and volume
+- playlist continues while navigating between Folkhold screens
+- the first/default opening theme is **Ibn Al-Noor** by Kevin MacLeod
+- attempt audible autoplay on initial load; when browser policy blocks it, the first user gesture starts playback
+- playlists are data-driven so adding songs does not require rewriting the player
+- all sound assets stay organized under `assets/audio/music`, `ambience`, `sfx`, or `voice`
+- radio styling belongs to Folkhold rather than copying Federal Electric's 1930s radio face
+- only audio with usable provenance/licensing belongs in the public Folkhold repository
+
+See `docs/AUDIO_RADIO.md`.
+
+## 13. Wayfarer / Travel Copilot
+
+Fold the useful Midlife Crisis travel prototype into Folkhold as a first-class place rather than maintaining a competing standalone app.
+
+Initial scope:
+
+- **God's Eye** map with live location and place search
+- nearby mosques, food, history, adventure and nightlife
+- live exchange rates and weather
+- Hanafi-aware prayer times
+- English ↔ Turkish conversation translation, with additional languages later
+- **Fair Price** mode that separates objective conversion from evidence-based local valuation and reports weak/no data plainly
+- lightweight **Hitch** social coaching: language/cultural context and a few tools without scripting the user's entire interaction
+- one shared travel assistant that can use trip state/location/context instead of many unrelated mini-assistants
+- later connection to Folkhold itself, such as asking the Square/local Holds for current local knowledge
+- phone-first responsive UI without crowding the permanent five-button mobile bar; start with a Hub/desktop entry point
+- reuse the `midlifecrisis` prototype as a source pool until the Folkhold implementation is accepted
+
+Trust rule: live prices, laws, schedules and local facts need current evidence. The assistant must not manufacture a confident answer when the data layer does not support one.
+
+## 14. Documentation and release discipline
 
 For every accepted patch/add-on/feature:
 

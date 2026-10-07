@@ -113,6 +113,8 @@ Do not modify licensing or legal-policy files merely as collateral cleanup. File
 - Approved artwork must be used exactly unless deterministic resize/format conversion is explicitly needed.
 - Binary assets must be handled through binary-safe tooling and verified after upload.
 - Generic code/CSS placeholders are preferred when a final visual asset has not been approved or when a platform-specific slot is fighting the approved artwork.
+- Audio files are never left loose in `assets/`. Store them under `assets/audio/` by role: `music/`, `ambience/`, `sfx/`, or `voice/`. Keep playlist metadata in the radio/audio module rather than scattering media paths through unrelated UI code.
+- New audio assets must have a clear source/license or owner-provided provenance recorded before they are treated as release assets.
 
 ## 12. Folkhold product truths
 
