@@ -19,7 +19,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/folkhold-app-icon-180.png?v=9">
   <link rel="manifest" href="site.webmanifest?v=9">
   <link rel="stylesheet" href="styles.css?v=18">
-  <link rel="stylesheet" href="gods-eye/map.css?v=4">
+  <link rel="stylesheet" href="gods-eye/map.css?v=5">
   <style>
     .brand-mark{overflow:hidden;padding:0;background:#111}
     .brand-mark img{display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit}
@@ -302,6 +302,46 @@
               </section>
             </div>
           </section>
+          <section id="gods-eye-conversation" class="fh-talk" aria-label="Travel conversation and fair price">
+            <h2>Conversation & Fair Price</h2>
+            <div class="fh-talk-grid">
+              <section class="fh-talk-box">
+                <h3>Two-Way Translator</h3>
+                <p>Translate a short message when you press Translate. Entered text is sent to MyMemory, a third-party translation service.</p>
+                <form id="gods-eye-translate-form">
+                  <div class="fh-talk-language-row">
+                    <label>From<select id="gods-eye-language-from"><option value="en">English</option><option value="tr">Turkish</option><option value="ar">Arabic</option><option value="fa">Persian</option><option value="fr">French</option></select></label>
+                    <button type="button" class="secondary" id="gods-eye-language-swap" aria-label="Swap languages">⇄</button>
+                    <label>To<select id="gods-eye-language-to"><option value="tr">Turkish</option><option value="en">English</option><option value="ar">Arabic</option><option value="fa">Persian</option><option value="fr">French</option></select></label>
+                  </div>
+                  <label>Your message<textarea id="gods-eye-language-text" maxlength="300" rows="3" required placeholder="Hello, where is the nearest mosque?"></textarea></label>
+                  <button type="submit" class="primary">Translate</button>
+                </form>
+                <p id="gods-eye-translation-result" role="status">Translation will appear here. Verify important details with a speaker.</p>
+                <h4>Helpful Turkish phrases</h4>
+                <div id="gods-eye-phrasebook" class="fh-phrasebook"></div>
+              </section>
+              <section class="fh-talk-box">
+                <h3>Fair Price</h3>
+                <p>Compare a quoted price with <strong>your own known reference</strong> in the same currency. This is a comparison tool, not a local market-price database.</p>
+                <form id="gods-eye-fair-form">
+                  <label>Quoted price<input id="gods-eye-fair-quote" type="number" min="0" step="any" max="100000000000" required placeholder="500"></label>
+                  <label>Your trusted comparison price<input id="gods-eye-fair-reference" type="number" min="0.01" step="any" max="100000000000" required placeholder="400"></label>
+                  <label>Currency<select id="gods-eye-fair-currency"><option>TRY</option><option>USD</option><option>EUR</option><option>TND</option><option>MAD</option><option>GBP</option><option>IRR</option></select></label>
+                  <button type="submit" class="primary">Compare Prices</button>
+                </form>
+                <p id="gods-eye-fair-result" role="status">Enter a real quote and a reliable reference price to compare.</p>
+                <small>Does not estimate typical local prices, legal rules, or whether a seller is trustworthy.</small>
+              </section>
+              <section class="fh-talk-box fh-hitch-box">
+                <h3>Hitch · Travel Companion</h3>
+                <p id="gods-eye-hitch-place">Select a map location to make the local travel tools relevant.</p>
+                <p>Hitch currently organizes your travel context and useful language prompts. A conversational AI assistant with live local research is a later slice.</p>
+                <button type="button" class="secondary" id="gods-eye-hitch-summary">Show My Travel Context</button>
+                <p id="gods-eye-hitch-result" role="status">Choose a place, then explore the tools above.</p>
+              </section>
+            </div>
+          </section>
           <p class="fh-map-credit">Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>. Place search by Photon. Roads and member directions come in later slices.</p>
         </section>
       </section>
@@ -363,6 +403,7 @@
   <script src="gods-eye/routes.js?v=1"></script>
   <script src="gods-eye/nearby.js?v=1"></script>
   <script src="gods-eye/essentials.js?v=1"></script>
+  <script src="gods-eye/companion.js?v=1"></script>
   <script src="app.js?v=19"></script>
 </body>
 </html>

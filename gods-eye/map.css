@@ -61,3 +61,24 @@
 .fh-prayer-times{list-style:none;padding:0;margin:8px 0;display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
 .fh-prayer-times li{display:grid;gap:3px;padding:8px;background:#f0e6d3;border-radius:6px;font:13px Arial,sans-serif}
 @media(max-width:760px){.fh-travel{padding:14px 11px}.fh-travel-grid{grid-template-columns:1fr}}
+
+/* Slice 24: contextual conversation and conservative price comparator. */
+.fh-talk{margin:18px 0 0;padding:18px;border:1px solid #c1a984;border-radius:12px;background:#f9efde}
+.fh-talk h2{font:700 26px Georgia,serif;color:#3b2d1d;margin:0 0 13px}
+.fh-talk-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+.fh-talk-box{display:grid;align-content:start;gap:11px;min-width:0;padding:16px;border:1px solid #d0bda2;background:#fff9ed;border-radius:10px}
+.fh-talk-box h3{margin:0;font:700 19px Georgia,serif;color:#392c21}
+.fh-talk-box h4{margin:0;font:700 15px Georgia,serif;color:#3d2e22}
+.fh-talk-box p,.fh-talk-box small{margin:0;font:13px Arial,sans-serif;line-height:1.55;color:#574634;overflow-wrap:anywhere}
+.fh-talk-box small{font-size:11px}
+.fh-talk-box form{display:grid;gap:10px}
+.fh-talk-box label{display:grid;gap:5px;font:700 12px Arial,sans-serif;color:#47382b}
+.fh-talk-box input,.fh-talk-box select,.fh-talk-box textarea{min-width:0;width:100%;padding:10px;border:1px solid #baa17b;border-radius:8px;background:white;color:#34281b;font:16px Arial,sans-serif}
+.fh-talk-box button{min-height:44px}
+.fh-talk-language-row{display:grid;grid-template-columns:minmax(0,1fr) 45px minmax(0,1fr);gap:7px;align-items:end}
+.fh-talk-language-row button{padding:0;text-align:center}
+.fh-phrasebook{display:grid;gap:7px}
+.fh-phrasebook button{width:100%;display:grid;gap:4px;padding:10px 12px;text-align:left;border:1px solid #c8ae84;border-radius:7px;background:#f1e6d3;color:#33251b}
+.fh-phrasebook small{font:12px Arial,sans-serif}
+.fh-hitch-box{grid-column:1/-1}
+@media(max-width:760px){.fh-talk{padding:14px 11px}.fh-talk-grid{grid-template-columns:1fr}.fh-hitch-box{grid-column:auto}}
