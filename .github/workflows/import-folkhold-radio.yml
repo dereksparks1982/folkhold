@@ -1,0 +1,65 @@
+name: Import licensed Folkhold Radio tracks
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - '.github/workflows/import-folkhold-radio.yml'
+
+permissions:
+  contents: write
+
+jobs:
+  import-radio:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Fetch approved CC BY 4.0 tracks
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p assets/audio/music
+          get_track() {
+            name="$1"
+            encoded_title="$2"
+            target="assets/audio/music/$name.mp3"
+            if [[ -s "$target" ]]; then
+              echo "Already present: $target"
+              return
+            fi
+            url="https://incompetech.com/music/royalty-free/mp3-royaltyfree/${encoded_title}.mp3"
+            curl --fail --location --silent --show-error --retry 3 --max-time 180 \
+              --user-agent 'FolkholdCCBYImporter/1.0' "$url" -o "$target"
+            size="$(stat -c %s "$target")"
+            if [[ "$size" -lt 50000 || "$size" -gt 30000000 ]]; then
+              echo "Invalid track size: $target ($size)" >&2
+              exit 1
+            fi
+            if ! file "$target" | grep -Eiq 'MPEG|Audio|ID3'; then
+              echo "Rejected non-MP3 payload: $target" >&2
+              file "$target"
+              exit 1
+            fi
+          }
+          get_track desert-city 'Desert%20City'
+          get_track lord-of-the-land 'Lord%20of%20the%20Land'
+          get_track suonatore-di-liuto 'Suonatore%20di%20Liuto'
+          get_track the-pyre 'The%20Pyre'
+          get_track dhaka 'Dhaka'
+      - name: Commit licensed recordings
+        shell: bash
+        run: |
+          set -euo pipefail
+          git config user.name "folkhold-radio-bot"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -- assets/audio/music/desert-city.mp3 \
+            assets/audio/music/lord-of-the-land.mp3 \
+            assets/audio/music/suonatore-di-liuto.mp3 \
+            assets/audio/music/the-pyre.mp3 \
+            assets/audio/music/dhaka.mp3
+          if git diff --cached --quiet; then
+            echo "Already imported."
+            exit 0
+          fi
+          git commit -m "Import approved CC BY 4.0 Folkhold Radio recordings"
+          git push origin HEAD:main

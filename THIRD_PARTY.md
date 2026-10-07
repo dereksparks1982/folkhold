@@ -38,3 +38,18 @@ Future dependencies must be recorded here with their project URL, version, licen
 - Repository asset: `assets/audio/music/ibn-al-noor.mp3`
 
 Attribution: **"Ibn Al-Noor" Kevin MacLeod (incompetech.com), licensed under Creative Commons: By Attribution 4.0 License.**
+
+
+### Folkhold Radio station tracks
+
+All listed music is composed and performed by **Kevin MacLeod (incompetech.com)** and distributed under **Creative Commons Attribution 4.0** (https://creativecommons.org/licenses/by/4.0/). Retain this credit with any redistribution.
+
+| Track | Composer source | Organized audio path |
+|---|---|---|
+| Desert City | https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100564 | `assets/audio/music/desert-city.mp3` |
+| Lord of the Land | https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400022 | `assets/audio/music/lord-of-the-land.mp3` |
+| Suonatore di Liuto | https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400023 | `assets/audio/music/suonatore-di-liuto.mp3` |
+| The Pyre | https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1100846 | `assets/audio/music/the-pyre.mp3` |
+| Dhaka | https://incompetech.com/music/royalty-free/index.html?isrc=USUAN1400003 | `assets/audio/music/dhaka.mp3` |
+
+These are *regionally inspired instrumentals*, not Islamic religious recitations or verified historical Persian recordings. Public repository files should use the original audio without modifications.
