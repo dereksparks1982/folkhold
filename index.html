@@ -19,7 +19,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/folkhold-app-icon-180.png?v=9">
   <link rel="manifest" href="site.webmanifest?v=9">
   <link rel="stylesheet" href="styles.css?v=18">
-  <link rel="stylesheet" href="gods-eye/map.css?v=3">
+  <link rel="stylesheet" href="gods-eye/map.css?v=4">
   <style>
     .brand-mark{overflow:hidden;padding:0;background:#111}
     .brand-mark img{display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit}
@@ -268,6 +268,40 @@
             <ol id="gods-eye-nearby-results" class="fh-map-results" aria-label="Nearby places"></ol>
             <p class="fh-map-credit">Listings are community-maintained; opening hours, access and food certifications must be checked directly.</p>
           </section>
+          <section id="gods-eye-travel" class="fh-travel" aria-label="Travel essentials">
+            <h2>Travel Essentials</h2>
+            <p class="fh-travel-lead">Weather and prayer times use the selected map place. They load only when you request them.</p>
+            <div class="fh-travel-grid">
+              <section class="fh-travel-tool">
+                <h3>Current Weather</h3>
+                <button type="button" class="secondary" id="gods-eye-weather-button">Check Weather</button>
+                <p id="gods-eye-weather-result" role="status">Choose a place, then check.</p>
+                <small>Source: Open-Meteo. Current model data, not a weather alert.</small>
+              </section>
+              <section class="fh-travel-tool">
+                <h3>Hanafi Prayer Times</h3>
+                <label for="gods-eye-prayer-method">Calculation method</label>
+                <select id="gods-eye-prayer-method">
+                  <option value="13">Diyanet (Turkey)</option><option value="3">Muslim World League</option>
+                  <option value="1">Karachi</option><option value="4">Umm al-Qura</option><option value="18">Tunisia</option><option value="21">Morocco</option>
+                </select>
+                <button type="button" class="secondary" id="gods-eye-prayer-button">Get Prayer Times</button>
+                <div id="gods-eye-prayer-result" role="status">Choose a place, then calculate.</div>
+                <small>Hanafi Asr (school=1). Calculated estimates; check a local mosque's schedule.</small>
+              </section>
+              <section class="fh-travel-tool fh-travel-converter">
+                <h3>Currency Exchange</h3>
+                <form id="gods-eye-currency-form" class="fh-money-form">
+                  <label>Amount<input id="gods-eye-money-amount" type="number" min="0.01" max="100000000" step="any" value="100" required></label>
+                  <label>From<select id="gods-eye-money-from"><option>USD</option><option>TRY</option><option>EUR</option><option>GBP</option><option>TND</option><option>MAD</option><option>AED</option><option>SAR</option><option>IRR</option></select></label>
+                  <label>To<select id="gods-eye-money-to"><option>TRY</option><option>USD</option><option>EUR</option><option>GBP</option><option>TND</option><option>MAD</option><option>AED</option><option>SAR</option><option>IRR</option></select></label>
+                  <button type="submit" class="primary">Convert</button>
+                </form>
+                <p id="gods-eye-currency-result" role="status">Uses daily published reference rates, not cash exchange offers.</p>
+                <small>Source: Frankfurter reference rates. Real cash/ATM rates and fees differ.</small>
+              </section>
+            </div>
+          </section>
           <p class="fh-map-credit">Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>. Place search by Photon. Roads and member directions come in later slices.</p>
         </section>
       </section>
@@ -328,6 +362,7 @@
   <script src="gods-eye/map.js?v=2"></script>
   <script src="gods-eye/routes.js?v=1"></script>
   <script src="gods-eye/nearby.js?v=1"></script>
+  <script src="gods-eye/essentials.js?v=1"></script>
   <script src="app.js?v=19"></script>
 </body>
 </html>
