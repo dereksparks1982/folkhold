@@ -18,7 +18,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/folkhold-app-icon-192.png?v=9">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/folkhold-app-icon-180.png?v=9">
   <link rel="manifest" href="site.webmanifest?v=9">
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=18">
   <style>
     .brand-mark{overflow:hidden;padding:0;background:#111}
     .brand-mark img{display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit}
@@ -218,6 +218,15 @@
           </section>
         </div>
       </section>
+      <section class="view" data-screen="radio">
+        <div class="section-heading">
+          <div><span class="eyebrow">MUSIC OF THE HOLD</span><h1>Folkhold Radio</h1>
+            <p>Choose a song and keep listening while you explore the village.</p></div>
+        </div>
+        <section class="panel fh-radio-page" aria-label="Folkhold Radio player">
+          <div id="folkhold-radio-mount"></div>
+        </section>
+      </section>
     </main>
   </div>
 
@@ -226,7 +235,9 @@
     <button type="button" data-view="square"><span>🏛</span>Square</button>
     <button type="button" data-view="hold"><span class="folkhold-hold-icon" aria-hidden="true">♜</span>Hold</button>
     <button type="button" data-view="notice"><span>📌</span>Board</button>
+    <button type="button" data-view="directory"><span aria-hidden="true">📖</span>Directory</button>
     <button type="button" data-view="keys"><span>🔑</span>Keys</button>
+    <button type="button" data-view="radio"><span aria-hidden="true">📻</span>Radio</button>
   </footer>
 
   <div class="ad-strip" id="ad-strip" aria-label="Advertisement">
@@ -260,7 +271,7 @@
 
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="radio/playlist.js?v=1"></script>
-  <script src="radio/player.js?v=1"></script>
+  <script src="radio/player.js?v=2"></script>
   <script src="app.js?v=15"></script>
 </body>
 </html>
