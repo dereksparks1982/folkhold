@@ -189,7 +189,7 @@ Folkhold should have one persistent radio/music layer rather than page-specific 
 - playlist continues while navigating between Folkhold screens; only player controls are inside the Radio place
 - the first/default opening theme is **Ibn Al-Noor** by Kevin MacLeod
 - attempt audible autoplay on initial load; when browser policy blocks it, the first user gesture starts playback
-- playlists are data-driven so adding songs does not require rewriting the player
+- playlists are data-driven, with **All Music**, **Eastern Roads** and **Medieval Hall** presets and six locally hosted, licensed tracks; future authorized recordings use the same organized import process
 - all sound assets stay organized under `assets/audio/music`, `ambience`, `sfx`, or `voice`
 - radio styling belongs to Folkhold rather than copying Federal Electric's 1930s radio face
 - only audio with usable provenance/licensing belongs in the public Folkhold repository
