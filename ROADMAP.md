@@ -231,3 +231,32 @@ For every accepted patch/add-on/feature:
 ## Execution slices
 
 The ordered work breakdown lives in `docs/TASK_SLICES.md`. It is intentionally sliced so each feature can be built, checked, documented, and accepted without turning Folkhold into one giant mystery commit.
+
+
+## 15. Key-to-Key directions on God's Eye
+
+When two Folkhold members exchange/accept Keys, either member should be able to **activate Directions** to the other member through God's Eye, without leaving the Folkhold experience.
+
+- **Mutual Key relationship** makes a member eligible for this feature, but *does not automatically reveal either person's location*.
+- Each member chooses whether to share a destination with that particular Key holder: home, public meeting spot, or a temporary pin. A precise private address is **never inferred from the Key alone**.
+- From a Key card or God's Eye contact, **Directions** opens the real street-level route from the requesting member's current GPS location to the other member's explicitly shared destination.
+- Show the route drawn on the map, travel distance, estimated travel time, and walking/driving choice; re-route when necessary.
+- Support a one-tap **Navigate** handoff to a navigation app, such as Google Maps, when turn-by-turn directions are preferable.
+- Location permissions, share/revoke controls, expiration for temporary pins, and clear who-can-see-what states must precede any release.
+- Shared destination data must be private server-side, gated by authenticated identities and individual Key grants.
+- Do not silently broadcast live position or infer location from chat/metadata. Revoke/Key removal should make the destination unavailable immediately.
+- Reuse Wayfarer's God's Eye mapping stack. Real routing requires a provider that returns **road/path geometry**, not just a straight connecting line. Choose an appropriately licensed/capacity-suitable service before production.
+
+Dependency: authenticated accounts, persistent Keys, permission enforcement (Slice 6), and the Wayfarer/God's Eye map.
+
+## 16. Radio: authentic cultural recordings
+
+The initial Kevin MacLeod CC BY 4.0 instrumentals are **placeholders**. Derek wants a distinctive, culturally grounded soundtrack that avoids the generic medieval/city-builder game-music feeling.
+
+- Curate actual Persian/Iranian instrumental traditions (e.g. tar, setar, santur, kamancheh, ney), as well as credible Arabic, Turkish/Anatolian and Nordic heritage music.
+- Where appropriate, include traditional regional performances or original compositions by living musicians rather than stock-style soundtrack cues.
+- Distinguish genuinely traditional recordings from newly composed music styled to sound traditional. Do not label modern "Eastern-inspired" music as authentic Persian or sacred Islamic music.
+- Investigate recording copyright separately from the age of the underlying melody; prioritize explicitly public-domain recordings, CC-licensed performances permitting redistribution, or direct artist permission.
+- Preserve performer, instruments, culture/region, year (when known), proper native-script names, provenance and license next to each audio file and in the radio track manifest.
+- Offer thoughtful stations curated by musical tradition as the catalog matures, not arbitrary "exotic" labels.
+- Preserve the original Folkhold opening theme until Derek expressly approves its replacement.

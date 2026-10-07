@@ -1,5 +1,14 @@
 # Folkhold Project Log
 
+## 2026-10-07 — Desktop Hold and Key-to-Key routes
+
+- Owner screenshot exposed a runtime desktop My Hold house icon despite the accepted mobile rook/tower icon. Desktop runtime icon was changed to the identical ♜ glyph, and script cache versions advanced.
+- Key-to-Key route concept: Keys unlock the ability to share a meeting destination **only on explicit opt-in**; God's Eye should draw the actual street path from the current device GPS to the shared pin and allow navigation handoff.
+- The route feature is documented and deferred until accounts, permissioned Keys and the Wayfarer map are in place.
+- Original Kevin MacLeod music is now explicitly considered a **placeholder**, while authentic Persian and other tradition-specific performances are researched under a separate licensing/curation slice.
+- No actual recipient address tracking, routing backend or new audio recording was deployed as part of this roadmap update.
+
+
 ## 2026-10-07 — Radio moves into navigation
 
 - Derek requested Radio as one of the bottom navigation buttons, not a floating panel above them.

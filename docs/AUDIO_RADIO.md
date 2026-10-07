@@ -52,3 +52,10 @@ For future songs, confirm redistribution rights, upload media under `assets/audi
 ### Acceptance checks
 
 On iPhone swipe the lower nav to Radio. Confirm that stations switch, all six songs play, volume, seek and pause work, and music continues while you visit the Hold or Square. Verify that the Hub icon, Hold tower and approved leather background remain unchanged. Do the same playback/navigation checks on desktop.
+
+
+## Soundtrack direction: cultural recordings (owner request)
+
+The six Kevin MacLeod tracks are **temporary placeholders**. The desired eventual identity is authentic, distinctive Persian, Middle Eastern, Anatolian and Nordic music, preferably real performances with characteristic instruments and provenance rather than common game/stock-soundtrack material. Research candidates by the recording's actual performer and tradition, then verify permission to redistribute the *sound recording*. A centuries-old melody does not make a modern recording public domain.
+
+Keep the current starter tracks while building the better collection. Preserve the owner-chosen default opening track until explicitly changed. Track a music candidate's title (including original script if available), performer, region, instrumentation, label/rights holder, source, license, and source quality before any public import.

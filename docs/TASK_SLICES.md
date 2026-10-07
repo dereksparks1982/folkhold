@@ -372,3 +372,31 @@ The existing `dereksparks1982/midlifecrisis` repository is a prototype/source po
 - Verify next/previous, station-switch, track selection, and global audio continuity.
 
 Source/import verified: GitHub Actions [run 37694240022](https://github.com/dereksparks1982/folkhold/actions/runs/37694240022) succeeded. All six organized MP3 assets are present. Do not mark DONE until owner tests on iPhone and desktop.
+
+
+## Slice 18 — Key-to-Key God's Eye navigation
+
+**Status: ROADMAP / BLOCKED by identity + Keys persistence and Wayfarer map.**
+
+Goal: after two members exchange Keys, let a member request a real street route from their current position to the other member's **explicitly shared** destination.
+
+Stages:
+
+1. UI/data contract for per-Key **Share meeting point / Share destination**, revocation and optional expiry. A Key exchange by itself reveals no position/address.
+2. Road-level routing adapter on God's Eye, with walking/driving distance, ETA, polyline/road geometry and route state (not a straight line).
+3. Key Ring and God's Eye **Directions** controls; live starting GPS is local to the requesting device and only sent to the chosen router on request.
+4. Optional Google Maps/other navigation handoff for turn-by-turn guidance.
+5. Authenticated server enforcement, mutual relationship check, permission deletion/revocation and mobile tests.
+
+Acceptance: two distinct accounts exchange Keys; one explicitly shares a destination; the recipient sees an actual road route on iPhone; revoking the location or Key removes access; no address leaks before opt-in.
+
+## Slice 19 — Authentic cultural Radio catalog
+
+**Status: RESEARCH / READY for licensing-and-curation work.**
+
+- Current CC BY instrumentals remain acceptable temporary placeholders, not the long-term Folkhold soundtrack.
+- Research authentic Persian, Arabic, Anatolian/Turkish and Nordic recordings with enough quality and cultural identity to be distinct from common video-game library tracks.
+- Verify **recording** redistribution permission, not just traditional composition status or a YouTube upload.
+- Maintain an organized candidate/approved catalog with musician and source credits, native titles, cultural description, sound files and licenses.
+- Replace/add recordings in self-contained curated slices only when legally usable assets are confirmed.
+- Do not replace the current opening theme without owner approval.
