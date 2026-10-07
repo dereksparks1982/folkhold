@@ -77,3 +77,10 @@ See `docs/UO_FORENSICS_2026-09-30.md`.
 ## General validation boundary
 
 GitHub source state, browser behavior, Cloudflare services, iOS Home Screen behavior, Derek's local Linux/runtime environment, and a UO client/data set are separate validation surfaces. Success in one must not be reported as proof of another.
+
+## Radio navigation candidate
+
+- Radio now has its own page, accessed through a mobile swipeable navigation button or the desktop top navigation. The old persistent floating bar was removed.
+- Touch scrolling and spacing need validation on the real iPhone.
+- Audible browser autoplay, especially on iPhone, may be blocked until the first user gesture.
+- Publicly hosted music must have redistribution rights. YouTube downloads are not assumed to have those rights.
