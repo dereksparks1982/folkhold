@@ -9,6 +9,7 @@ Status values:
 - **READY** — can be taken next without another dependency
 - **BLOCKED** — needs a prerequisite or owner-provided external credential/resource
 - **ROADMAP** — intentionally not active yet
+- **DEFERRED** — deliberately parked while higher-priority Folkhold work proceeds
 
 ## Slice 0 — v1.1.0 documentation and closeout
 
@@ -31,7 +32,7 @@ The exact v1.1.0 closeout commit deployed successfully through GitHub Pages.
 
 ## Slice 1 — UO Folkhold archive forensics
 
-**Status: REVIEW**
+**Status: DEFERRED (forensic work preserved; no further UO work is a current priority)**
 
 Goal: understand the exact preserved RunUO package before changing it.
 
@@ -57,7 +58,7 @@ Acceptance boundary: forensic evidence and client test matrix only. No patch was
 
 ## Slice 2 — UO Folkhold client pinning
 
-**Status: BLOCKED until the candidate UO client/data set is available for runtime testing.**
+**Status: DEFERRED.**
 
 Goal: prove one exact client/data set against the preserved server.
 
@@ -80,7 +81,7 @@ Acceptance boundary: exact client/data baseline documented with runtime evidence
 
 ## Slice 3 — UO Folkhold Linux/Mono runtime adaptation
 
-**Status: BLOCKED by candidate client/data availability for full validation.**
+**Status: DEFERRED.**
 
 Goal: run the preferred RunUO 2.0 repack on Linux while preserving its behavior.
 
@@ -104,7 +105,7 @@ Acceptance boundary: standalone UO Folkhold server reliably runs on Linux before
 
 ## Slice 4 — UO Folkhold Game Room integration
 
-**Status: BLOCKED by a stable standalone shard.**
+**Status: DEFERRED.**
 
 Goal: make UO Folkhold feel like something living inside the Game Room without hiding the preserved server architecture.
 
@@ -311,3 +312,48 @@ At the end of every completed slice:
 6. update roadmap/memory/Bible only when the slice changes those truths
 7. advance version according to `COMPANY_BIBLE.md` when a release/version boundary is actually reached
 8. keep `main` as the only branch
+
+
+## Slice 15 — Folkhold Radio + organized audio
+
+**Status: REVIEW**
+
+Goal: one persistent Folkhold music player with a clean audio-asset layout.
+
+Candidate implemented:
+
+- `radio/playlist.js` is the single playlist manifest
+- `radio/player.js` owns playback/UI behavior
+- controls are fixed to the absolute bottom of every screen
+- previous / play-pause / next / current track / seek / volume
+- playback survives normal Folkhold screen navigation because Folkhold is a single-page shell
+- **Ibn Al-Noor** is track 1 and the default opening theme
+- initial load attempts autoplay
+- if the browser blocks audible autoplay, first user interaction retries automatically
+- uploaded MP3 moved byte-for-byte from loose `assets/` into `assets/audio/music/ibn-al-noor.mp3`
+- audio folder rules documented for music, ambience, SFX and voice
+
+Acceptance boundary: source structure and browser player candidate are ready for owner testing. Desktop/mobile audible autoplay still depends on browser policy.
+
+See `docs/AUDIO_RADIO.md`.
+
+## Slice 16 — Wayfarer / Travel Copilot integration
+
+**Status: READY**
+
+Goal: fold the useful Midlife Crisis travel prototype into Folkhold.
+
+First build:
+
+- Hub/desktop entry point without expanding the permanent five-button mobile footer
+- God's Eye map and live location
+- nearby places/discovery
+- exchange rate and weather
+- Hanafi prayer times
+- English/Turkish two-way conversation translation
+- Fair Price evidence/confidence layer
+- Hitch/social helper
+- shared travel context
+- hooks for later Ask the Square / local Folkhold knowledge
+
+The existing `dereksparks1982/midlifecrisis` repository is a prototype/source pool, not the long-term product home.
