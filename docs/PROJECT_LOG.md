@@ -1,5 +1,17 @@
 # Folkhold Project Log
 
+## 2026-10-07 — Radio moves into navigation
+
+- Derek requested Radio as one of the bottom navigation buttons, not a floating panel above them.
+- Made the mobile bottom navigation horizontally swipeable for destinations that exceed screen width.
+- Added a dedicated Radio screen and visible track list, preserving cross-screen music playback.
+- Added Radio to the desktop top navigation.
+- Corrected the existing player syntax error and unset first-run saved volume behavior.
+- Approved mobile background, Hub glyph and Hold tower were preserved unchanged.
+- Subsequent tracks belong under `assets/audio/music/` with playlist metadata in `radio/playlist.js`.
+- Candidate awaiting owner-device validation.
+
+
 ## 2026-10-01 — Backgammon roadmap and Majlis bridge reconciliation
 
 ### Backgammon added to the Game Room roadmap
