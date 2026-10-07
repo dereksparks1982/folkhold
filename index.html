@@ -19,6 +19,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="assets/folkhold-app-icon-180.png?v=9">
   <link rel="manifest" href="site.webmanifest?v=9">
   <link rel="stylesheet" href="styles.css?v=18">
+  <link rel="stylesheet" href="gods-eye/map.css?v=1">
   <style>
     .brand-mark{overflow:hidden;padding:0;background:#111}
     .brand-mark img{display:block;width:100%;height:100%;object-fit:cover;border-radius:inherit}
@@ -103,6 +104,10 @@
           </button>
           <button class="place-card tea-card" type="button" data-view="tea">
             <span class="place-icon folkhold-place-art"><img src="assets/folkhold-tea-room.png" alt=""></span><strong>Tea Room</strong><small>Strictly moderated, civility-first conversation.</small>
+          </button>
+          <button class="place-card gods-eye-card" type="button" data-view="gods-eye">
+            <span class="place-icon" aria-hidden="true">⌖</span><strong>God's Eye</strong>
+            <small>Explore the world from Folkhold.</small>
           </button>
         </section>
       </section>
@@ -218,6 +223,21 @@
           </section>
         </div>
       </section>
+      <section class="view" data-screen="gods-eye">
+        <div class="section-heading"><div><span class="eyebrow">WAYFARER • FOLKHOLD</span><h1>God's Eye</h1>
+          <p>Explore places around the world. Your location is optional and remains private in this first slice.</p></div></div>
+        <section class="panel fh-map-panel" aria-label="God's Eye">
+          <form id="gods-eye-search" class="fh-map-search" role="search">
+            <label for="gods-eye-query">Find a place</label>
+            <div class="fh-map-search-row"><input id="gods-eye-query" maxlength="160" minlength="2" required autocomplete="off" placeholder="City, landmark, or address"><button class="primary" type="submit">Search</button></div>
+          </form>
+          <div class="fh-map-actions"><button type="button" id="gods-eye-locate" class="secondary">◎ Use My Location</button><button type="button" id="gods-eye-world" class="secondary">World View</button></div>
+          <p id="gods-eye-status" class="fh-map-status" role="status" aria-live="polite">Open God's Eye to load the map.</p>
+          <div id="gods-eye-map" role="region" aria-label="Interactive world map"></div>
+          <ol id="gods-eye-results" class="fh-map-results" aria-label="Place search results"></ol>
+          <p class="fh-map-credit">Map data © <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener noreferrer">OpenStreetMap contributors</a>. Place search by Photon. Roads and member directions come in later slices.</p>
+        </section>
+      </section>
       <section class="view" data-screen="radio">
         <div class="section-heading">
           <div><span class="eyebrow">MUSIC OF THE HOLD</span><h1>Folkhold Radio</h1>
@@ -272,6 +292,7 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="radio/playlist.js?v=3"></script>
   <script src="radio/player.js?v=6"></script>
+  <script src="gods-eye/map.js?v=1"></script>
   <script src="app.js?v=19"></script>
 </body>
 </html>

@@ -1,0 +1,18 @@
+/* God's Eye slice 1: deliberately isolated from the accepted global UI. */
+.fh-map-panel{box-sizing:border-box;padding:24px;max-width:100%;overflow:hidden;background:rgba(255,248,238,.97)}
+.fh-map-search{display:grid;gap:9px}
+.fh-map-search label{font:700 13px Arial,sans-serif;color:#483627}
+.fh-map-search-row{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:9px}
+.fh-map-search-row input{min-width:0;width:100%;padding:12px;border:1px solid #bca17a;border-radius:8px;background:#fffdf8;color:#34281b;font:16px Arial,sans-serif}
+.fh-map-search-row button{min-height:44px}
+.fh-map-actions{display:flex;flex-wrap:wrap;gap:9px;margin:13px 0 9px}
+.fh-map-actions button{min-height:44px}
+.fh-map-status{margin:9px 0 14px;min-height:20px;font:13px Arial,sans-serif;color:#534331;line-height:1.5}
+#gods-eye-map{position:relative;width:100%;height:clamp(380px,61vh,680px);border:1px solid #907650;border-radius:12px;background:#d6d1bf;z-index:0;overflow:hidden}
+.fh-map-results{list-style:none;display:grid;gap:8px;margin:15px 0 0;padding:0}
+.fh-map-results button{width:100%;padding:13px 15px;text-align:left;border:1px solid #c5ae8c;border-radius:9px;background:#f5ebdc;color:#372a1e;overflow-wrap:anywhere}
+.fh-map-results button:hover{background:#e4eada}
+.fh-map-credit{margin:13px 0 0;font:12px Arial,sans-serif;color:#5f5448;line-height:1.6}
+.fh-map-credit a{color:#365c49}
+.gods-eye-card .place-icon{font:42px Georgia,serif}
+@media(max-width:760px){.fh-map-panel{padding:16px 12px}.fh-map-search-row{gap:6px}.fh-map-search-row button{padding:10px 12px}#gods-eye-map{height:min(61dvh,560px);min-height:310px}}
