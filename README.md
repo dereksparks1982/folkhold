@@ -10,6 +10,12 @@ Folkhold is a social web project built around personal places rather than flat p
 - **Hanafi Learning Deck:** https://dereksparks1982.github.io/Hanafi-Islam-Learning-Deck/
 - **Hanafi Learning Deck repository:** https://github.com/dereksparks1982/Hanafi-Islam-Learning-Deck
 
+## Development candidate: Folkhold Radio place
+
+Radio is now accessible from the desktop top navigation and the **horizontally swipeable iPhone bottom navigation**. It has its own screen with track list, play/pause, previous/next, volume and seek controls. Its audio engine remains playing while switching normal Folkhold screens. The original theme is **Ibn Al-Noor**. This candidate awaits owner testing, and browser autoplay restrictions still apply.
+
+Future licensed songs belong in `assets/audio/music/`, registered through `radio/playlist.js`. See `docs/AUDIO_RADIO.md`.
+
 ## v1.1.0 — Hold Door and Navigation Closeout
 
 **Folkhold v1.1.0 closed out on September 30, 2026.**
