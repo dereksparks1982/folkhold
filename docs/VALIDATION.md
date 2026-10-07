@@ -1,3 +1,19 @@
+## 2026-10-07 Radio navigation candidate
+
+Source-verified, not yet owner-device accepted:
+
+- Added Folkhold Radio screen with a visible playlist and controls within the page; removed the fixed player bar behavior.
+- Added Radio to desktop top navigation and mobile bottom navigation.
+- Seven destinations now exist in mobile navigation, with native horizontal scrolling and snap points.
+- Directory is included in static mobile markup, so the older script's six-cell grid override is skipped.
+- The same audio object remains alive across screen navigation.
+- Fixed a syntax error in `radio/player.js`: the Previous button event listener's `else` block was missing a closing brace. This was discovered while verifying the Radio relocation.
+- Corrected the first-run default volume: missing localStorage data now gives the intended 32% rather than 0%.
+- Candidate JavaScript passed syntax parsing before commit.
+- Approved background, Hub symbol and Hold tower were intentionally unchanged.
+
+Still needed: confirm live desktop/iPhone UI, swipe behavior, and audible player/autoplay behavior on the real devices.
+
 # Folkhold Validation Record
 
 This file records what has actually been observed or verified. It is intentionally narrower than the roadmap or implementation claims.
