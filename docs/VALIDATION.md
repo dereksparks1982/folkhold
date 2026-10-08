@@ -1,18 +1,18 @@
-## 2026-10-07 — God's Eye Wayfarer travel slices 21–24
+## 2026-10-07 — Travel Companion Wayfarer travel slices 21–24
 
 Source/structure validations:
 
 - Confirmed `gods-eye/map.js`, `routes.js`, `nearby.js`, `essentials.js` and `companion.js` all parsed as JavaScript.
-- God’s Eye passes selected point and map references through explicit in-page events. Directions requests are manual, using a Valhalla OSRM-compatible GeoJSON route response with a Google Maps external link as fallback.
+- Travel Companion passes selected point and map references through explicit in-page events. Directions requests are manual, using a Valhalla OSRM-compatible GeoJSON route response with a Google Maps external link as fallback.
 - Nearby places are manually requested with bounded Overpass categories and map markers; source lists may be incomplete.
 - Weather, Hanafi prayers and conversion need button/form actions. Prayer-day calculation uses destination time zone (fetched if weather was not checked first).
 - Translation is manual and limited to short messages; offline Turkish phrase buttons do not send network requests. Fair Price is benchmark-relative math only. Hitch is a selected-map-place context summary, not an AI chatbot.
 - Verified HTML module order, five associated travel JS modules, and seven untouched bottom navigation destinations; accepted Radio v1.2.0 assets were not edited.
 - **Not independently verified:** actual demo/data provider API success in browser, CORS, real route drawn, correct local clock/fiqh timing against an official mosque, physical device GPS and UX, or owner acceptance.
 
-## 2026-10-07 — God's Eye slice 1 source validation
+## 2026-10-07 — Travel Companion slice 1 source validation
 
-- Verified standalone God's Eye screen and Hub card use the existing Folkhold `data-view` system.
+- Verified standalone Travel Companion screen and Hub card use the existing Folkhold `data-view` system.
 - `gods-eye/map.js` parsed as JavaScript; no automatic position lookup, no shared user GPS records or map tile prefetch are implemented.
 - Search requests are manually submitted, limited to five Photon results, and cached per browser tab. The provider remains a limited demo.
 - Leaflet library loaded lazily via pinned CDN + integrity hashes; map data displayed with OSM attribution.

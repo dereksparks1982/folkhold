@@ -92,7 +92,7 @@ GitHub source state, browser behavior, Cloudflare services, iOS Home Screen beha
 - Audible autoplay remains governed by browser/OS permission. iOS Safari may require user interaction.
 
 
-## God's Eye core map candidate
+## Travel Companion core map candidate
 
 - Map UI is source-implemented, but external Leaflet CDN, OSM community tiles and Photon demo search must be checked live on desktop/iPhone.
 - OSM tile and Photon search services are best-effort/limited capacity; replace with provisioned providers before production scale.

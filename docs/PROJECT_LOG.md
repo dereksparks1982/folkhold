@@ -1,19 +1,27 @@
 # Folkhold Project Log
 
+## 2026-10-07 — Travel Companion temporary name
+
+- Owner requested that the new travel destination be named **Travel Companion**, not the previous map-focused title.
+- Updated Hub card, screen heading, accessible panel label, map feedback, Hitch subheading and current product documentation.
+- Kept `gods-eye` internal identifiers, hashes and module paths stable to preserve deep links and existing functionality.
+- Radio v1.2.0, seven-button swipeable navigation and approved wallpaper/icons were not touched.
+
+
 ## 2026-10-07 — Wayfarer candidate slices 21–24
 
 - Implemented a road routing module using the Valhalla demo server for explicit start/end, walking/driving geometry, time/distance and optional navigation handoff.
 - Implemented on-demand nearby Overpass category discovery (mosques, food, history, adventure, nightlife).
 - Implemented Open-Meteo weather, Frankfurter conversion and AlAdhan Hanafi prayer times using selected coordinates. Follow-up corrected prayer-date calculations to the destination timezone before a weather request.
 - Implemented MyMemory short translation, offline Turkish phrases, Fair Price using the user's own reference and a basic Hitch shared selected-place context.
-- Updated the God's Eye heading to clarify that explicit travel-data requests send coordinates to external providers.
+- Updated the Travel Companion heading to clarify that explicit travel-data requests send coordinates to external providers.
 - No account persistence, Key-to-Key location access, autonomous assistant, unverified market rates, accepted Radio/UI artwork or mobile nav changes.
 - Modules compiled as JS source but third-party APIs and device behavior remain to be reviewed.
 
 
-## 2026-10-07 — God's Eye slice 1
+## 2026-10-07 — Travel Companion slice 1
 
-- Following accepted v1.2.0 Radio closeout, created a dedicated God's Eye place reachable from the Hub.
+- Following accepted v1.2.0 Radio closeout, created a dedicated Travel Companion place reachable from the Hub.
 - The old separate travel prototype repository was unavailable through the connected GitHub account, so this first standalone map slice is written directly into Folkhold.
 - Added lazy-loaded Leaflet map with OSM tiles, user-submitted Photon geocoding, and opt-in geolocation.
 - Map/search services are prototype-grade; there is no persistent location data, background location tracking, or member-to-member routing.
@@ -23,7 +31,7 @@
 
 ## 2026-10-07 — v1.2.0 owner-accepted Radio closeout
 
-- Owner explicitly said **“radio is good”** and instructed closeout before God's Eye development.
+- Owner explicitly said **“radio is good”** and instructed closeout before Travel Companion development.
 - Accepted Radio page, persistent playback, six licensed locally hosted tracks, three station presets, SVG controls, and swipeable navigation as the v1.2.0 baseline.
 - Advanced version from 1.1.0 to 1.2.0 after owner acceptance.
 - Browser autoplay remains platform-dependent. No new artwork, other UI adjustments, or features were introduced in this closeout.
@@ -58,7 +66,7 @@
 ## 2026-10-07 — Desktop Hold and Key-to-Key routes
 
 - Owner screenshot exposed a runtime desktop My Hold house icon despite the accepted mobile rook/tower icon. Desktop runtime icon was changed to the identical ♜ glyph, and script cache versions advanced.
-- Key-to-Key route concept: Keys unlock the ability to share a meeting destination **only on explicit opt-in**; God's Eye should draw the actual street path from the current device GPS to the shared pin and allow navigation handoff.
+- Key-to-Key route concept: Keys unlock the ability to share a meeting destination **only on explicit opt-in**; Travel Companion should draw the actual street path from the current device GPS to the shared pin and allow navigation handoff.
 - The route feature is documented and deferred until accounts, permissioned Keys and the Wayfarer map are in place.
 - Original Kevin MacLeod music is now explicitly considered a **placeholder**, while authentic Persian and other tradition-specific performances are researched under a separate licensing/curation slice.
 - No actual recipient address tracking, routing backend or new audio recording was deployed as part of this roadmap update.

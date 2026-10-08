@@ -2,7 +2,9 @@
 
 All notable accepted Folkhold changes are recorded here from v1.1.0 forward.
 
-## Unreleased candidates — God's Eye and Wayfarer slices 20–24
+## Unreleased candidates — Travel Companion (Wayfarer) slices 20–24
+
+- Renamed the public-facing map/travel page to **Travel Companion** without changing its internal route or accepted UI.
 
 - Added a world map, opt-in location lookup and manually submitted place searches within Folkhold.
 - Added walking/driving road routes, route geometry, distance/time estimates and Google Maps handoff.
