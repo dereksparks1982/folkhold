@@ -1,3 +1,10 @@
+## 2026-10-08 — Desktop top-nav overflow correction (candidate)
+
+- Confirmed browser runtime constructs navigation in `cloudflare-config.js`; its `justify-content:center!important` was overriding the intended horizontally scrollable behavior and could push overflowing items visually ahead of Hub. Corrected to `justify-content:flex-start!important` with constrained overflow and a thin scrollbar.
+- Source-level JavaScript parser checks passed for affected `app.js` and `cloudflare-config.js`. Index/runtime cache references were increased, preserving all navigation labels/icons/order.
+- Existing (already deployed) `app.js` has mouse-wheel-to-horizontal scrolling, left-click dragging, and history push/pop support for browser/mouse Back. Existing Travel Companion location errors and extra translator languages are source-present, but no new functional/device acceptance is claimed by this navigation correction.
+- **Still to validate:** actual Firefox mouse wheel, drag without accidental navigation, mouse Back, overflow at different desktop widths, location provider/permission behavior and translation-provider availability for the new languages. GitHub Pages deployment status must be checked separately.
+
 ## 2026-10-08 — External navigation handoff candidate
 
 - The routing JavaScript was syntax-checked; confirmed no Google Maps URL remains in the runtime route module.

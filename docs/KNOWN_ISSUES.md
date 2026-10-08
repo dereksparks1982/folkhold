@@ -115,3 +115,10 @@ GitHub source state, browser behavior, Cloudflare services, iOS Home Screen beha
 - Previous map-rendering dependency removed from the browser runtime and replaced with OpenLayers 10.10.0.
 - OpenLayers assets now load from a pinned external CDN; browser connectivity, iPhone/PC display and route/nearby overlays are not yet owner-verified.
 - Shared OpenStreetMap tile limits and required OSM attribution are unaffected by the renderer replacement.
+
+## Desktop navigation and current Travel Companion checks (October 8, 2026)
+
+- User reported Settings wrapping/appearing in front of the first desktop navigation items. Runtime CSS alignment corrected in candidate commit; desktop Firefox visual review and wheel/drag/back-mouse confirmation still required.
+- Desktop browser location may fail or time out without any permission popup when no platform geolocation provider can establish a position. Code now distinguishes denial, timeout and unavailable; real Firefox/Ubuntu diagnosis depends on owner-device checks.
+- Two-way translator dropdown includes Russian, Urdu, Pashto and Dari. It uses third-party MyMemory; live language-pair support and translation quality (especially Pashto and Dari) are not guaranteed. Dari currently maps to Persian and is explicitly marked an approximation.
+- Games destination remains roadmap-only and has no wagering features by design. Do not describe planned games as universally permissible under all Islamic schools.

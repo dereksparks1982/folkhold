@@ -154,6 +154,10 @@ The target sequence is therefore **real AI first, remote play with friends later
 
 See `docs/BACKGAMMON.md`.
 
+### Games section: recreation only, strictly no betting
+
+Folkhold will have a **Games** destination for traditional and strategy games, led by Backgammon (the existing AI-first Slice 13, followed by remote games in Slice 14). Additional candidates for owner selection: checkers/draughts, chess, mancala and other table games. **Absolute platform rule: no gambling:** no wagers, betting, buy-ins, prize stakes, cash-like credits, gambling pools, odds, or transfer of in-app assets based on game results. Scores reflect results only. Scholarly views on games with dice (including backgammon) differ; do not label every title universally religiously permissible. No Games Hub/nav changes are authorized by this roadmap entry.
+
 ## 9. Room system maturation
 
 - real Room creation/editing

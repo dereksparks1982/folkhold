@@ -116,3 +116,7 @@ The local rules engine is the foundation for both. Remote play should reuse it r
 ## Breadcrumb
 
 Backgammon was added to the Folkhold roadmap on October 1, 2026 after Derek specified that Folkhold should have Backgammon with a real AI opponent first and remote play with friends later.
+
+## Folkhold house rule: recreation without gambling (October 8, 2026)
+
+All Backgammon play in Folkhold is for enjoyment only. No wagering, stakes, cash/cash-equivalent prizes, money transfers, buy-ins, in-app gambling currency, prize pools, or asset transfers based on game results. This rule also applies to the planned wider Games area. Dice rules can be religiously disputed even without bets; Folkhold does not assert a universal religious ruling on each game.

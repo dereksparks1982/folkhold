@@ -1,5 +1,12 @@
 # Folkhold Project Log
 
+## 2026-10-08 — Desktop overflow repair and recreational Games roadmap
+
+- Repaired dynamic desktop navigation layout: left-started horizontal list instead of centered overflowing items; thin scrollbar complements already-existing wheel/drag code. Existing mouse Back support uses browser history push/pop, and Travel Companion location feedback and extended translation language choices were found already committed.
+- All accepted artwork, Radio, mobile footer, map logic, top navigation order and colors were left intact.
+- Added the owner's no-betting Games direction to the canonical roadmap, task slices and Backgammon specification. Backgammon remains AI-first, with optional additional table games requiring future owner approval. No Games code released in this documentation slice.
+- Source validation performed; desktop/iPhone owner observation remains pending.
+
 ## 2026-10-08 — Hub full-color destination cards and Settings navigation
 - Owner approved ten Hub shortcuts, including previously missing My Hold, Directory, Key Ring, Radio, and Settings. Each has a full-color background; corrected palette is Square blue, Notice yellow, Tavern red, Tea Room brown, Travel Companion earth green.
 - Tea Room Hub icon now matches top navigation (☕), and Travel Companion uses 🧭 in its Hub card and a newly added desktop navigation item.

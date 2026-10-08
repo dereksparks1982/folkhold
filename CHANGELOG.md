@@ -2,6 +2,12 @@
 
 All notable accepted Folkhold changes are recorded here from v1.1.0 forward.
 
+## Unreleased candidate — Desktop navigation overflow correction (October 8, 2026)
+- Changed runtime desktop navigation alignment from centered overflow to left-starting horizontal scrolling; wheel and mouse-drag support and browser Back handling already exist in the previous deployed candidate.
+- Refreshed JavaScript cache versions without changing button order, accepted backgrounds, Radio, map logic or the mobile footer.
+- Documented the recreational Games direction with no wagering in the roadmap; no Games UI or new gameplay was built.
+- Real desktop Firefox overflow/wheel/drag/Back behavior remains owner-validation work.
+
 ## Unreleased candidate — Hub destination colors and Settings (October 8, 2026)
 - Filled all ten Hub cards with distinct destination colors. Public Square blue, Notice Board yellow, Tavern red, Tea Room brown, and Travel Companion earth green; My Hold, Directory, Key Ring, Radio, and Settings each have their own solid color.
 - Added My Hold, Directory, Key Ring, Radio and Settings shortcut cards; Tea Room uses the same ☕ icon as its desktop navigation button.

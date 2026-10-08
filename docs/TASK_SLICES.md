@@ -447,3 +447,16 @@ Short MyMemory translation for English/Turkish plus selectable Arabic/Persian/Fr
 **Status: ROADMAP / dependent on provisioned providers and privacy design**
 
 Replace shared demo routing/discovery endpoints with scalable providers; verify iPhone UX. Add trip memory only with consent, researched local-price evidence and conversational AI Hitch. Key-to-Key GPS directions remain blocked on account/Key authorization.
+
+## Slice 26 — Folkhold Games destination, recreational games only
+
+**Status: ROADMAP; owner selection and implementation gate pending.**
+
+- Extend the existing Backgammon AI-first and remote-match plan into a discoverable **Games** area once the owner approves the UI/position.
+- Consider checkers, chess, mancala and other traditional games only after owner selects titles.
+- Prohibit gambling outright: no bets, stakes, buy-ins, prize pools, wagering tokens, real or virtual currency transfers, or wager-based mechanics. Win/loss scores only.
+- Do not claim a uniform religious ruling for dice games, as scholarly views differ.
+- Preserve Radio, travel tools, seven-button mobile navigation and approved leather artwork until separately authorized to change them.
+- Source for owner decision: https://github.com/dereksparks1982/folkhold/issues/2
+
+**Acceptance boundary:** scope and visual entry point approved before Games UI implementation; no actual game added by this documentation slice.
