@@ -416,3 +416,34 @@ Acceptance: two distinct accounts exchange Keys; one explicitly shares a destina
 Acceptance checks: God's Eye opens on desktop/iPhone; a user can pan, search/select places and request or deny their own location. No location prompt occurs until requested.
 
 Next slices: street route geometry, nearby discovery and travel tools; Key-to-Key shared destinations remain gated by accounts/Keys and explicit sharing.
+
+
+## Slice 21 — God's Eye routes
+
+**Status: REVIEW; live provider and owner-device validation pending**
+
+Start/destination selection, walking/driving routes using Valhalla demo GeoJSON road geometry, duration/distance, optional Google Maps navigation handoff. No actual Key-holder locations involved.
+
+## Slice 22 — Nearby places
+
+**Status: REVIEW; provider/device validation pending**
+
+On-demand Overpass category discovery: mosques, food/cafés, history, adventure and nightlife. Bounded request radius, limited markers and selectable list. OSM listings may be inaccurate/incomplete.
+
+## Slice 23 — Travel essentials
+
+**Status: REVIEW; provider/device validation pending**
+
+On-demand Open-Meteo weather, Frankfurter reference currency conversion, AlAdhan Hanafi prayer times with method selection. No inferred retail prices, real bank fees or guaranteed official mosque schedules.
+
+## Slice 24 — Language, Fair Price and Hitch context
+
+**Status: REVIEW; provider/device validation pending**
+
+Short MyMemory translation for English/Turkish plus selectable Arabic/Persian/French, offline Turkish phrasebook, quoted vs user-supplied known benchmark, selected-place context for Hitch. Full LLM conversation and verified local prices are NOT implemented.
+
+## Slice 25 — Harden Wayfarer and add genuine AI Hitch
+
+**Status: ROADMAP / dependent on provisioned providers and privacy design**
+
+Replace shared demo routing/discovery endpoints with scalable providers; verify iPhone UX. Add trip memory only with consent, researched local-price evidence and conversational AI Hitch. Key-to-Key GPS directions remain blocked on account/Key authorization.
