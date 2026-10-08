@@ -9,16 +9,22 @@ Travel Companion is Folkhold's mapping foundation for Wayfarer. It lives inside 
 ## Slice 1 built October 7, 2026
 
 - A **Travel Companion** card on the Hub opens the map as a normal Folkhold screen.
-- Leaflet 1.9.4 creates a worldwide interactive map only after the screen is opened.
+- OpenLayers 10.10.0 creates a worldwide interactive map only after the screen is opened. The previous renderer is no longer loaded or referenced by runtime code.
 - OpenStreetMap standard tiles display required attribution. The application never bulk-prefetches or downloads tiles in the background.
 - Manual **Search** submits a query to Photon, receives up to five results, and lets the visitor select a location. No search-as-you-type or background place harvesting.
 - A **Use My Location** button asks for device geolocation permission only on click. Successful coordinates are shown on the requesting device, not saved or broadcast.
 - The World View button resets map center/zoom without disclosing location.
 - Browser errors, denied permission, and unavailable map/search providers produce status text rather than false results.
 
+## Map-renderer replacement (October 8, 2026)
+
+At the owner's request, Travel Companion's prior mapping library was **removed from all runtime modules**. The replacement is **OpenLayers 10.10.0**. The interactive map, markers, nearby listings and road-route overlays were migrated together. No former map-library scripts, CSS, logos or runtime attribution are requested anymore.
+
+OpenStreetMap tile attribution remains required by OSM data licensing. This change does not replace OSM, Photon, Overpass or the external route/data services. Existing `gods-eye` filenames and URL fragment are internal compatibility identifiers only. The new provider needs physical-device/browser validation before accepting the candidate.
+
 ## Providers
 
-- Leaflet library: https://leafletjs.com/download (BSD 2-Clause).
+- **OpenLayers 10.10.0**: https://openlayers.org/ (BSD 2-Clause). Loaded from a version-pinned JS/CSS distribution; not bundled into Folkhold source. License: https://github.com/openlayers/openlayers/blob/v10.10.0/LICENSE.md
 - OSM tile requirements: https://operations.osmfoundation.org/policies/tiles/ . Use the visible map attribution and browser caching; the public tile service is best-effort, not a commercial SLA.
 - Map data: https://www.openstreetmap.org/copyright .
 - Photon project/demo geocoder: https://github.com/komoot/photon ; allowed only for modest usage. Public demo may throttle or change; a dedicated provider/backend is necessary for production traffic.
