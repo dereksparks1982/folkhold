@@ -5,10 +5,7 @@
   "license": "UNLICENSED",
   "type": "module",
   "scripts": {
-    "deploy": "node scripts/deploy-cloudflare.mjs"
-  },
-  "dependencies": {
-    "better-auth": "^1.7.6"
+    "deploy": "wrangler deploy"
   },
   "devDependencies": {
     "wrangler": "^4.144.0"

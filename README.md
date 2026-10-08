@@ -4,27 +4,11 @@
 
 Folkhold is a social web project built around personal places rather than flat profiles. Each member has a **Hold** containing rooms for the things they care about, and access to private Holds is granted through individually revocable **Keys** rather than shared passwords.
 
-## Test Center (diagnostic candidate)
-
-The new read-only GitHub Actions Test Center probes GitHub/Cloudflare deployment readiness, the live authentication status, the Square forum GET endpoints and the frontend. It saves report.json, report.md and report.log as artifacts even if a test fails. See [Test Center](docs/TEST_CENTER.md). It does not repair or reveal secrets. First live report succeeded for all 10 original checks; owner acceptance and new authentication initialization test remain pending.
-
-## Authentication deployment repair candidate
-
-Cloudflare's Git-connected deploy command now runs the secure `npm run deploy` helper. Live Test Center run [37820689995](https://github.com/dereksparks1982/folkhold/actions/runs/37820689995) confirmed 10 passed / 0 failed, including `BETTER_AUTH_SECRET` present at runtime and email provider configured. Better Auth D1 migrations and end-to-end email/Google/Apple sign-in remain separate validation steps. See [runtime secret handoff](docs/RUNTIME_SECRET_DEPLOY.md).
-
-## Google login activation
-
-Google OAuth is the next account priority. Better Auth already has the Google provider and frontend flow, while the Test Center now checks Google-specific source and runtime readiness. An OAuth **Web application** client must be created under Google Auth Platform and its ID/secret supplied to Cloudflare Worker Production runtime. See [Google-first instructions](docs/ACCOUNTS.md). Provider login remains pending live verification.
-
 ## Links
 
 - **Folkhold Web App:** https://dereksparks1982.github.io/folkhold/
 - **Hanafi Learning Deck:** https://dereksparks1982.github.io/Hanafi-Islam-Learning-Deck/
 - **Hanafi Learning Deck repository:** https://github.com/dereksparks1982/Hanafi-Islam-Learning-Deck
-
-## Accounts: D1 binding recorded, Google sign-in pending
-
-Cloudflare D1 database `folkhold-auth` has been created and bound as `AUTH_DB` in the dashboard, and that binding is recorded in both root and `cloudflare/` Wrangler configs. **Google login is not active yet:** set the private `BETTER_AUTH_SECRET` in Cloudflare, verify auth initialization, and then configure Google OAuth client credentials. See [`docs/ACCOUNTS.md`](docs/ACCOUNTS.md). Live login/device testing and owner acceptance remain open.
 
 ## Integrated Square forum candidate (not yet owner-accepted)
 
@@ -39,7 +23,7 @@ The source now includes a native category/topic/reply forum alongside the existi
 - **Hub and My Hold doors** now use the same approved medieval door structure. The misplaced Hold gold knocker is removed. Local door customization and Knock actions remain; local choices are **not yet server-persistent**.
 - Desktop navigation has eleven **uniform-width, shortened buttons**, a full-button horizontal wheel/drag carousel, and the **Your people** banner subtitle. The accepted iPhone footer, leather background, approved icons, and v1.2.0 Radio remain preserved.
 - The Square's **live Global Chat remains the existing realtime feature**. A spacious **NodeBB-style forum inside the same Square** is the next planned feature, **not included in v1.3.0**. See [`docs/SQUARE_FORUM.md`](docs/SQUARE_FORUM.md).
-- A secure Master Key admin panel and Ads On/Off remain planned only. Account/D1 credentials, provider testing, true GPS accuracy, Firefox/iPhone layout, and shared-door visual review remain separate validation/prerequisite work.
+- A secure Master Key admin panel and Ads On/Off remain planned only. true GPS accuracy, Firefox/iPhone layout, and shared-door visual review remain separate validation/prerequisite work.
 
 **Published frontend source:** [`90cb727`](https://github.com/dereksparks1982/folkhold/commit/90cb72710813a4daea5242cbbe62ede8d92852c3), Pages run [`37800022754`](https://github.com/dereksparks1982/folkhold/actions/runs/37800022754) succeeded. This documentation closeout follows that deployment; see `docs/VALIDATION.md` for exact checks and limitations.
 
@@ -107,7 +91,6 @@ Current areas:
 - **Directory** — broad or narrow people discovery
 - **Key Ring** — individually issued and revocable access keys
 - **Advertising** — provider-neutral advertising shell with ordinary-page provider work staged separately
-- **Accounts** — email/password, Google, and Apple account UI/backend staged with Better Auth; activation awaits the Cloudflare D1 binding and deployment secrets
 
 ## Core ideas
 
@@ -137,12 +120,6 @@ Derek's product metaphor is **Hanafi as the mother** and **Folkhold as the fathe
 
 The planned Hanafi community button is named **Majlis**. It will open Folkhold's public gathering side without merging the sites. When a visitor arrives through Hanafi, Folkhold can temporarily add **← Hanafi** while keeping its normal navigation intact. The bridge is documented but not yet implemented. See [`docs/HANAFI_BRIDGE.md`](docs/HANAFI_BRIDGE.md).
 
-## Accounts
-
-Authentication is separated from Folkhold identity. Better Auth handles login/session state; Folkhold stores the member's username, display name, Hold ownership, rooms, keys, knocks, and social state separately.
-
-The Cloudflare Worker also proxies the current GitHub Pages frontend so `folkhold.dereksparks1982.workers.dev` can become the same-origin account-capable application address without duplicating the UI. See `docs/ACCOUNTS.md` for the D1, secret, Google, and Apple activation steps.
-
 ## Advertising prototype
 
 The ad slot is provider-neutral. Ordinary-page provider support remains staged and room-specific/adult-capable providers can be evaluated where required. See `docs/ADSENSE.md` for the existing ordinary-page AdSense activation notes.
@@ -163,7 +140,7 @@ See [`ROADMAP.md`](ROADMAP.md), [`docs/TASK_SLICES.md`](docs/TASK_SLICES.md), [`
 
 ## Hosting
 
-GitHub remains the source repository and project history. GitHub Pages hosts the public frontend. Cloudflare Workers provides the realtime backend and is being expanded to accounts, persistence, secure Keys, uploads, private access control, and future scheduled services such as Town Crier.
+GitHub remains the source repository and project history. GitHub Pages hosts the public frontend. Cloudflare Workers provides the realtime Square backend and may support future scheduled services such as Town Crier.
 
 ## License
 
@@ -175,4 +152,4 @@ See [`LICENSE`](LICENSE) for the full terms. Third-party dependencies remain und
 
 ## Status
 
-**v1.3.0 closeout recorded October 8, 2026.** GitHub Pages frontend and Cloudflare realtime Global Chat are deployed; the account infrastructure awaits D1/secrets. Wayfarer and the local Hold door designer are deployed features with outstanding third-party/live-device checks. The NodeBB-style Village Square forum, production account-backed Master Key administration, persistent Knocks/Keys, Tavern paid rooms and UO Folkhold remain separate future work. No new forum server or admin privilege was installed during closeout.
+**v1.3.0 closeout recorded October 8, 2026.** GitHub Pages frontend and Cloudflare realtime Global Chat are deployed; account login and registration were withdrawn by owner request. Wayfarer and the local Hold door designer are deployed features with outstanding third-party/live-device checks. The NodeBB-style Village Square forum, production account-backed Master Key administration, persistent Knocks/Keys, Tavern paid rooms and UO Folkhold remain separate future work. No new forum server or admin privilege was installed during closeout.

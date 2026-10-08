@@ -9,25 +9,10 @@
 
 This file records unresolved or intentionally incomplete work. An item remains here until it is actually resolved and validated.
 
-## Accounts / persistence
+## Account system withdrawn
 
-- **Live Google login failure:** Google displays `401 invalid_client`, `The OAuth client was not found` despite runtime `providers.google: true`. A new Test Center OAuth-start probe compares the actual outgoing client ID to the Google Console client-creation screenshot; result pending. Do not mark Google login functional based only on runtime credential presence.
-
-- To activate Google, the existing Cloudflare **Builds → Variables and secrets** block needs both `GOOGLE_CLIENT_ID` (Variable) and `GOOGLE_CLIENT_SECRET` (Secret). The updated deploy helper transfers the pair to Worker runtime; until both are configured and deployed, `providers.google` remains false. Do not use the unrelated Cloudflare account Secrets Store.
-
-- Google login remains unavailable until Google Auth Platform Web application OAuth credentials are created and configured as `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET` in the running Cloudflare Worker; end-to-end browser login is untested. Owner selected Google as the first provider to activate.
-
-- Resolved October 8: Cloudflare deployment using the `npm run deploy` helper now exposes `BETTER_AUTH_SECRET` to the running Worker; live Test Center run `37820689995` returned ready true and 10 passes. Email login and actual Better Auth D1 migrations are not yet validated.
-
-- Folkhold Test Center is a source candidate pending its first live workflow report; it observes but cannot automatically repair missing Cloudflare runtime secrets or complete OAuth without provider credentials.
-
-- Owner's current `/api/account/status` reports `ready: false` and `needs: ["BETTER_AUTH_SECRET"]` after the diagnostic patch. `AUTH_DB` is recognized. The secret is not exposed to the currently running Worker; recheck the production secret name and deploy status in Cloudflare, then re-test. Don't recreate D1.
-- Worker JSON-page favicon previously fell back to old `favicon.ico`; a scoped source fix maps the fallback to existing approved house/key PNG, pending live browser validation.
-
-- `/api/account/status` formerly reported both `AUTH_DB` and `BETTER_AUTH_SECRET` whenever either was unavailable. The diagnostic logic is corrected in source, but the user-reported `ready: false` still needs live Worker verification after deployment; do not assume credentials are active.
-- Better Auth UI/backend scaffolding exists. Owner provisioned D1 `folkhold-auth` and `AUTH_DB` Worker binding (October 8); both Wrangler configuration files now include it. Live redeployment and database schema creation are not independently verified. Accounts remain disabled until private `BETTER_AUTH_SECRET` is installed.
-- Google/Apple provider activation still depends on valid provider credentials if those sign-in methods remain enabled.
-- Holds, Rooms, Keys, Knocks, notices, preferences, games, and most social state are not yet fully persistent production data.
+- The owner ordered removal of account login and registration. Google, Apple, email sign-in, Better Auth, profile endpoints and auth-specific deployment code are absent. Public Square chat and forum continue in guest mode.
+- The existing remote Cloudflare D1 database and dashboard-held credentials were not deleted. The deployed Worker no longer has the auth database binding.
 
 ## Knocks
 

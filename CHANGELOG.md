@@ -1,5 +1,11 @@
 # Folkhold Changelog
 
+## Unreleased — Account and diagnostics removal
+
+- Removed account sign-in and registration UI, Better Auth Worker logic and sign-in dependencies.
+- Removed diagnostic workflow/scripts and README references. Regular Cloudflare deploy remains.
+- Public Square chat/forum, Radio and navigation remain; browser validation pending.
+
 All notable accepted Folkhold changes are recorded here from v1.1.0 forward.
 
 ## v1.3.0 — Wayfarer, shared doors, desktop navigation and Square planning

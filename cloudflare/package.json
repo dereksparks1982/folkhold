@@ -6,9 +6,6 @@
     "dev": "wrangler dev",
     "deploy": "wrangler deploy"
   },
-  "dependencies": {
-    "better-auth": "^1.7.6"
-  },
   "devDependencies": {
     "wrangler": "^4.144.0"
   }

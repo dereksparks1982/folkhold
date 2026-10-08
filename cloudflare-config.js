@@ -9,14 +9,6 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
 });
 
 (() => {
-  if (!document.querySelector('script[data-folkhold-account-ui]')) {
-    const script = document.createElement('script');
-    script.src = 'auth-ui.js';
-    script.async = true;
-    script.dataset.folkholdAccountUi = 'true';
-    document.head.append(script);
-  }
-
   function applyApprovedBrandIcon() {
     const iconPath = 'assets/folk-hold-brand.png?v=7';
     const faviconPath = 'assets/folkhold-app-icon-192.png?v=9';

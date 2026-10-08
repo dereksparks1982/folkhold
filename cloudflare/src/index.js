@@ -1,6 +1,4 @@
 import { DurableObject } from "cloudflare:workers";
-import { betterAuth } from "better-auth";
-import { getMigrations } from "better-auth/db/migration";
 
 const DEFAULT_ORIGIN = "https://dereksparks1982.github.io";
 const DEFAULT_PUBLIC_SITE = "https://dereksparks1982.github.io/folkhold";
@@ -10,8 +8,6 @@ const HISTORY_LIMIT = 50;
 const RETAIN_MESSAGES = 500;
 const MIN_MESSAGE_INTERVAL_MS = 900;
 
-let authMigrationPromise = null;
-let folkholdSchemaPromise = null;
 
 function cleanText(value, maxLength) {
   return String(value ?? "")
@@ -78,222 +74,6 @@ function withCors(response, request, env) {
     statusText: response.statusText,
     headers,
   });
-}
-
-function authConfigured(env) {
-  return Boolean(env.AUTH_DB && env.BETTER_AUTH_SECRET);
-}
-
-function configuredProviders(env) {
-  return {
-    email: authConfigured(env),
-    google: authConfigured(env) && Boolean(env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET),
-    apple: authConfigured(env) && Boolean(env.APPLE_CLIENT_ID && env.APPLE_CLIENT_SECRET),
-  };
-}
-
-function createAuth(request, env) {
-  const origin = requestOrigin(request);
-  const socialProviders = {};
-
-  if (env.GOOGLE_CLIENT_ID && env.GOOGLE_CLIENT_SECRET) {
-    socialProviders.google = {
-      clientId: env.GOOGLE_CLIENT_ID,
-      clientSecret: env.GOOGLE_CLIENT_SECRET,
-    };
-  }
-
-  if (env.APPLE_CLIENT_ID && env.APPLE_CLIENT_SECRET) {
-    socialProviders.apple = {
-      clientId: env.APPLE_CLIENT_ID,
-      clientSecret: env.APPLE_CLIENT_SECRET,
-    };
-  }
-
-  return betterAuth({
-    database: env.AUTH_DB,
-    secret: env.BETTER_AUTH_SECRET,
-    baseURL: origin,
-    trustedOrigins: [
-      origin,
-      DEFAULT_ORIGIN,
-      "https://dereksparks1982.github.io",
-      "https://appleid.apple.com",
-    ],
-    emailAndPassword: {
-      enabled: true,
-      minPasswordLength: 8,
-      maxPasswordLength: 128,
-    },
-    socialProviders,
-  });
-}
-
-async function ensureFolkholdSchema(db) {
-  if (!folkholdSchemaPromise) {
-    folkholdSchemaPromise = db.batch([
-      db.prepare(`
-        CREATE TABLE IF NOT EXISTS folkhold_profile (
-          user_id TEXT PRIMARY KEY,
-          username TEXT NOT NULL UNIQUE COLLATE NOCASE,
-          display_name TEXT NOT NULL,
-          created_at INTEGER NOT NULL,
-          updated_at INTEGER NOT NULL
-        )
-      `),
-      db.prepare(`
-        CREATE TABLE IF NOT EXISTS folkhold_hold (
-          id TEXT PRIMARY KEY,
-          owner_user_id TEXT NOT NULL UNIQUE,
-          name TEXT NOT NULL,
-          created_at INTEGER NOT NULL,
-          updated_at INTEGER NOT NULL
-        )
-      `),
-      db.prepare(`
-        CREATE INDEX IF NOT EXISTS idx_folkhold_profile_username
-        ON folkhold_profile(username)
-      `),
-    ]).catch((error) => {
-      folkholdSchemaPromise = null;
-      throw error;
-    });
-  }
-  await folkholdSchemaPromise;
-}
-
-async function ensureAuthReady(request, env) {
-  if (!authConfigured(env)) return null;
-  const auth = createAuth(request, env);
-
-  if (!authMigrationPromise) {
-    authMigrationPromise = (async () => {
-      const migrations = await getMigrations(auth.options);
-      await migrations.runMigrations();
-    })().catch((error) => {
-      authMigrationPromise = null;
-      throw error;
-    });
-  }
-
-  await authMigrationPromise;
-  await ensureFolkholdSchema(env.AUTH_DB);
-  return auth;
-}
-
-async function getSession(auth, request) {
-  if (!auth) return null;
-  try {
-    return await auth.api.getSession({ headers: request.headers });
-  } catch {
-    return null;
-  }
-}
-
-async function getProfile(db, userId) {
-  if (!db || !userId) return null;
-  return db.prepare(
-    `SELECT user_id, username, display_name, created_at, updated_at
-     FROM folkhold_profile
-     WHERE user_id = ?`
-  ).bind(userId).first();
-}
-
-async function accountStatus(request, env) {
-  const providers = configuredProviders(env);
-  return withCors(json({
-    ready: authConfigured(env),
-    providers,
-    appOrigin: requestOrigin(request),
-    publicSite: env.PUBLIC_SITE_ORIGIN || DEFAULT_PUBLIC_SITE,
-    // Report each prerequisite independently so the status page cannot
-    // incorrectly claim both are missing when only one is absent.
-    needs: [
-      ...(!env.AUTH_DB ? ["D1 binding AUTH_DB"] : []),
-      ...(!env.BETTER_AUTH_SECRET ? ["BETTER_AUTH_SECRET"] : []),
-    ],
-  }), request, env);
-}
-
-async function profileRoute(request, env, auth) {
-  const session = await getSession(auth, request);
-  if (!session?.user?.id) {
-    return withCors(json({ error: "Sign in required." }, { status: 401 }), request, env);
-  }
-
-  if (request.method === "GET") {
-    const profile = await getProfile(env.AUTH_DB, session.user.id);
-    return withCors(json({ profile, user: session.user }), request, env);
-  }
-
-  if (request.method !== "POST") {
-    return withCors(json({ error: "Method not allowed." }, { status: 405 }), request, env);
-  }
-
-  let body;
-  try {
-    body = await request.json();
-  } catch {
-    return withCors(json({ error: "Invalid JSON." }, { status: 400 }), request, env);
-  }
-
-  const username = cleanText(body.username, 24);
-  const displayName = cleanText(body.displayName || username, 60);
-  if (!/^[A-Za-z0-9_]{3,24}$/.test(username)) {
-    return withCors(json({
-      error: "Username must be 3-24 characters using letters, numbers, or underscore."
-    }, { status: 400 }), request, env);
-  }
-  if (!displayName) {
-    return withCors(json({ error: "Display name is required." }, { status: 400 }), request, env);
-  }
-
-  const now = Date.now();
-  try {
-    await env.AUTH_DB.prepare(`
-      INSERT INTO folkhold_profile (user_id, username, display_name, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?)
-      ON CONFLICT(user_id) DO UPDATE SET
-        username = excluded.username,
-        display_name = excluded.display_name,
-        updated_at = excluded.updated_at
-    `).bind(session.user.id, username, displayName, now, now).run();
-
-    await env.AUTH_DB.prepare(`
-      INSERT INTO folkhold_hold (id, owner_user_id, name, created_at, updated_at)
-      VALUES (?, ?, ?, ?, ?)
-      ON CONFLICT(owner_user_id) DO UPDATE SET
-        name = excluded.name,
-        updated_at = excluded.updated_at
-    `).bind(
-      crypto.randomUUID(),
-      session.user.id,
-      `${displayName}'s Hold`,
-      now,
-      now,
-    ).run();
-  } catch (error) {
-    if (String(error?.message || error).toLowerCase().includes("unique")) {
-      return withCors(json({ error: "That Folkhold username is already taken." }, { status: 409 }), request, env);
-    }
-    throw error;
-  }
-
-  const profile = await getProfile(env.AUTH_DB, session.user.id);
-  return withCors(json({ ok: true, profile }), request, env);
-}
-
-async function authenticatedChatRequest(request, env, auth) {
-  if (!auth || !env.AUTH_DB) return request;
-  const session = await getSession(auth, request);
-  if (!session?.user?.id) return request;
-  const profile = await getProfile(env.AUTH_DB, session.user.id);
-  if (!profile) return request;
-
-  const headers = new Headers(request.headers);
-  headers.set("X-Folkhold-User", session.user.id);
-  headers.set("X-Folkhold-Name", profile.display_name || profile.username);
-  return new Request(request, { headers });
 }
 
 async function proxyFrontend(request, env) {
@@ -587,62 +367,27 @@ export default {
           ok: true,
           service: "folkhold",
           realtime: "durable-objects",
-          accounts: authConfigured(env) ? "ready" : "awaiting-d1",
         }),
         request,
         env,
       );
     }
 
-    if (url.pathname === "/api/account/status") {
-      return accountStatus(request, env);
+    // Account services have been withdrawn.
+    if (url.pathname.startsWith("/api/auth/") ||
+        url.pathname.startsWith("/api/account/") ||
+        url.pathname === "/api/folkhold/profile") {
+      return new Response("Not found", { status: 404 });
     }
-
-    if (url.pathname.startsWith("/api/auth/") || url.pathname === "/api/folkhold/profile") {
-      if (!originAllowed(request, env)) {
-        return new Response("Origin not allowed", { status: 403 });
-      }
-
-      let auth;
-      try {
-        auth = await ensureAuthReady(request, env);
-      } catch (error) {
-        console.error("Folkhold auth initialization failed", error);
-        return withCors(json({ error: "Account database initialization failed." }, { status: 503 }), request, env);
-      }
-
-      if (!auth) {
-        return withCors(json({
-          error: "Accounts are staged but not activated yet.",
-          needs: ["D1 binding AUTH_DB", "BETTER_AUTH_SECRET"],
-        }, { status: 503 }), request, env);
-      }
-
-      if (url.pathname === "/api/folkhold/profile") {
-        return profileRoute(request, env, auth);
-      }
-
-      const response = await auth.handler(request);
-      return withCors(response, request, env);
-    }
-
 
     if (url.pathname.startsWith("/api/forum/")) {
       if (!originAllowed(request, env))
         return withCors(json({error:"Origin not allowed."},{status:403}),request,env);
-      // Strip forged identity headers before trusting optional Better Auth sessions.
-      const headers=new Headers(request.headers);
+      // Never accept client-provided identity claims. Forum remains guest-only.
+      const headers = new Headers(request.headers);
       headers.delete("X-Folkhold-Name");
       headers.delete("X-Folkhold-User");
-      let forwarded=new Request(request,{headers});
-      if (request.method==="POST" && authConfigured(env)) {
-        try {
-          const auth=await ensureAuthReady(request,env);
-          forwarded=await authenticatedChatRequest(forwarded,env,auth);
-        } catch(error) {
-          console.warn("Forum identity temporarily unavailable; posting as guest.",error);
-        }
-      }
+      const forwarded = new Request(request, { headers });
       return withCors(await env.GLOBAL_CHAT.getByName("global").fetch(forwarded),request,env);
     }
 
@@ -651,16 +396,10 @@ export default {
         return new Response("Origin not allowed", { status: 403 });
       }
 
-      let chatRequest = request;
-      if (authConfigured(env)) {
-        try {
-          const auth = await ensureAuthReady(request, env);
-          chatRequest = await authenticatedChatRequest(request, env, auth);
-        } catch (error) {
-          console.warn("Global Chat account identity unavailable; continuing as guest.", error);
-        }
-      }
-
+      const headers = new Headers(request.headers);
+      headers.delete("X-Folkhold-Name");
+      headers.delete("X-Folkhold-User");
+      const chatRequest = new Request(request, { headers });
       const room = env.GLOBAL_CHAT.getByName("global");
       if (url.pathname.endsWith("/ws")) {
         return room.fetch(chatRequest);

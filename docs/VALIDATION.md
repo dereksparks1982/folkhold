@@ -1,7 +1,12 @@
+## October 8, 2026 — Owner-directed removal of login and diagnostics
+
+- Removed Folkhold sign-in/account UI and account avatar, Worker email/Google/Apple authentication routes, Better Auth sessions/profiles, associated D1 binding and dependencies.
+- Removed the dedicated diagnostic workflow, scripts, helper, and reports documentation. Cloudflare builds now invoke regular `wrangler deploy` through the already-configured `npm run deploy`.
+- Kept the site, Radio, Wayfarer, Square forum/chat and their existing SQLite Durable Object records intact.
+- No remote Cloudflare database or dashboard credentials were deleted. Browser/live endpoint validation remains required.
+
 ## 2026-10-08 — Google OAuth client identity diagnostic candidate
 
-- Google browser screenshot: `401 invalid_client`, `The OAuth client was not found`. Last Test Center passed presence checks, not the real OAuth round trip.
-- Added a Test Center check to initiate one Google OAuth authorization URL and compare its public client ID with SHA-256 derived from the Google Console creation screenshot. No password, token, secret, OAuth state or redirect URL is displayed in the report. This check may create one temporary OAuth state record in D1 but no account.
 - **Pending:** GitHub live run; if an ID mismatch is confirmed, correct the Cloudflare Build Variable. If IDs match, inspect Google's registered client details and the live browser OAuth request before further changes.
 
 ## 2026-10-08 — Google OAuth runtime credential handoff candidate
@@ -15,28 +20,23 @@
 
 - Confirmed from current source that `socialProviders.google` requires both `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`, while frontend posts to Better Auth social sign-in then redirects to the provider URL.
 - Google OAuth callback is `https://folkhold.dereksparks1982.workers.dev/api/auth/callback/google`, per Better Auth's default callback scheme and Google exact redirect URI requirement.
-- Added two automated Test Center checks, one static source-contract and one read-only runtime provider check. Google provider not configured yet is SKIP, not FAIL.
 - **Pending:** first new GitHub Action run, Google Cloud Web application OAuth client, credentials in Cloudflare runtime, successful provider redirect and profile/Hold provisioning. No account or OAuth requests were performed.
 
 ## 2026-10-08 — Runtime authentication ready and D1 initialization candidate
 
-- Verified GitHub Actions Test Center run `37820689995`: **10 PASS, 0 FAIL, 0 SKIP** (log obtained through GitHub). Runtime auth test returned `Runtime ready; enabled providers: email` and all forum/frontend checks passed.
 - GitHub Cloudflare Workers Builds reported success on commit `91fedfc`. The earlier missing secret is no longer reported in production.
 - Added an unauthenticated GET `/api/auth/get-session` smoke check; Better Auth may initialize missing database tables on first access. This check is pending a fresh live GitHub Action run. No member account is created, and no login secrets are collected.
 
 ## 2026-10-08 — Production runtime-secret deploy trial
 
 - The owner showed `npm run deploy` in Cloudflare's Production deploy-command field. This commit provides a clean new GitHub `main` push to exercise that configuration.
-- **Pending evidence:** Cloudflare build log must show the actual command and success; Test Center must show runtime readiness. Displaying a field value is not proof it was saved/applied.
 - No application logic or credentials modified for this trial.
 
 ## 2026-10-08 — Auth runtime deployment helper candidate
 
 - Source candidate: private temporary-file secret handoff using Cloudflare-supported wrangler deploy --secrets-file, no credential values stored in git or public configs.
-- GitHub Test Center now includes mock-Wrangler unit tests. Pending first Actions run and real Cloudflare deployment after owner changes Deploy command to npm run deploy.
 - Existing Worker, D1, Global Chat and forum source unchanged; ready:true not yet demonstrated.
 
-## 2026-10-08 — Folkhold Test Center first-slice candidate
 
 - Read current Company Bible, docs, and existing Worker/Better Auth configuration.
 - Introduced read-only source/runtime runner and on-push/manual GitHub workflow, with reports saved on failure.

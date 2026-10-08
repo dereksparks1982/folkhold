@@ -52,7 +52,7 @@ The default can remain code/CSS based. Final artwork is optional rather than req
 
 ## 3. Account activation and persistent Folkhold data
 
-The staged Better Auth work still needs production activation:
+Account login and registration were withdrawn at the owner's request. Identity-dependent capabilities remain deferred unless the owner explicitly reinstates them:
 
 - Cloudflare D1 binding
 - deployment secrets
@@ -279,7 +279,7 @@ The initial Kevin MacLeod CC BY 4.0 instrumentals are **placeholders**. Derek wa
 
 The **Master Key** is the owner's name for full administrative authority across Folkhold site-management tools. Implement it as securely verified server-side authorization, **not** a public browser flag, client-side secret, magic URL, or hardcoded password. Require working production authentication/session verification, role checks and audit records before exposing any privileged action. Platform-owner administration must remain distinct from member-owned Keys; any scope involving private Rooms/content or impersonation requires an explicit owner decision and privacy boundary before code is written.
 
-Prerequisites: live Better Auth / Cloudflare Worker identity, D1/secret setup and explicit privilege assignment. Initial UI may show future options only if clearly nonfunctional; never create a working-looking unrestricted admin screen as a substitute for security.
+Prerequisites: a future owner-approved server-side identity system and explicit privilege assignment. Initial UI may show future options only if clearly nonfunctional; never create a working-looking unrestricted admin screen as a substitute for security.
 
 ## 18. Village Square forum, integrated with existing live chat
 
@@ -293,8 +293,3 @@ The first technical slice is an evidence-based integration and license/hosting a
 
 
 **October 8 forum update:** The owner chose a native forum with no NodeBB hosting. First source candidate adds integrated forum/chat interface and persistent SQLite Durable Object routes; live Worker deployment, device testing, authenticated identity, moderation and pagination remain open. See `docs/SQUARE_FORUM.md`.
-
-## Test Center expansion (candidate introduced October 8)
-
-- First slice: GitHub Actions read-only diagnostics and downloadable reports, pending acceptance.
-- Later: isolated Cloudflare Vitest/D1 tests, Playwright OAuth/browser scenarios with test accounts, optional owner-only on-site diagnostics once authentication is operational.

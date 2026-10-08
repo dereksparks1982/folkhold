@@ -1,16 +1,21 @@
 # Folkhold Project Log
 
+## October 8, 2026 — Owner-directed removal of login and diagnostics
+
+- Removed Folkhold sign-in/account UI and account avatar, Worker email/Google/Apple authentication routes, Better Auth sessions/profiles, associated D1 binding and dependencies.
+- Removed the dedicated diagnostic workflow, scripts, helper, and reports documentation. Cloudflare builds now invoke regular `wrangler deploy` through the already-configured `npm run deploy`.
+- Kept the site, Radio, Wayfarer, Square forum/chat and their existing SQLite Durable Object records intact.
+- No remote Cloudflare database or dashboard credentials were deleted. Browser/live endpoint validation remains required.
+
 ## 2026-10-08 — Diagnose Google 401 invalid_client (targeted OAuth test)
 
 - Owner tried Google sign-in on the live Folkhold Cloud app and supplied screenshots of Google's `401 invalid_client` / `The OAuth client was not found`. This confirms the Google redirect is reached but provider acceptance is not working despite all 13 prior presence/readiness tests passing.
-- Added a narrow Test Center check that starts an unauthenticated Better Auth Google OAuth URL, compares its public `client_id` to the value shown by Google at client creation using a pinned SHA-256, and records only a sanitized result. A temporary OAuth state may be recorded in D1; no member account is created and no cookies, OAuth state, secrets, URLs, or user data are logged.
 - Do not alter Google Cloud OAuth client, existing secret values, Google consent screen, forum, chat, or Worker code before the mismatch result is established.
 
 ## 2026-10-08 — Trigger Google OAuth production credential verification
 
 - Owner confirmed saving `GOOGLE_CLIENT_ID` as Variable and `GOOGLE_CLIENT_SECRET` as Secret under Folkhold Cloudflare Production Builds → Variables and secrets.
 - This documentation-only commit triggers a Git-connected main deployment using the existing verified `npm run deploy` handoff. No credential values are stored in GitHub; no Worker code, D1, forum, or live chat is changed.
-- Verify Cloudflare Workers Build success, Test Center `providers.google` runtime status, and only then attempt the real Google login browser flow. Do not equate configuration success with a completed Google login.
 
 ## October 8 — Google credential handoff through existing build variables
 
@@ -22,18 +27,14 @@
 
 - Owner chose to activate Google login before testing email registration or adding Apple OAuth.
 - Inspected current backend socialProviders.google configuration and frontend OAuth redirect flow. Both already exist, so no extra auth provider, navigation redesign, or Worker behavior change was necessary.
-- Extended Test Center with source-level Google OAuth flow contract and GET-only runtime Google readiness, reporting absent OAuth credentials as SKIP rather than an application failure. Documented exact authorized OAuth callback and Cloudflare runtime credential names.
 - Google Cloud project/client, credential attachment, browser login, and real user profile/Hold flow remain pending owner/provider steps and live acceptance.
 
 ## 2026-10-08 — Authentication runtime prerequisite solved; D1 init smoke test
 
-- Following owner's Cloudflare deployment-command change, commit `91fedfc` deployed and Test Center run `37820689995` confirmed `10 PASS, 0 FAIL`. Specifically, `/api/account/status` returned ready true with email enabled, showing D1 and `BETTER_AUTH_SECRET` are now available at runtime. The previous blocker is resolved.
-- Next scoped candidate adds unauthenticated GET `/api/auth/get-session` to Test Center. This invokes existing Better Auth D1 schema migration if necessary but does not create accounts or touch chat/forum. Provider OAuth and signup remain unverified.
 
 ## 2026-10-08 — Trigger production validation with new secret handoff
 
 - Owner supplied a screenshot of Cloudflare's Folkhold Production build configuration showing Deploy command `npm run deploy` and branch `main`. Settings persistence had not been independently verified.
-- This documentation-only commit triggers a new Git-connected Cloudflare Workers Build. Its logs will confirm which deploy command actually executed; the Test Center will independently read production `/api/account/status` and verify unrelated endpoints.
 - Runtime secret activation, database migrations, and real email/OAuth sign-in remain pending live evidence. No changes to Worker, chat, forum, secret value, or Wrangler bindings.
 
 ## 2026-10-08 — Authentication runtime secret deployment helper candidate
@@ -41,7 +42,6 @@
 - Confirmed official Cloudflare support for deployment with --secrets-file; build variables do not automatically become Worker runtime secrets. Built private-temp-file deployment helper, npm script, mock-Wrangler unit tests and documentation.
 - Helper changes require Cloudflare deploy command to be set to `npm run deploy` outside GitHub; existing build command remains npx wrangler deploy until then. Do not call runtime authentication fixed yet. No Worker/chat/forum source changes.
 
-## 2026-10-08 — Test Center first slice candidate
 
 - Added a read-only Node.js diagnostic runner and GitHub Actions workflow with downloadable logs/reports.
 - The runner compares both Wrangler configs; checks declared email, Google and Apple auth paths; probes Worker runtime readiness, Pages, the Square forum and the Cloudflare build status.

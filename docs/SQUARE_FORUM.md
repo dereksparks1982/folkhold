@@ -8,6 +8,6 @@ GitHub Pages serves `square-forum.js`; existing Cloudflare Worker adds `GET /api
 
 Stable categories: General Conversation, The Workshop, Games & Pastimes, Journeys & Places, Questions & Help. Forum posts are plain text, length-checked on the server, and shown chronologically by most recent reply. Lists show 50 latest topics and newest 100 replies. A basic in-memory per-IP/member cooldown slows repeated posts; it resets with Durable Object restarts and is not production-grade anti-spam.
 
-Unauthenticated names share the chat's browser nickname, which **is not verified identity**. If Better Auth is deployed and a member has a saved profile, the Worker can attach that verified identity to writes. Authentication is still not provisioned in the repository. No administrator powers have been exposed.
+Guest names share the chat's browser nickname and are not verified identities. The account system was removed at the owner's direction. No administrator powers are exposed.
 
 **Still outstanding:** Deploy the changed Cloudflare Worker, verify public GET/POST and unchanged WebSocket chat, check Firefox/iPhone layout and receive owner acceptance. Further slices: authenticated identities, moderation, edit/delete, abuse prevention, notification, search, topic/reply pagination, links to individual topics and export. Do not describe this as live based only on a GitHub Pages commit.
