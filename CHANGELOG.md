@@ -2,6 +2,11 @@
 
 All notable accepted Folkhold changes are recorded here from v1.1.0 forward.
 
+## Unreleased candidate — Travel Companion external directions provider
+
+- Replaced the Google Maps external directions link with OpenStreetMap Directions for both walking and driving modes; retained internal Valhalla road-route drawing.
+- Advanced only the routing script cache key. External navigation still needs a browser/device acceptance test.
+
 ## Unreleased candidate — OpenLayers map replacement
 
 - Removed the previous map-rendering library from Travel Companion runtime and replaced it with OpenLayers 10.10.0.

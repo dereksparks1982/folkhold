@@ -15,11 +15,9 @@
   function clearLine() { renderer?.clearRoute(); }
   function externalLink(mode) {
     if(!good(start)||!good(end))return;
-    const u=new URL('https://www.google.com/maps/dir/');
-    u.searchParams.set('api','1');
-    u.searchParams.set('origin',start.lat+','+start.lon);
-    u.searchParams.set('destination',end.lat+','+end.lon);
-    u.searchParams.set('travelmode',mode==='pedestrian'?'walking':'driving');
+    const u=new URL('https://www.openstreetmap.org/directions');
+    u.searchParams.set('engine',mode==='pedestrian'?'fossgis_osrm_foot':'fossgis_osrm_car');
+    u.searchParams.set('route',start.lat+','+start.lon+';'+end.lat+','+end.lon);
     const a=$('gods-eye-navigate');a.href=u.href;a.hidden=false;
   }
   async function getRoute(event) {
@@ -60,7 +58,7 @@
       externalLink(mode);
     } catch {
       clearLine();
-      status('No road route available from this demo server. Use Open in Google Maps to navigate externally, or try closer places.');
+      status('No road route available from this demo server. Use Open in OpenStreetMap to check directions externally, or try closer places.');
       externalLink(mode);
     } finally {busy=false;button.disabled=false;}
   }

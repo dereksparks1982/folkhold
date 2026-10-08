@@ -1,3 +1,9 @@
+## 2026-10-08 — External navigation handoff candidate
+
+- The routing JavaScript was syntax-checked; confirmed no Google Maps URL remains in the runtime route module.
+- Checked URL parameters against OpenStreetMap Directions format: `engine=fossgis_osrm_car` or `engine=fossgis_osrm_foot` and `route=lat,lon;lat,lon`.
+- The external link and routing provider behavior still require browser/iPhone validation. Other provider migrations are not part of this slice.
+
 ## 2026-10-08 — Map dependency replacement source validation
 
 - Travel Companion loads **OpenLayers 10.10.0**, not the previous renderer. All affected runtime modules were inspected and successfully parsed.

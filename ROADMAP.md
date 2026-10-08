@@ -249,7 +249,7 @@ When two Folkhold members exchange/accept Keys, either member should be able to 
 - Each member chooses whether to share a destination with that particular Key holder: home, public meeting spot, or a temporary pin. A precise private address is **never inferred from the Key alone**.
 - From a Key card or Travel Companion contact, **Directions** opens the real street-level route from the requesting member's current GPS location to the other member's explicitly shared destination.
 - Show the route drawn on the map, travel distance, estimated travel time, and walking/driving choice; re-route when necessary.
-- Support a one-tap **Navigate** handoff to a navigation app, such as Google Maps, when turn-by-turn directions are preferable.
+- Support a one-tap **Navigate** handoff to a navigation app, using an independently selected routing app when turn-by-turn directions are preferable.
 - Location permissions, share/revoke controls, expiration for temporary pins, and clear who-can-see-what states must precede any release.
 - Shared destination data must be private server-side, gated by authenticated identities and individual Key grants.
 - Do not silently broadcast live position or infer location from chat/metadata. Revoke/Key removal should make the destination unavailable immediately.

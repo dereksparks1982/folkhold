@@ -1,5 +1,10 @@
 # Folkhold Project Log
 
+## 2026-10-08 — Travel Companion directions handoff provider
+
+- As the first narrow part of a broader provider review, removed Google Maps as the external navigation handoff. Walking and driving handoffs now use OpenStreetMap Directions links while internal Valhalla road overlays stay unchanged.
+- Updated routing cache key and user-visible button. External service and device review pending. No accounts, ads, hosting, Radio, or unrelated features changed.
+
 ## 2026-10-08 — Travel Companion map engine replacement
 
 - Owner requested complete removal of the previous mapping dependency, not suppression of an attribution element.

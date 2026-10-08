@@ -49,7 +49,7 @@ Road routing and line display → nearby discovery → weather, rates, prayer ti
 
 ## Slices 21–24: Travel features in owner review
 
-**Slice 21: real road directions.** Search a place to select a destination. Use GPS or choose another searched place as the start; choose walking/driving and request a mapped road route with estimates. FOSSGIS Valhalla demo: https://valhalla.openstreetmap.de/ . Route requests send chosen start/destination coordinates to Valhalla. Google Maps navigation handoff sends coordinates only when its link is opened. No member/Keys addresses.
+**Slice 21: real road directions.** Search a place to select a destination. Use GPS or choose another searched place as the start; choose walking/driving and request a mapped road route with estimates. FOSSGIS Valhalla demo: https://valhalla.openstreetmap.de/ . Route requests send chosen start/destination coordinates to Valhalla. OpenStreetMap directions handoff sends coordinates only when its link is opened. No member/Keys addresses.
 
 **Slice 22: nearby discovery.** Manually query Overpass community OSM data for mosques, food/cafés, history, adventure and nightlife near the selected map point. Results have map markers and a distance-sorted list. Provider: https://overpass.kumi.systems/api/interpreter . Data may be incomplete; food listings do not imply halal status and listings do not prove operating hours.
 
