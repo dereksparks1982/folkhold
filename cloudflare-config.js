@@ -90,15 +90,15 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
 
     nav.innerHTML = `
       <button type="button" data-view="home"><span aria-hidden="true">⌂</span><small>Hub</small></button>
-      <button type="button" data-view="square"><span aria-hidden="true">🏛</span><small>Village Square</small></button>
-      <button type="button" data-view="notice"><span aria-hidden="true">📌</span><small>Notice Board</small></button>
-      <button type="button" data-view="hold"><span class="folkhold-hold-icon" aria-hidden="true">♜</span><small>My Hold</small></button>
+      <button type="button" data-view="square"><span aria-hidden="true">🏛</span><small>Square</small></button>
+      <button type="button" data-view="notice"><span aria-hidden="true">📌</span><small>Notice</small></button>
+      <button type="button" data-view="hold"><span class="folkhold-hold-icon" aria-hidden="true">♜</span><small>Hold</small></button>
       <button type="button" data-view="tavern"><span aria-hidden="true">🍺</span><small>Tavern</small><b class="top-age-chip">18+</b></button>
       <button type="button" data-view="tea"><span aria-hidden="true">☕</span><small>Tea Room</small></button>
       <button type="button" data-view="directory"><span aria-hidden="true">📖</span><small>Directory</small></button>
       <button type="button" data-view="keys"><span aria-hidden="true">🔑</span><small>Key Ring</small></button>
       <button type="button" data-view="radio"><span aria-hidden="true">📻</span><small>Radio</small></button>
-      <button type="button" data-view="gods-eye"><span aria-hidden="true">🧭</span><small>Travel Companion</small></button>
+      <button type="button" data-view="gods-eye"><span aria-hidden="true">🧭</span><small>Travel</small></button>
       <button type="button" data-action="ad-settings"><span aria-hidden="true">⚙</span><small>Settings</small></button>
     `;
 
@@ -112,6 +112,7 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
     nav.addEventListener('click', () => setTimeout(syncActiveState, 0));
     window.addEventListener('hashchange', syncActiveState);
     syncActiveState();
+    window.dispatchEvent(new Event('folkhold:desktop-nav-ready'));
   }
 
   function applyDesktopLayout() {
@@ -128,9 +129,9 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
         .ad-strip{left:0!important}
         .topbar{display:flex!important;gap:14px!important;padding-left:18px!important;padding-right:18px!important}
         .brand{flex:0 0 auto}
-        .desktop-nav{display:flex!important;align-items:stretch!important;justify-content:flex-start!important;gap:3px!important;min-width:0!important;flex:1 1 auto!important;margin-left:0!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:thin!important;overscroll-behavior-x:contain!important}
+        .desktop-nav{display:flex!important;align-items:stretch!important;justify-content:flex-start!important;gap:3px!important;min-width:0!important;flex:0 0 auto!important;margin-left:auto!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:thin!important;overscroll-behavior-x:contain!important;scroll-snap-type:x mandatory!important}
         .desktop-nav::-webkit-scrollbar{display:none}
-        .desktop-nav button{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:5px!important;min-width:max-content!important;padding:8px 9px!important;border-radius:9px!important;color:#d8cbb7!important;white-space:nowrap!important}
+        .desktop-nav button{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:5px!important;flex:0 0 108px!important;width:108px!important;min-width:108px!important;max-width:108px!important;height:44px!important;box-sizing:border-box!important;padding:8px 4px!important;border-radius:9px!important;color:#d8cbb7!important;white-space:nowrap!important;scroll-snap-align:start!important;scroll-snap-stop:always!important}
         .desktop-nav button>span{font-size:16px!important;line-height:1!important}
         .desktop-nav button[data-view="hold"]>.folkhold-hold-icon{font-size:23px!important;line-height:1!important;transform:translateY(-2px)}
         .desktop-nav button>small{font:12px Georgia,'Times New Roman',serif!important;color:inherit!important}

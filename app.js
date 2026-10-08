@@ -32,7 +32,7 @@
     .then(() => window.FolkholdAds?.showForView(state.view))
     .catch((error) => console.warn('Folkhold ad module did not load.', error));
 
-  loadLocalScript('cloudflare-config.js?v=23')
+  loadLocalScript('cloudflare-config.js?v=24')
     .then(() => {
       const brandIcon = document.querySelector('.brand-mark img');
       if (brandIcon) brandIcon.src = 'assets/folkhold-app-icon-192.png?v=10';
@@ -172,20 +172,61 @@
   });
 
 
-  // Let desktop users scroll the navigation horizontally with a wheel or left-mouse drag.
+  // A fixed-width, whole-button desktop carousel. Wheel events never scroll the page
+  // while the pointer is above navigation, including at either end of the row.
   const desktopNav = document.querySelector('.desktop-nav');
   if (desktopNav) {
-    desktopNav.addEventListener('wheel', (event) => {
-      const max = desktopNav.scrollWidth - desktopNav.clientWidth;
-      if (max <= 1) return;
-      const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
-      const factor = event.deltaMode === 1 ? 18 : event.deltaMode === 2 ? desktopNav.clientWidth : 1;
-      const movement = delta * factor;
-      if ((movement > 0 && desktopNav.scrollLeft < max - 1) ||
-          (movement < 0 && desktopNav.scrollLeft > 1)) {
-        desktopNav.scrollLeft += movement;
-        event.preventDefault();
+    const buttonWidth = 108;
+    const buttonGap = 3;
+    const stride = buttonWidth + buttonGap;
+    const topbar = desktopNav.closest('.topbar');
+
+    const maximumScroll = () => Math.max(0, desktopNav.scrollWidth - desktopNav.clientWidth);
+    const snapTo = (position) => {
+      const index = Math.round(position / stride);
+      desktopNav.scrollLeft = Math.min(maximumScroll(), Math.max(0, index * stride));
+    };
+
+    const fitWholeButtons = () => {
+      if (!topbar || window.innerWidth <= 760) {
+        desktopNav.style.removeProperty('width');
+        return;
       }
+      const barStyle = getComputedStyle(topbar);
+      const gap = parseFloat(barStyle.columnGap || barStyle.gap) || 0;
+      const reserved = Array.from(topbar.children)
+        .filter((child) => child !== desktopNav && getComputedStyle(child).display !== 'none')
+        .reduce((sum, child) => sum + child.getBoundingClientRect().width, 0);
+      const otherElements = Array.from(topbar.children)
+        .filter((child) => child !== desktopNav && getComputedStyle(child).display !== 'none').length;
+      const available = topbar.clientWidth - (parseFloat(barStyle.paddingLeft) || 0)
+        - (parseFloat(barStyle.paddingRight) || 0) - reserved - gap * otherElements;
+      const count = Math.max(1, Math.min(desktopNav.children.length, Math.floor((available + buttonGap) / stride)));
+      desktopNav.style.width = (count * buttonWidth + (count - 1) * buttonGap) + 'px';
+      snapTo(desktopNav.scrollLeft);
+    };
+
+    let fitPending = false;
+    const scheduleFit = () => {
+      if (fitPending) return;
+      fitPending = true;
+      requestAnimationFrame(() => {
+        fitPending = false;
+        fitWholeButtons();
+      });
+    };
+    window.addEventListener('resize', scheduleFit);
+    window.addEventListener('folkhold:desktop-nav-ready', scheduleFit);
+    scheduleFit();
+
+    desktopNav.addEventListener('wheel', (event) => {
+      event.preventDefault();
+      const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+      if (!delta || maximumScroll() < 1) return;
+      const factor = event.deltaMode === 1 ? 18 : event.deltaMode === 2 ? desktopNav.clientWidth : 1;
+      const steps = Math.max(1, Math.round(Math.abs(delta * factor) / stride));
+      const position = Math.round(desktopNav.scrollLeft / stride) + Math.sign(delta) * steps;
+      snapTo(position * stride);
     }, { passive: false });
 
     let pointer = null, startX = 0, startScroll = 0, dragged = false, blockClick = false;
@@ -203,6 +244,7 @@
       if (Math.abs(offset) > 5) dragged = true;
       if (!dragged) return;
       desktopNav.classList.add('is-dragging');
+      desktopNav.style.scrollSnapType = 'none';
       desktopNav.scrollLeft = startScroll + offset;
       event.preventDefault();
     });
@@ -211,12 +253,15 @@
       pointer = null;
       blockClick = dragged;
       desktopNav.classList.remove('is-dragging');
+      desktopNav.style.removeProperty('scroll-snap-type');
+      if (dragged) snapTo(desktopNav.scrollLeft);
     };
     window.addEventListener('pointerup', stopDrag);
     window.addEventListener('pointercancel', stopDrag);
     window.addEventListener('blur', () => {
       pointer = null; dragged = false; blockClick = false;
       desktopNav.classList.remove('is-dragging');
+      desktopNav.style.removeProperty('scroll-snap-type');
     });
     desktopNav.addEventListener('click', event => {
       if (!blockClick) return;
