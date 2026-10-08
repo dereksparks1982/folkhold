@@ -189,17 +189,44 @@
     }catch{status('Place search is currently unavailable. You can still explore the map.');}
     finally{busy=false;button.disabled=false;}
   }
-  function locate(){
+  async function locate(){
     if(!map){status('Open the map first.');return;}
-    if(!navigator.geolocation){status('Location is unavailable in this browser.');return;}
-    status('Waiting for location permission…');
+    if(!window.isSecureContext){status('Location requires a secure HTTPS connection. You can still search for a place.');return;}
+    if(!navigator.geolocation){status('This browser does not provide location access. You can still search for a city or address.');return;}
+    if(document.permissionsPolicy?.allowsFeature?.('geolocation')===false){
+      status('This page is blocked from requesting location. You can still search for a place.');return;
+    }
+    const button=$('gods-eye-locate');
+    if(button?.disabled)return;
+    if(button)button.disabled=true;
+    const done=()=>{if(button)button.disabled=false;};
+    let permission='unknown';
+    try{
+      if(navigator.permissions?.query)permission=(await navigator.permissions.query({name:'geolocation'})).state;
+    }catch{/* Permission query not available in every browser. */}
+    if(permission==='denied'){
+      status('Location is blocked in Firefox. Check site permissions beside the address bar, allow Location, then try again. You can still search manually.');
+      done();return;
+    }
+    status(permission==='granted'?'Finding your approximate location…':'Waiting for browser location permission or an approximate position…');
     navigator.geolocation.getCurrentPosition(pos=>{
+      done();
       const {latitude,longitude,accuracy}=pos.coords;
-      if(!valid(latitude,longitude)){status('Location coordinates were invalid.');return;}
+      if(!valid(latitude,longitude)){status('Location coordinates were invalid. Search for a place instead.');return;}
       pin(latitude,longitude,'Your current position',true);
       status('Approximate position shown (accuracy '+Math.round(accuracy)+' m). Your position has not been shared with another Folkhold member.');
-    },err=>status(err?.code===1?'Location permission denied. You can still search.':'Could not retrieve your location. Try again when GPS is available.'),
-    {enableHighAccuracy:false,maximumAge:300000,timeout:12000});
+    },err=>{
+      done();
+      if(err?.code===1){
+        status('Location permission was denied or blocked. In Firefox, check site permissions near the address bar. You can still search for a place.');
+      }else if(err?.code===3){
+        status('Location request timed out. This computer may not have a working location provider. Try again or search for a place manually.');
+      }else if(err?.code===2){
+        status('The browser could not determine your position. Desktop location can use nearby networks; GPS is not required. Try a manual place search.');
+      }else{
+        status('Location is unavailable right now. You can still search for a city, landmark, or address.');
+      }
+    },{enableHighAccuracy:false,maximumAge:300000,timeout:12000});
   }
   function start(){
     $('gods-eye-search')?.addEventListener('submit',search);
