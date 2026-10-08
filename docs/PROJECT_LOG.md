@@ -1,5 +1,11 @@
 # Folkhold Project Log
 
+## 2026-10-08 — Account readiness diagnostic correction
+
+- During first post-secret validation, owner reported `ready: false` with both prerequisites listed. Found the Worker code emitted both names whenever either setting was missing, making the result ambiguous.
+- Changed only `/api/account/status` to list the missing binding/secret independently. Source check covered all four binding combinations. No authentication, chat, forum, database, or secret changes.
+- Await Worker deployment and second status response before troubleshooting a specific missing binding.
+
 ## 2026-10-08 — Persist Cloudflare D1 authentication binding in deployment configs
 
 - Owner created `folkhold-auth` in D1 and connected it as Worker binding `AUTH_DB`; screenshot confirmed original `GLOBAL_CHAT` binding intact.

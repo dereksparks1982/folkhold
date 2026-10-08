@@ -11,6 +11,7 @@ This file records unresolved or intentionally incomplete work. An item remains h
 
 ## Accounts / persistence
 
+- `/api/account/status` formerly reported both `AUTH_DB` and `BETTER_AUTH_SECRET` whenever either was unavailable. The diagnostic logic is corrected in source, but the user-reported `ready: false` still needs live Worker verification after deployment; do not assume credentials are active.
 - Better Auth UI/backend scaffolding exists. Owner provisioned D1 `folkhold-auth` and `AUTH_DB` Worker binding (October 8); both Wrangler configuration files now include it. Live redeployment and database schema creation are not independently verified. Accounts remain disabled until private `BETTER_AUTH_SECRET` is installed.
 - Google/Apple provider activation still depends on valid provider credentials if those sign-in methods remain enabled.
 - Holds, Rooms, Keys, Knocks, notices, preferences, games, and most social state are not yet fully persistent production data.

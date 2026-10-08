@@ -1,3 +1,10 @@
+## 2026-10-08 — Precise account-status prerequisite reporting
+
+- Confirmed the previous account-status function always listed **both** D1 and auth secret if either was absent; the reported `ready: false` alone did not establish which prerequisite was missing.
+- Source patch changes only the status endpoint's `needs` calculation. Tested four combinations: neither present, only D1, only secret, both present. Modified Worker parsed successfully.
+- `authConfigured`, Better Auth, Global Chat, forum routes, Wrangler D1 bindings and secret values remain untouched.
+- **Pending:** Cloudflare Worker build/deploy, remotely reading updated `/api/account/status`, actual authentication initialization. GitHub Pages success is not proof of Cloudflare Worker update.
+
 ## 2026-10-08 — Account D1 binding configuration candidate
 
 - Verified owner screenshot identifies D1 `folkhold-auth` and a dashboard `AUTH_DB` binding, with `GLOBAL_CHAT` preserved.

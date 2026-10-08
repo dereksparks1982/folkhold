@@ -85,3 +85,5 @@ Global Chat remains guest-capable. Once accounts are activated, a signed-in memb
 ## Next account steps
 
 After D1 and the Better Auth secret are connected, verify email signup first. Then add Google credentials. Apple can follow once its developer credentials are available. Password-reset email and email verification require a transactional email provider and are intentionally not claimed as finished in this slice.
+
+**Account-status diagnostic correction (October 8):** The old `/api/account/status` response listed both `AUTH_DB` and `BETTER_AUTH_SECRET` whenever **either one** was missing. That output was ambiguous. A narrowly scoped Worker fix now lists only the actual missing prerequisites; it does not expose secret values or change account activation behavior. After Cloudflare deploys the correction, re-open `/api/account/status` and read the `needs` array. If it still reports both, verify the active Worker deployment and its production bindings rather than generating a new secret or database blindly.

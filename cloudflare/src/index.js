@@ -206,9 +206,12 @@ async function accountStatus(request, env) {
     providers,
     appOrigin: requestOrigin(request),
     publicSite: env.PUBLIC_SITE_ORIGIN || DEFAULT_PUBLIC_SITE,
-    needs: authConfigured(env)
-      ? []
-      : ["D1 binding AUTH_DB", "BETTER_AUTH_SECRET"],
+    // Report each prerequisite independently so the status page cannot
+    // incorrectly claim both are missing when only one is absent.
+    needs: [
+      ...(!env.AUTH_DB ? ["D1 binding AUTH_DB"] : []),
+      ...(!env.BETTER_AUTH_SECRET ? ["BETTER_AUTH_SECRET"] : []),
+    ],
   }), request, env);
 }
 
