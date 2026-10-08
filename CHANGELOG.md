@@ -2,6 +2,13 @@
 
 All notable accepted Folkhold changes are recorded here from v1.1.0 forward.
 
+## Unreleased candidate — Travel Companion navigation choice (October 8, 2026)
+
+- Restored Google Maps as the primary external navigation link for walking and driving.
+- Kept OpenStreetMap Directions as a second link; both use the same selected route endpoints and travel mode.
+- Preserved OpenLayers, OpenStreetMap map tiles, Valhalla road overlays, Radio, and existing navigation.
+- iPhone/desktop link handoffs still require owner validation.
+
 ## Unreleased candidate — Travel Companion external directions provider
 
 - Replaced the Google Maps external directions link with OpenStreetMap Directions for both walking and driving modes; retained internal Valhalla road-route drawing.
