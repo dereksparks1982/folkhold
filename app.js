@@ -56,7 +56,7 @@
     state.view = name;
     screens.forEach(s => s.classList.toggle('active', s.dataset.screen === name));
     navButtons.forEach(b => b.classList.toggle('active', b.dataset.view === name));
-    if (updateHash && location.hash !== `#${name}`) history.replaceState(null, '', `#${name}`);
+    if (updateHash && location.hash !== `#${name}`) history.pushState({ folkholdView: name }, '', `#${name}`);
     document.getElementById('main').focus({ preventScroll: true });
     window.scrollTo({ top: 0, behavior: 'smooth' });
     if (name === 'tavern') renderTavern();
@@ -171,6 +171,62 @@
     showToast(`You left a knock at ${holdName}.`);
   });
 
+
+  // Let desktop users scroll the navigation horizontally with a wheel or left-mouse drag.
+  const desktopNav = document.querySelector('.desktop-nav');
+  if (desktopNav) {
+    desktopNav.addEventListener('wheel', (event) => {
+      const max = desktopNav.scrollWidth - desktopNav.clientWidth;
+      if (max <= 1) return;
+      const delta = Math.abs(event.deltaY) >= Math.abs(event.deltaX) ? event.deltaY : event.deltaX;
+      const factor = event.deltaMode === 1 ? 18 : event.deltaMode === 2 ? desktopNav.clientWidth : 1;
+      const movement = delta * factor;
+      if ((movement > 0 && desktopNav.scrollLeft < max - 1) ||
+          (movement < 0 && desktopNav.scrollLeft > 1)) {
+        desktopNav.scrollLeft += movement;
+        event.preventDefault();
+      }
+    }, { passive: false });
+
+    let pointer = null, startX = 0, startScroll = 0, dragged = false, blockClick = false;
+    desktopNav.addEventListener('pointerdown', event => {
+      if (event.pointerType !== 'mouse' || event.button !== 0) return;
+      pointer = event.pointerId;
+      startX = event.clientX;
+      startScroll = desktopNav.scrollLeft;
+      dragged = false;
+      blockClick = false;
+    });
+    window.addEventListener('pointermove', event => {
+      if (pointer !== event.pointerId) return;
+      const offset = startX - event.clientX;
+      if (Math.abs(offset) > 5) dragged = true;
+      if (!dragged) return;
+      desktopNav.classList.add('is-dragging');
+      desktopNav.scrollLeft = startScroll + offset;
+      event.preventDefault();
+    });
+    const stopDrag = event => {
+      if (pointer !== event.pointerId) return;
+      pointer = null;
+      blockClick = dragged;
+      desktopNav.classList.remove('is-dragging');
+    };
+    window.addEventListener('pointerup', stopDrag);
+    window.addEventListener('pointercancel', stopDrag);
+    window.addEventListener('blur', () => {
+      pointer = null; dragged = false; blockClick = false;
+      desktopNav.classList.remove('is-dragging');
+    });
+    desktopNav.addEventListener('click', event => {
+      if (!blockClick) return;
+      event.preventDefault();
+      event.stopPropagation();
+      blockClick = false;
+    }, true);
+  }
+
+  window.addEventListener('popstate', () => setView(location.hash.replace('#', '') || 'home', false));
   window.addEventListener('hashchange', () => setView(location.hash.replace('#', '') || 'home', false));
   setView(state.view, false);
 })();
