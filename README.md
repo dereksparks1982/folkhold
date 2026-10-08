@@ -1,9 +1,5 @@
 # Folkhold
 
-## Canonical site and sign-in (October 8 candidate)
-
-**Public Folkhold website:** https://dereksparks1982.github.io/folkhold/. Cloudflare `folkhold.dereksparks1982.workers.dev` is the backend only, including a small OAuth popup. The main account button now opens an in-page dialog without redirecting the Folkhold website or interrupting its Radio. Token-based sessions avoid third-party cookie dependencies. The Google `401 invalid_client` issue still needs a successful provider-authentication test.
-
 **Your place. Your people.**
 
 Folkhold is a social web project built around personal places rather than flat profiles. Each member has a **Hold** containing rooms for the things they care about, and access to private Holds is granted through individually revocable **Keys** rather than shared passwords.

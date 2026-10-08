@@ -4,7 +4,6 @@ This roadmap is the current planning record. Items are not implementation author
 
 ## Current baseline
 
-- **Pending owner/browser acceptance (October 8):** GitHub Pages is the sole public Folkhold site; Cloudflare is restricted to backend endpoints and a tiny OAuth popup. In-page account modal uses bearer transport, preserving the website and Radio. Google `401 invalid_client` remains unresolved; real login and device validation outstanding.
 - **v1.3.0** is the latest owner-directed release closeout (October 8, 2026); deployed GitHub Pages source is verified, with the real-browser/location/provider acceptance items still open. v1.2.0 Radio and v1.1.0 Hold door release history remain preserved.
 - GitHub `main` is authoritative.
 - Desktop navigation has eleven short, equal-width horizontally scrollable buttons, including **Wayfarer**; the desktop side rail is removed, the accepted artwork is preserved, and the banner subtitle is **Your people**. Hub and Hold use matching medieval front doors; local door customization and browser-prototype Knock are deployed, but device visuals and server persistence remain to verify.

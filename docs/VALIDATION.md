@@ -1,16 +1,3 @@
-### Preflight follow-up
-
-- Corrected the raw-string delimiter syntax in the new Cloudflare popup JavaScript constant before accepting deployment.
-- Updated the Google source integration check: OAuth-start invocation now belongs to Cloudflare's first-party popup, not the GitHub Pages modal.
-- Awaiting renewed GitHub syntax/unit and deployed smoke tests.
-
-## 2026-10-08 — Canonical GitHub Pages account modal / backend-only Worker candidate
-
-- Static checks verify no redirect to Cloudflare website in auth UI, official Better Auth bearer plugin, stricter origin-checked popup handoff, and JS syntax.
-- Live Test Center will check the backend-only root and minimal OAuth popup, plus anonymous popup-session denial.
-- Pending: explicit GitHub Pages and Cloudflare build checks; real account/session creation, Google provider acceptance, popup success on Firefox/Safari/iPhone, Radio persistence, and authenticated profile persistence.
-- No Google credential changes, D1 schema changes, or direct modification of global chat/forum/Radio were made.
-
 ## 2026-10-08 — Google OAuth client identity diagnostic candidate
 
 - Google browser screenshot: `401 invalid_client`, `The OAuth client was not found`. Last Test Center passed presence checks, not the real OAuth round trip.
