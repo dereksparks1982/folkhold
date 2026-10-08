@@ -1,3 +1,10 @@
+## 2026-10-08 — Approved icon for Cloudflare API tabs
+
+- Inspected current HTML, web manifest and runtime favicon source: the main application already loads approved gold house/keyhole PNG while API pages default to `/favicon.ico` (older file).
+- Modified only the existing Worker frontend proxy's favicon fallback to serve the approved PNG asset. Verified JS syntax and path mapping for `/favicon.ico`, `/api/forum/categories` and `/`.
+- **Not validated:** deployed Worker favicon response, browser caching, physical Firefox/iPhone display. User may need to close/reopen the API tab after deployment.
+- The owner-reported account status now lists **only `BETTER_AUTH_SECRET`** as missing, confirming `AUTH_DB` is present in the running Worker. This icon patch does not alter either binding.
+
 ## 2026-10-08 — Precise account-status prerequisite reporting
 
 - Confirmed the previous account-status function always listed **both** D1 and auth secret if either was absent; the reported `ready: false` alone did not establish which prerequisite was missing.

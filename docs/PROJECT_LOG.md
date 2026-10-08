@@ -1,5 +1,11 @@
 # Folkhold Project Log
 
+## 2026-10-08 — Use approved Folkhold favicon on Worker API tabs
+
+- Owner saw the outdated icon on the `workers.dev/api/account/status` browser tab. JSON responses have no HTML favicon link, so browsers fall back to requesting `/favicon.ico`, which the existing frontend proxy previously served from the older root icon.
+- Worker frontend proxy now maps only `/favicon.ico` to the existing `assets/folkhold-app-icon-192.png` (gold house/keyhole). No binary artwork, page UI, existing chat/forum, account status or D1 bindings changed.
+- Source syntax and route mapping checked. Browser favicon caching and live Cloudflare deployment still require owner verification.
+
 ## 2026-10-08 — Account readiness diagnostic correction
 
 - During first post-secret validation, owner reported `ready: false` with both prerequisites listed. Found the Worker code emitted both names whenever either setting was missing, making the result ambiguous.

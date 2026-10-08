@@ -303,7 +303,11 @@ async function proxyFrontend(request, env) {
 
   const incoming = new URL(request.url);
   const base = new URL(`${String(env.PUBLIC_SITE_ORIGIN || DEFAULT_PUBLIC_SITE).replace(/\/$/, "")}/`);
-  const relativePath = incoming.pathname.replace(/^\//, "");
+  // Browser tabs viewing JSON endpoints request /favicon.ico without the
+  // main application's icon link. Serve the existing approved house/key image.
+  const relativePath = incoming.pathname === "/favicon.ico"
+    ? "assets/folkhold-app-icon-192.png"
+    : incoming.pathname.replace(/^\//, "");
   const target = new URL(relativePath || "./", base);
   target.search = incoming.search;
 

@@ -11,6 +11,9 @@ This file records unresolved or intentionally incomplete work. An item remains h
 
 ## Accounts / persistence
 
+- Owner's current `/api/account/status` reports `ready: false` and `needs: ["BETTER_AUTH_SECRET"]` after the diagnostic patch. `AUTH_DB` is recognized. The secret is not exposed to the currently running Worker; recheck the production secret name and deploy status in Cloudflare, then re-test. Don't recreate D1.
+- Worker JSON-page favicon previously fell back to old `favicon.ico`; a scoped source fix maps the fallback to existing approved house/key PNG, pending live browser validation.
+
 - `/api/account/status` formerly reported both `AUTH_DB` and `BETTER_AUTH_SECRET` whenever either was unavailable. The diagnostic logic is corrected in source, but the user-reported `ready: false` still needs live Worker verification after deployment; do not assume credentials are active.
 - Better Auth UI/backend scaffolding exists. Owner provisioned D1 `folkhold-auth` and `AUTH_DB` Worker binding (October 8); both Wrangler configuration files now include it. Live redeployment and database schema creation are not independently verified. Accounts remain disabled until private `BETTER_AUTH_SECRET` is installed.
 - Google/Apple provider activation still depends on valid provider credentials if those sign-in methods remain enabled.
