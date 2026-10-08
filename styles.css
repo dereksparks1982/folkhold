@@ -153,3 +153,18 @@ body {
   main{padding-bottom:140px}
 }
 /* RADIO_MOBILE_SWIPE_END */
+
+/* Desktop navigation: prevent overlap and allow horizontal scrolling. */
+@media(min-width:1051px){
+  .topbar{min-width:0}
+  .topbar>.brand,.topbar>.avatar-button{flex:0 0 auto}
+  .desktop-nav{
+    flex:1 1 auto;min-width:0;max-width:100%;
+    overflow-x:auto;overflow-y:hidden;
+    white-space:nowrap;overscroll-behavior-x:contain;
+    scrollbar-width:thin;scrollbar-color:#76654d transparent;
+    touch-action:pan-x;cursor:grab;user-select:none;-webkit-user-select:none
+  }
+  .desktop-nav>button{flex:0 0 auto;white-space:nowrap}
+  .desktop-nav.is-dragging{cursor:grabbing}
+}
