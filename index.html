@@ -18,7 +18,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/folkhold-app-icon-192.png?v=9">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/folkhold-app-icon-180.png?v=9">
   <link rel="manifest" href="site.webmanifest?v=9">
-  <link rel="stylesheet" href="styles.css?v=18">
+  <link rel="stylesheet" href="styles.css?v=19">
   <link rel="stylesheet" href="gods-eye/map.css?v=6">
   <style>
     .brand-mark{overflow:hidden;padding:0;background:#111}
@@ -53,6 +53,9 @@
       <button type="button" data-view="notice">Notice Board</button>
       <button type="button" data-view="directory">Directory</button>
       <button type="button" data-view="keys">Key Ring</button>
+      <button type="button" data-view="radio">Radio</button>
+      <button type="button" data-view="gods-eye">🧭 Travel Companion</button>
+      <button type="button" data-action="ad-settings">Settings</button>
     </nav>
 
     <button class="avatar-button" type="button" data-view="hold" aria-label="Open your Hold">D</button>
@@ -70,7 +73,7 @@
       <button type="button" data-view="directory"><span>📖</span> Directory</button>
       <button type="button" data-view="keys"><span>🔑</span> Key Ring</button>
       <div class="rail-rule"></div>
-      <button type="button" data-action="ad-settings"><span>⚙</span> Ad choices</button>
+      <button type="button" data-action="ad-settings"><span>⚙</span> Settings</button>
     </aside>
 
     <main id="main" tabindex="-1">
@@ -94,20 +97,34 @@
 
         <section class="town-grid" aria-label="Folkhold places">
           <button class="place-card square-card" type="button" data-view="square">
-            <span class="place-icon">🏛</span><strong>Public Square</strong><small>Global chat and public conversation.</small>
+            <span class="place-icon" aria-hidden="true">🏛</span><strong>Public Square</strong><small>Global chat and public conversation.</small>
           </button>
           <button class="place-card notice-card" type="button" data-view="notice">
-            <span class="place-icon">📌</span><strong>Notice Board</strong><small>Pin a request, invitation, sale, event or odd little note.</small>
+            <span class="place-icon" aria-hidden="true">📌</span><strong>Notice Board</strong><small>Pin a request, invitation, sale, event or odd little note.</small>
+          </button>
+          <button class="place-card hold-card" type="button" data-view="hold">
+            <span class="place-icon folkhold-hold-icon" aria-hidden="true">♜</span><strong>My Hold</strong><small>Your rooms, front door and personal space.</small>
           </button>
           <button class="place-card tavern-card" type="button" data-view="tavern">
-            <span class="place-icon">🍺</span><strong>The Tavern</strong><small>Adults only. Minimal moderation. Enter knowingly.</small>
+            <span class="place-icon" aria-hidden="true">🍺</span><strong>The Tavern</strong><small>Adults only. Minimal moderation. Enter knowingly.</small>
           </button>
           <button class="place-card tea-card" type="button" data-view="tea">
-            <span class="place-icon folkhold-place-art"><img src="assets/folkhold-tea-room.png" alt=""></span><strong>Tea Room</strong><small>Strictly moderated, civility-first conversation.</small>
+            <span class="place-icon" aria-hidden="true">☕</span><strong>Tea Room</strong><small>Strictly moderated, civility-first conversation.</small>
+          </button>
+          <button class="place-card directory-card" type="button" data-view="directory">
+            <span class="place-icon" aria-hidden="true">📖</span><strong>Directory</strong><small>Find discoverable Holds and people.</small>
+          </button>
+          <button class="place-card keys-card" type="button" data-view="keys">
+            <span class="place-icon" aria-hidden="true">🔑</span><strong>Key Ring</strong><small>See and manage the keys to your spaces.</small>
+          </button>
+          <button class="place-card radio-card" type="button" data-view="radio">
+            <span class="place-icon" aria-hidden="true">📻</span><strong>Radio</strong><small>Listen to Folkhold's music and stations.</small>
           </button>
           <button class="place-card gods-eye-card" type="button" data-view="gods-eye">
-            <span class="place-icon" aria-hidden="true">⌖</span><strong>Travel Companion</strong>
-            <small>Explore the world from Folkhold.</small>
+            <span class="place-icon" aria-hidden="true">🧭</span><strong>Travel Companion</strong><small>Explore places and plan your journey.</small>
+          </button>
+          <button class="place-card settings-card" type="button" data-action="ad-settings">
+            <span class="place-icon" aria-hidden="true">⚙</span><strong>Settings</strong><small>Open your preferences, starting with advertising.</small>
           </button>
         </section>
       </section>
@@ -388,7 +405,8 @@
 
   <dialog id="ad-dialog">
     <form method="dialog" class="dialog-card">
-      <span class="eyebrow">YOU CHOOSE</span><h1>Advertising preferences</h1>
+      <span class="eyebrow">PREFERENCES</span><h1>Settings</h1>
+      <h2>Advertising preferences</h2>
       <p>Folkhold does not infer your interests from private activity. Pick categories you actually want to see.</p>
       <div class="ad-options">
         <label><input type="checkbox" checked> Gaming & Xbox</label><label><input type="checkbox" checked> Computers & Linux</label><label><input type="checkbox"> Cars</label><label><input type="checkbox" checked> Movies</label><label><input type="checkbox"> Travel</label><label><input type="checkbox"> Home & Garden</label>
@@ -407,6 +425,6 @@
   <script src="gods-eye/nearby.js?v=3"></script>
   <script src="gods-eye/essentials.js?v=2"></script>
   <script src="gods-eye/companion.js?v=2"></script>
-  <script src="app.js?v=19"></script>
+  <script src="app.js?v=20"></script>
 </body>
 </html>
