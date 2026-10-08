@@ -11,6 +11,8 @@ This file records unresolved or intentionally incomplete work. An item remains h
 
 ## Accounts / persistence
 
+- Build-time secret is not guaranteed to reach Worker runtime; deployment helper requires one-time Cloudflare Deploy command change to npm run deploy. This candidate has not yet changed live authentication.
+
 - Folkhold Test Center is a source candidate pending its first live workflow report; it observes but cannot automatically repair missing Cloudflare runtime secrets or complete OAuth without provider credentials.
 
 - Owner's current `/api/account/status` reports `ready: false` and `needs: ["BETTER_AUTH_SECRET"]` after the diagnostic patch. `AUTH_DB` is recognized. The secret is not exposed to the currently running Worker; recheck the production secret name and deploy status in Cloudflare, then re-test. Don't recreate D1.

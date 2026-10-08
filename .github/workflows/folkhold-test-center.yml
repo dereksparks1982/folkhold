@@ -18,6 +18,8 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
+      - name: Verify secure Worker deployment helper with mocked Wrangler
+        run: node --test tests/cloudflare-deploy.test.mjs
       - name: Give Cloudflare Git integration time to deploy
         run: sleep 45
       - name: Read-only Folkhold diagnostics

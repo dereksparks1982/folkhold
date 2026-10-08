@@ -8,6 +8,10 @@ Folkhold is a social web project built around personal places rather than flat p
 
 The new read-only GitHub Actions Test Center probes GitHub/Cloudflare deployment readiness, the live authentication status, the Square forum GET endpoints and the frontend. It saves report.json, report.md and report.log as artifacts even if a test fails. See [Test Center](docs/TEST_CENTER.md). It does not repair or reveal secrets. First live report and owner acceptance are pending.
 
+## Authentication deployment repair candidate
+
+A secure deploy helper is staged for Git-connected Cloudflare builds. It needs the Cloudflare Deploy command set to `npm run deploy`; until that setting changes, the Worker still does not receive BETTER_AUTH_SECRET. See [runtime secret handoff](docs/RUNTIME_SECRET_DEPLOY.md). Live account activation is pending.
+
 ## Links
 
 - **Folkhold Web App:** https://dereksparks1982.github.io/folkhold/

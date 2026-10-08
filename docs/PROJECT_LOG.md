@@ -1,5 +1,10 @@
 # Folkhold Project Log
 
+## 2026-10-08 — Authentication runtime secret deployment helper candidate
+
+- Confirmed official Cloudflare support for deployment with --secrets-file; build variables do not automatically become Worker runtime secrets. Built private-temp-file deployment helper, npm script, mock-Wrangler unit tests and documentation.
+- Helper changes require Cloudflare deploy command to be set to `npm run deploy` outside GitHub; existing build command remains npx wrangler deploy until then. Do not call runtime authentication fixed yet. No Worker/chat/forum source changes.
+
 ## 2026-10-08 — Test Center first slice candidate
 
 - Added a read-only Node.js diagnostic runner and GitHub Actions workflow with downloadable logs/reports.

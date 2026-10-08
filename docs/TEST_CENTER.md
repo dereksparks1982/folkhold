@@ -27,3 +27,7 @@ The owner has entered and verified BETTER_AUTH_SECRET in the Cloudflare dashboar
 These checks use GET only; they do **not** register accounts, attempt real OAuth sign-in, create forum posts, mutate D1, or inspect private configuration. No extra diagnostic hosting is required. Later slices can add isolated Worker/D1 tests with Cloudflare's maintained Vitest plugin and browser checks with Playwright, then an owner-only panel once real administrator authentication exists.
 
 A GitHub Pages or Cloudflare build success is different from verified runtime behavior. Owner acceptance of this candidate and a first successful Actions artifact review remain outstanding.
+
+## Deployment helper tests
+
+Actions additionally runs `node --test tests/cloudflare-deploy.test.mjs` against a mocked Wrangler executable before live read-only checks. See [runtime secret deployment](RUNTIME_SECRET_DEPLOY.md). Production deploy still uses Cloudflare's current configured command until explicitly changed.

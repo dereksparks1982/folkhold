@@ -1,3 +1,9 @@
+## 2026-10-08 — Auth runtime deployment helper candidate
+
+- Source candidate: private temporary-file secret handoff using Cloudflare-supported wrangler deploy --secrets-file, no credential values stored in git or public configs.
+- GitHub Test Center now includes mock-Wrangler unit tests. Pending first Actions run and real Cloudflare deployment after owner changes Deploy command to npm run deploy.
+- Existing Worker, D1, Global Chat and forum source unchanged; ready:true not yet demonstrated.
+
 ## 2026-10-08 — Folkhold Test Center first-slice candidate
 
 - Read current Company Bible, docs, and existing Worker/Better Auth configuration.
