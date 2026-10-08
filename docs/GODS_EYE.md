@@ -37,3 +37,18 @@ No automatic GPS, no friend position lookup, no backend coordinate persistence, 
 ## Next separate slices
 
 Road routing and line display → nearby discovery → weather, rates, prayer times, translation and local tools → permissioned Key-to-Key directions after the accounts/Keys backend is ready.
+
+
+## Slices 21–24: Travel features in owner review
+
+**Slice 21: real road directions.** Search a place to select a destination. Use GPS or choose another searched place as the start; choose walking/driving and request a mapped road route with estimates. FOSSGIS Valhalla demo: https://valhalla.openstreetmap.de/ . Route requests send chosen start/destination coordinates to Valhalla. Google Maps navigation handoff sends coordinates only when its link is opened. No member/Keys addresses.
+
+**Slice 22: nearby discovery.** Manually query Overpass community OSM data for mosques, food/cafés, history, adventure and nightlife near the selected map point. Results have map markers and a distance-sorted list. Provider: https://overpass.kumi.systems/api/interpreter . Data may be incomplete; food listings do not imply halal status and listings do not prove operating hours.
+
+**Slice 23: travel essentials.** Current conditions from https://open-meteo.com/ for selected coordinates; currency reference rates from https://frankfurter.dev/ ; Hanafi Asr prayer calculations from https://aladhan.com/prayer-times-api with user-selectable method including Diyanet Turkey. All are button-triggered, not automatic. Market exchange fees and locally posted prayer schedules may differ.
+
+**Slice 24: language and Fair Price.** Manual two-way short translation (English/Turkish and selectable Arabic/Persian/French) via https://mymemory.translated.net/doc/spec.php ; the typed message leaves Folkhold only on Translate. A small Turkish phrasebook is prewritten and works without a translation service. Fair Price compares a quote with a reference price the user personally supplies; it does NOT invent actual local market data. Hitch currently shows the selected place and available travel tools; a genuine conversational AI is future work.
+
+### Important boundaries
+
+These are **GitHub source candidates**, not accepted device-tested production services. Leaflet/OSM/Photon, Valhalla, Overpass, Open-Meteo, Frankfurter, AlAdhan and MyMemory have differing terms, availability and rate limits. Public demo tile, routing and discovery servers need provisioning before serious traffic. The user must explicitly request data; there is no automatic GPS, no friend-location disclosure and no saved travel profile. Review on PC/iPhone: routes, categories, weather, rates, prayer times/date/timezone, translator, Fare Price and Hitch; verify existing Radio and UI unchanged.
