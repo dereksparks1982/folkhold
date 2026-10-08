@@ -1,7 +1,7 @@
 (() => {
   'use strict';
 
-  // Travel Companion map renderer: OpenLayers. No dependency on the former map engine.
+  // Wayfarer map renderer: OpenLayers. No dependency on the former map engine.
   const urls=Object.freeze({
     css:'https://cdn.jsdelivr.net/npm/ol@10.10.0/ol.css',
     js:'https://cdn.jsdelivr.net/npm/ol@10.10.0/dist/ol.js',
@@ -109,7 +109,7 @@
     if(!screen?.classList.contains('active'))return;
     if(map){setTimeout(()=>map.updateSize(),80);return;}
     if(opening)return opening;
-    status('Loading the Travel Companion map…');
+    status('Loading the Wayfarer map…');
     opening=(async()=>{
       try{
         await library();
@@ -134,7 +134,7 @@
         status('Drag or pinch to explore. Search a place, or choose Use My Location.');
         setTimeout(()=>map.updateSize(),160);
       }catch{
-        status('The map could not load. Check your connection and try opening Travel Companion again.');
+        status('The map could not load. Check your connection and try opening Wayfarer again.');
       }finally{opening=null;}
     })();
     return opening;
@@ -213,8 +213,20 @@
       done();
       const {latitude,longitude,accuracy}=pos.coords;
       if(!valid(latitude,longitude)){status('Location coordinates were invalid. Search for a place instead.');return;}
-      pin(latitude,longitude,'Your current position',true);
-      status('Approximate position shown (accuracy '+Math.round(accuracy)+' m). Your position has not been shared with another Folkhold member.');
+      const accuracyMeters=Number(accuracy);
+      const coarse=!Number.isFinite(accuracyMeters)||accuracyMeters>10000;
+      const positionText=latitude.toFixed(4)+', '+longitude.toFixed(4);
+      const accuracyText=Number.isFinite(accuracyMeters)?Math.round(accuracyMeters).toLocaleString('en-US')+' m':'unknown';
+      if(coarse){
+        // In particular, a desktop/IP guess must not silently become a driving origin.
+        ownSource.clear();
+        ownSource.addFeature(featureFor(latitude,longitude,'Unverified browser location'));
+        focus(latitude,longitude,9);
+        status('Browser reported '+positionText+' (estimated accuracy '+accuracyText+'). This is too imprecise to use as your starting point. Search your city or address and select Use Selected as Start.');
+        return;
+      }
+      pin(latitude,longitude,'Browser-reported location',true);
+      status('Browser reported '+positionText+' (estimated accuracy '+accuracyText+'). Check that the map shows your actual area: desktop location may be wrong, even with a low reported accuracy. If this is not your city, search for your city or address and choose Use Selected as Start. No location is shared with another member.');
     },err=>{
       done();
       if(err?.code===1){
@@ -226,7 +238,7 @@
       }else{
         status('Location is unavailable right now. You can still search for a city, landmark, or address.');
       }
-    },{enableHighAccuracy:false,maximumAge:300000,timeout:12000});
+    },{enableHighAccuracy:true,maximumAge:0,timeout:18000});
   }
   function start(){
     $('gods-eye-search')?.addEventListener('submit',search);

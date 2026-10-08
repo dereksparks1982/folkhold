@@ -57,7 +57,7 @@
       <button type="button" data-view="directory"><span aria-hidden="true">📖</span><small>Directory</small></button>
       <button type="button" data-view="keys"><span aria-hidden="true">🔑</span><small>Key Ring</small></button>
       <button type="button" data-view="radio"><span aria-hidden="true">📻</span><small>Radio</small></button>
-      <button type="button" data-view="gods-eye"><span aria-hidden="true">🧭</span><small>Travel</small></button>
+      <button type="button" data-view="gods-eye"><span aria-hidden="true">🧭</span><small>Wayfarer</small></button>
       <button type="button" data-action="ad-settings"><span aria-hidden="true">⚙</span><small>Settings</small></button>
     </nav>
 
@@ -124,7 +124,7 @@
             <span class="place-icon" aria-hidden="true">📻</span><strong>Radio</strong><small>Listen to Folkhold's music and stations.</small>
           </button>
           <button class="place-card gods-eye-card" type="button" data-view="gods-eye">
-            <span class="place-icon" aria-hidden="true">🧭</span><strong>Travel Companion</strong><small>Explore places and plan your journey.</small>
+            <span class="place-icon" aria-hidden="true">🧭</span><strong>Wayfarer</strong><small>Explore places and plan your journey.</small>
           </button>
           <button class="place-card settings-card" type="button" data-action="ad-settings">
             <span class="place-icon" aria-hidden="true">⚙</span><strong>Settings</strong><small>Open your preferences, starting with advertising.</small>
@@ -244,15 +244,15 @@
         </div>
       </section>
       <section class="view" data-screen="gods-eye">
-        <div class="section-heading"><div><span class="eyebrow">WAYFARER • FOLKHOLD</span><h1>Travel Companion</h1>
+        <div class="section-heading"><div><span class="eyebrow">WAYFARER • FOLKHOLD</span><h1>Wayfarer</h1>
           <p>Explore places around the world. Location permission is optional. Travel requests send selected coordinates only to the providers you choose to use.</p></div></div>
-        <section class="panel fh-map-panel" aria-label="Travel Companion">
+        <section class="panel fh-map-panel" aria-label="Wayfarer">
           <form id="gods-eye-search" class="fh-map-search" role="search">
             <label for="gods-eye-query">Find a place</label>
             <div class="fh-map-search-row"><input id="gods-eye-query" maxlength="160" minlength="2" required autocomplete="off" placeholder="City, landmark, or address"><button class="primary" type="submit">Search</button></div>
           </form>
           <div class="fh-map-actions"><button type="button" id="gods-eye-locate" class="secondary">◎ Use My Location</button><button type="button" id="gods-eye-world" class="secondary">World View</button></div>
-          <p id="gods-eye-status" class="fh-map-status" role="status" aria-live="polite">Open Travel Companion to load the map.</p>
+          <p id="gods-eye-status" class="fh-map-status" role="status" aria-live="polite">Open Wayfarer to load the map.</p><p class="fh-map-status">Desktop location may be an incorrect network estimate. If your city is wrong, search for the correct place and press <strong>Use Selected as Start</strong> under Directions.</p>
           <div id="gods-eye-map" role="region" aria-label="Interactive world map"></div>
           <ol id="gods-eye-results" class="fh-map-results" aria-label="Place search results"></ol>
           <section id="gods-eye-route" class="fh-map-route" aria-label="Road directions">
@@ -423,11 +423,11 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="radio/playlist.js?v=3"></script>
   <script src="radio/player.js?v=6"></script>
-  <script src="gods-eye/map.js?v=5"></script>
+  <script src="gods-eye/map.js?v=6"></script>
   <script src="gods-eye/routes.js?v=4"></script>
   <script src="gods-eye/nearby.js?v=3"></script>
   <script src="gods-eye/essentials.js?v=2"></script>
   <script src="gods-eye/companion.js?v=3"></script>
-  <script src="app.js?v=23"></script>
+  <script src="app.js?v=24"></script>
 </body>
 </html>

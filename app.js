@@ -32,7 +32,7 @@
     .then(() => window.FolkholdAds?.showForView(state.view))
     .catch((error) => console.warn('Folkhold ad module did not load.', error));
 
-  loadLocalScript('cloudflare-config.js?v=24')
+  loadLocalScript('cloudflare-config.js?v=25')
     .then(() => {
       const brandIcon = document.querySelector('.brand-mark img');
       if (brandIcon) brandIcon.src = 'assets/folkhold-app-icon-192.png?v=10';
@@ -40,7 +40,7 @@
     })
     .then(() => loadLocalScript('backgammon-engine.js?v=1'))
     .then(() => loadLocalScript('backgammon.js?v=1'))
-    .then(() => loadLocalScript('hold-designer.js?v=1'))
+    .then(() => loadLocalScript('hold-designer.js?v=2'))
     .then(() => loadLocalScript('global-chat.js'))
     .catch((error) => console.warn('Folkhold runtime module did not load.', error));
 
