@@ -89,10 +89,28 @@ await test('source', 'Google OAuth source integration contract', async () => {
     requireValue(worker.includes(fragment), 'Google Worker configuration missing: ' + fragment);
   }
   for (const fragment of ['socialButton("google"', '"/api/auth/sign-in/social"',
-    'disableRedirect: true', 'location.assign(url)', 'renderUsernameSetup()']) {
+    'disableRedirect: true', 'window.open(url', 'renderUsernameSetup()']) {
     requireValue(ui.includes(fragment), 'Google account UI contract missing: ' + fragment);
   }
   return 'Google button, OAuth start, redirect and profile setup found in source';
+});
+await test('source', 'GitHub Pages modal + bearer session contract', async () => {
+  const ui = await readFile('auth-ui.js', 'utf8');
+  const worker = await readFile('cloudflare/src/index.js', 'utf8');
+  for (const keyword of ['sessionStorage.setItem(tokenKey', 'Authorization: "Bearer " + token',
+    'window.open(url', 'event.source !== authPopup', 'renderSignedOut()']) {
+    requireValue(ui.includes(keyword), 'Main-site login contract missing: ' + keyword);
+  }
+  requireValue(!ui.includes('renderBridge()') && !ui.includes('location.assign(url)'),
+    'Old Cloudflare website redirect remains in account UI');
+  for (const keyword of ['plugins: [bearer()]', '"Access-Control-Expose-Headers": "set-auth-token"',
+    '/api/folkhold/popup-session', 'window.opener.postMessage', 'return new Response("Not found"']) {
+    requireValue(worker.includes(keyword), 'Backend-only login contract missing: ' + keyword);
+  }
+  const { execFileSync } = await import('node:child_process');
+  execFileSync(process.execPath, ['--check', 'auth-ui.js'], {stdio:'pipe'});
+  execFileSync(process.execPath, ['--check', 'cloudflare/src/index.js'], {stdio:'pipe'});
+  return 'Main-page modal, tab bearer token, popup handshake, no site redirect and JS syntax confirmed';
 });
 await test('production', 'Google OAuth runtime configuration', async () => {
   const data = await getJson(base + '/api/account/status');
@@ -162,19 +180,23 @@ await test('production', 'GitHub Pages frontend', async () => {
   requireValue((await response.text()).includes('<title>Folkhold</title>'), 'Folkhold title not found');
   return 'Pages returns Folkhold HTML';
 });
-await test('production', 'Worker frontend proxy', async () => {
-  const response = await request(base + '/');
-  requireValue(response.ok, 'Worker proxy HTTP ' + response.status);
-  requireValue((await response.text()).includes('<title>Folkhold</title>'), 'Folkhold title not found');
-  return 'Worker serves the same-origin application';
+await test('production', 'Cloudflare serves login only, not a duplicate website', async () => {
+  const landing = await request(base + '/');
+  requireValue(landing.ok, 'Backend landing HTTP ' + landing.status);
+  const html = await landing.text();
+  requireValue(html.includes('Folkhold Accounts'), 'Account-service landing missing');
+  requireValue(!html.includes('radio/player.js') && !html.includes('desktop-nav'),
+    'Backend still serving duplicate Folkhold website');
+  const popup = await request(base + '/auth/popup');
+  requireValue(popup.ok && (await popup.text()).includes('/auth/popup.js'),
+    'Dedicated OAuth sign-in popup is unavailable');
+  return 'Cloudflare only serves the small auth popup, not the full site';
 });
-await test('production', 'Approved API-tab icon', async () => {
-  const response = await request(base + '/favicon.ico');
-  requireValue(response.ok, 'Worker favicon HTTP ' + response.status);
-  const bytes = new Uint8Array(await response.arrayBuffer());
-  requireValue(bytes.length >= 8 && [137, 80, 78, 71, 13, 10, 26, 10].every((x, i) => bytes[i] === x),
-    'Worker favicon is not the approved PNG');
-  return 'Worker favicon is PNG';
+await test('production', 'Anonymous popup-session bridge rejects visitors', async () => {
+  const response = await request(base + '/api/folkhold/popup-session');
+  requireValue(response.status === 401 || response.status === 403, 
+    'Anonymous popup-session bridge must not expose bearer tokens (HTTP ' + response.status + ')');
+  return 'Login bridge requires an authenticated same-origin popup';
 });
 await test('deployment', 'Cloudflare Worker GitHub build check', async () => {
   if (offline || commit === 'local') skip('Requires GitHub Actions commit context');

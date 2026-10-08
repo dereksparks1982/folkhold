@@ -1,5 +1,11 @@
 # Folkhold Known Issues and Unfinished Work
 
+## GitHub Pages in-page account flow candidate
+
+- New Cloudflare API-only backend + GitHub Pages login modal uses Bearer sessions instead of third-party cookies. **Pending live email account sign-in/registration and full Google OAuth popup validation on PC and iPhone.** Google still displayed `401 invalid_client` before this change; not resolved by this UI repair alone.
+- The OAuth popup may require explicit popup permission on some browsers. Some browser environments close the opener relationship when users manually disown the popup. No account token is put in the popup URL.
+- Chat/forum authentication transport is a separate follow-up; unauthenticated guest posting remains unchanged.
+
 ## Square forum candidate
 
 - Owner reported a new topic failed to save on October 8. Source UI now surfaces errors inline, but the actual live POST failure remains undiagnosed pending the Cloudflare Worker response/deployment status; do not call posting fixed.

@@ -4,7 +4,15 @@
   if (!apiBase) return;
 
   const cloudOrigin = new URL(apiBase).origin;
-  const onCloudOrigin = location.origin === cloudOrigin;
+  // GitHub Pages is the canonical frontend; Cloudflare is an API-only backend.
+  // A tab-scoped bearer session works when third-party cookies are disabled.
+  const tokenKey = "folkhold.sessionBearer";
+  let authPopup = null;
+  let authNonce = null;
+  function currentToken() { return sessionStorage.getItem(tokenKey) || ""; }
+  function saveToken(token) {
+    if (typeof token === "string" && token.length > 20) sessionStorage.setItem(tokenKey, token);
+  }
   const avatar = document.querySelector(".avatar-button");
   if (!avatar) return;
 
@@ -19,7 +27,7 @@
     .account-card{background:#fff8ee;color:#2c2926;border:2px solid #b08d57;border-radius:18px;padding:26px;box-shadow:0 30px 100px #0008}
     .account-card h1{font-size:34px;margin:0 0 8px;color:#251f1a}.account-card p{line-height:1.45;color:#695f54}
     .account-close{position:absolute;right:17px;top:14px;border:0;background:transparent;font-size:24px;color:#766657}
-    .account-social{display:grid;gap:9px;margin:18px 0}.account-social button,.account-submit,.account-cloud-link{min-height:46px;border-radius:10px;border:1px solid #bca17a;background:#fff;color:#2c2926;font-weight:bold;padding:10px 14px;text-align:center;text-decoration:none;display:grid;place-items:center}
+    .account-social{display:grid;gap:9px;margin:18px 0}.account-social button,.account-submit{min-height:46px;border-radius:10px;border:1px solid #bca17a;background:#fff;color:#2c2926;font-weight:bold;padding:10px 14px;text-align:center;text-decoration:none;display:grid;place-items:center}
     .account-social button.apple{background:#171717;color:white;border-color:#171717}.account-social button.google{background:#fff;color:#2c2926}.account-social button:disabled{opacity:.45;cursor:not-allowed}
     .account-divider{display:flex;align-items:center;gap:11px;color:#9b8c7b;font:11px Arial,sans-serif;text-transform:uppercase;letter-spacing:.1em;margin:17px 0}.account-divider:before,.account-divider:after{content:"";height:1px;background:#dfd0bc;flex:1}
     .account-tabs{display:grid;grid-template-columns:1fr 1fr;gap:5px;background:#eee1cf;padding:4px;border-radius:10px;margin-bottom:17px}.account-tabs button{border:0;border-radius:7px;padding:9px;background:transparent;color:#665b50}.account-tabs button.active{background:#fff8ee;color:#2c2926;box-shadow:0 2px 8px #0001}
@@ -42,15 +50,20 @@
   let mode = "signin";
 
   async function api(path, options = {}) {
+    const token = currentToken();
     const response = await fetch(`${apiBase}${path}`, {
-      credentials: "include",
+      credentials: "omit",
       ...options,
       headers: {
         Accept: "application/json",
         ...(options.body ? { "Content-Type": "application/json" } : {}),
+        ...(token ? { Authorization: "Bearer " + token } : {}),
         ...(options.headers || {}),
       },
     });
+    // Better Auth bearer plugin emits a new session on email sign-in/sign-up.
+    // Keep the opaque credential out of URLs, HTML and localStorage.
+    if (response.ok) saveToken(response.headers.get("set-auth-token"));
     let data = null;
     try { data = await response.json(); } catch { data = {}; }
     if (!response.ok) {
@@ -104,15 +117,25 @@
     return sessionData;
   }
 
-  function renderBridge() {
-    const destination = `${cloudOrigin}/${location.hash || ""}`;
-    body.innerHTML = `
-      <span class="eyebrow">FOLKHOLD ACCOUNT</span>
-      <h1>Accounts live on Folkhold Cloud</h1>
-      <p>The GitHub Pages address remains the public prototype. Sign-in uses Folkhold's Cloudflare address so account cookies, Google/Apple callbacks, and the application share one secure origin.</p>
-      <a class="account-cloud-link" href="${destination}">Continue to Folkhold Cloud</a>
-      <p class="account-note">The site looks the same there. Cloudflare proxies the current Folkhold frontend and handles the account API behind it.</p>`;
+  async function completePopup(event) {
+    if (event.origin !== cloudOrigin || event.source !== authPopup) return;
+    const message = event.data;
+    if (!message || message.type !== "folkhold:auth-complete" || message.nonce !== authNonce) return;
+    authPopup = null;
+    authNonce = null;
+    if (typeof message.token !== "string" || message.token.length < 20) return;
+    saveToken(message.token);
+    setMessage("Finishing sign-in…", true);
+    await loadSession();
+    if (!sessionData?.user) {
+      setMessage("Sign-in could not be confirmed. Please retry.");
+    } else if (!profileData) {
+      renderUsernameSetup();
+    } else {
+      renderAccount();
+    }
   }
+  window.addEventListener("message", completePopup);
 
   function socialButton(provider, label, className) {
     const enabled = Boolean(status?.providers?.[provider]);
@@ -196,25 +219,20 @@
     })[character]);
   }
 
-  async function socialSignIn(provider) {
-    setMessage("Opening sign-in…", true);
-    try {
-      const data = await api("/api/auth/sign-in/social", {
-        method: "POST",
-        body: JSON.stringify({
-          provider,
-          callbackURL: `${location.origin}/`,
-          newUserCallbackURL: `${location.origin}/`,
-          errorCallbackURL: `${location.origin}/?authError=1`,
-          disableRedirect: true,
-        }),
-      });
-      const url = data?.url || data?.data?.url;
-      if (!url) throw new Error("The provider did not return a sign-in address.");
-      location.assign(url);
-    } catch (error) {
-      setMessage(error.message || "Could not start sign-in.");
+  function socialSignIn(provider) {
+    // Open synchronously from the button click so Safari/Firefox don't block it.
+    authNonce = crypto.randomUUID();
+    const url = cloudOrigin + "/auth/popup?provider=" + encodeURIComponent(provider)
+      + "&nonce=" + encodeURIComponent(authNonce);
+    authPopup = window.open(url, "folkhold-sign-in",
+      "width=520,height=690,resizable=yes,scrollbars=yes");
+    if (!authPopup) {
+      authNonce = null;
+      setMessage("Please allow the sign-in popup for Folkhold and try again.");
+      return;
     }
+    authPopup.focus();
+    setMessage("Complete " + provider + " sign-in in the separate window. Folkhold stays open.", true);
   }
 
   async function emailSignUp(event) {
@@ -234,6 +252,7 @@
           callbackURL: `${location.origin}/`,
         }),
       });
+      if (!currentToken()) throw new Error("The account was created but no login session was returned. Please sign in.");
       await api("/api/folkhold/profile", {
         method: "POST",
         body: JSON.stringify({ username: values.username, displayName: values.displayName }),
@@ -260,6 +279,7 @@
         method: "POST",
         body: JSON.stringify({ email: values.email, password: values.password, rememberMe: true }),
       });
+      if (!currentToken()) throw new Error("No login session was returned. Please retry.");
       await loadSession();
       if (profileData) renderAccount(); else renderUsernameSetup();
     } catch (error) {
@@ -300,6 +320,7 @@
     } catch {
       // Refresh state even if the provider returned no body.
     }
+    sessionStorage.removeItem(tokenKey);
     sessionData = null;
     profileData = null;
     localStorage.removeItem("folkhold.globalChatName");
@@ -329,10 +350,6 @@
     body.innerHTML = '<span class="eyebrow">FOLKHOLD ACCOUNT</span><h1>Checking the door…</h1>';
 
     await loadStatus();
-    if (!onCloudOrigin) {
-      renderBridge();
-      return;
-    }
     if (!status?.ready) {
       renderNeedsSetup();
       return;
@@ -350,7 +367,7 @@
   }, true);
 
   loadStatus().then(async () => {
-    if (!onCloudOrigin || !status?.ready) return;
+    if (!status?.ready || !currentToken()) return;
     await loadSession();
   });
 

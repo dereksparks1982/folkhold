@@ -1,5 +1,13 @@
 # Folkhold Accounts
 
+## 2026-10-08 — GitHub Pages remains the only Folkhold website
+
+**Owner-directed code repair.** Remove the previous `renderBridge()` flow that redirected GitHub Pages visitors to the full Cloudflare-hosted mirror. The account button opens the existing **in-page** dialog on the canonical `https://dereksparks1982.github.io/folkhold/` site, leaving navigation and Radio playback untouched. Cloudflare serves backend endpoints and a tiny, dedicated OAuth popup only; its root no longer mirrors the website. Neither Google client configuration nor existing Cloudflare dashboard secrets need changing.
+
+**Authentication:** Better Auth's official `bearer()` plugin provides tab-scoped opaque session tokens (from `set-auth-token` on email sign-in/signup), sent to approved CORS backend requests in `Authorization: Bearer` headers, avoiding third-party cookies. Google/Apple sign-in launches a separate minimal Cloudflare popup first-party to the OAuth cookie; on success it returns the session token using an origin-checked, nonce-bound `postMessage` to the original GitHub Pages tab. Backend popup session endpoint is same-origin only and returns no token to unauthenticated requests. The OAuth callback URL **at Google** stays unchanged.
+
+**Validation boundary:** Source syntax, static contracts, production anonymous endpoints, runtime provider readiness and GitHub/Cloudflare deployments can be automatically verified. Successful email registration, OAuth popup completion, Safari/iPhone popup handling and auth cookie/bearer round trip require live device testing. The pre-existing Google `401 invalid_client` issue is separately unresolved; no claim that Google now authenticates.
+
 ## October 8 — Simplified Google client credential deployment
 
 Folkhold's existing `npm run deploy` helper now transfers both Google client credentials from Cloudflare **Settings → Builds → Variables and secrets** into the Worker's runtime via the same secure temporary `--secrets-file` mechanism already validated for `BETTER_AUTH_SECRET`. The owner has entered `GOOGLE_CLIENT_ID` as a **Variable** in that section. Enter `GOOGLE_CLIENT_SECRET` there as a **Secret**, save, and trigger a Git-connected main-branch deployment. Do **not** use the account-level Cloudflare Secrets Store or duplicate these entries elsewhere. The helper will only activate Google credentials when both exist. Google OAuth is not considered live until `/api/account/status` reports `providers.google: true` and a real browser sign-in completes successfully. Keep the earlier direct-runtime setup directions below as a supported alternative, not a required additional step.

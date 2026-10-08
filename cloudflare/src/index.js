@@ -1,5 +1,6 @@
 import { DurableObject } from "cloudflare:workers";
 import { betterAuth } from "better-auth";
+import { bearer } from "better-auth/plugins";
 import { getMigrations } from "better-auth/db/migration";
 
 const DEFAULT_ORIGIN = "https://dereksparks1982.github.io";
@@ -55,7 +56,8 @@ function corsHeaders(request, env) {
   return {
     "Access-Control-Allow-Origin": allowed,
     "Access-Control-Allow-Methods": "GET,POST,OPTIONS",
-    "Access-Control-Allow-Headers": "Content-Type",
+    "Access-Control-Allow-Headers": "Content-Type, Authorization",
+    "Access-Control-Expose-Headers": "set-auth-token",
     "Access-Control-Allow-Credentials": "true",
     "Access-Control-Max-Age": "86400",
     Vary: "Origin",
@@ -126,6 +128,7 @@ function createAuth(request, env) {
       maxPasswordLength: 128,
     },
     socialProviders,
+    plugins: [bearer()],
   });
 }
 
@@ -296,31 +299,90 @@ async function authenticatedChatRequest(request, env, auth) {
   return new Request(request, { headers });
 }
 
-async function proxyFrontend(request, env) {
-  if (request.method !== "GET" && request.method !== "HEAD") {
-    return new Response("Folkhold", { status: 404 });
-  }
+// Only the API, a minimal auth popup and an account-service landing page
+// are served by Cloudflare; the complete Folkhold website stays on GitHub Pages.
 
-  const incoming = new URL(request.url);
-  const base = new URL(`${String(env.PUBLIC_SITE_ORIGIN || DEFAULT_PUBLIC_SITE).replace(/\/$/, "")}/`);
-  // Browser tabs viewing JSON endpoints request /favicon.ico without the
-  // main application's icon link. Serve the existing approved house/key image.
-  const relativePath = incoming.pathname === "/favicon.ico"
-    ? "assets/folkhold-app-icon-192.png"
-    : incoming.pathname.replace(/^\//, "");
-  const target = new URL(relativePath || "./", base);
-  target.search = incoming.search;
-
-  const upstream = new Request(target, request);
-  const response = await fetch(upstream);
-  const headers = new Headers(response.headers);
-  headers.set("X-Folkhold-Frontend", "github-pages-proxy");
-  return new Response(response.body, {
-    status: response.status,
-    statusText: response.statusText,
-    headers,
-  });
+function authPage(heading, message = "Please wait…") {
+  const html = '<!doctype html><html lang="en"><head><meta charset="utf-8">'
+    + '<meta name="viewport" content="width=device-width, initial-scale=1">'
+    + '<title>Folkhold Accounts</title>'
+    + '<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:#241b16;color:#f1dfc2;font-family:Georgia,serif}'
+    + 'main{margin:18px;padding:30px;border:2px solid #95734d;border-radius:14px;text-align:center;max-width:400px}'
+    + 'p{line-height:1.5}a{color:#e8ca85}</style></head><body><main><h1>' + heading
+    + '</h1><p id="status">' + message + '</p>'
+    + '<p><a href="https://dereksparks1982.github.io/folkhold/" rel="noopener">Folkhold</a></p>'
+    + '</main><script src="/auth/popup.js"></script></body></html>';
+  return new Response(html, { headers: {
+    "Content-Type": "text/html; charset=utf-8",
+    "Cache-Control": "no-store",
+    "Content-Security-Policy": "default-src 'none'; script-src 'self'; style-src 'unsafe-inline'; base-uri 'none'; form-action 'none'; frame-ancestors 'none'",
+    "Referrer-Policy": "no-referrer", "X-Content-Type-Options": "nosniff",
+  } });
 }
+
+const popupJavascript = String.raw\`(() => {
+  const pathname = location.pathname;
+  const query = new URLSearchParams(location.search);
+  const nonce = query.get("nonce") || "";
+  const status = document.getElementById("status");
+  function report(text) { status.textContent = text; }
+  async function start() {
+    const provider = query.get("provider");
+    if (!["google", "apple"].includes(provider) || !/^[0-9a-f-]{36}$/.test(nonce)) {
+      report("Invalid sign-in request. Close this window and retry from Folkhold.");
+      return;
+    }
+    report("Connecting to " + provider + "…");
+    const finish = location.origin + "/auth/popup/complete?nonce=" + encodeURIComponent(nonce);
+    const failed = location.origin + "/auth/popup/error?nonce=" + encodeURIComponent(nonce);
+    const response = await fetch("/api/auth/sign-in/social", {
+      method: "POST", credentials: "same-origin",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ provider, callbackURL: finish,
+        newUserCallbackURL: finish, errorCallbackURL: failed, disableRedirect: true })
+    });
+    if (!response.ok) throw Error("Could not start sign-in (" + response.status + ").");
+    const data = await response.json();
+    const destination = data.url || (data.data && data.data.url);
+    const address = new URL(destination);
+    if (address.protocol !== "https:" ||
+        !["accounts.google.com", "appleid.apple.com"].includes(address.hostname)) {
+      throw Error("The sign-in provider returned an unexpected location.");
+    }
+    location.replace(address.href);
+  }
+  async function complete() {
+    if (!/^[0-9a-f-]{36}$/.test(nonce) || !window.opener) {
+      report("Please begin sign-in from Folkhold's account button.");
+      return;
+    }
+    const response = await fetch("/api/folkhold/popup-session", {
+      credentials: "same-origin", cache: "no-store"
+    });
+    if (!response.ok) throw Error("No active login session. Please retry from Folkhold.");
+    const data = await response.json();
+    if (!data.token) throw Error("Login session unavailable.");
+    window.opener.postMessage({type:"folkhold:auth-complete",nonce:nonce,token:data.token},
+      "https://dereksparks1982.github.io");
+    report("Signed in. Returning to Folkhold…");
+    setTimeout(() => window.close(), 400);
+  }
+  if (pathname.endsWith("/error")) {
+    report("The identity provider did not complete sign-in. Close this window and retry.");
+  } else {
+    (pathname.endsWith("/complete") ? complete() : start())
+      .catch(error => report(error.message || "Sign-in failed. Please retry."));
+  }
+})();\`;
+
+function popupScriptResponse() {
+  return new Response(popupJavascript, { headers: {
+    "Content-Type": "application/javascript; charset=utf-8",
+    "Cache-Control": "no-store",
+    "X-Content-Type-Options": "nosniff",
+  } });
+}
+
 
 async function handleSquareForum(room,request,url){
   const sql=room.sql,path=url.pathname;
@@ -598,6 +660,25 @@ export default {
       return accountStatus(request, env);
     }
 
+    if (url.pathname === "/auth/popup.js" && request.method === "GET") return popupScriptResponse();
+    if (["/auth/popup", "/auth/popup/complete", "/auth/popup/error"].includes(url.pathname)
+        && request.method === "GET") return authPage("Folkhold Sign-in");
+    if (url.pathname === "/api/folkhold/popup-session" && request.method === "GET") {
+      const site = request.headers.get("Sec-Fetch-Site");
+      const origin = request.headers.get("Origin");
+      // Never turn this one-time cookie-to-bearer bridge into a public CORS endpoint.
+      if ((site && site !== "same-origin") || (origin && origin !== requestOrigin(request)))
+        return json({error:"Same-origin popup only."},{status:403});
+      let auth;
+      try { auth = await ensureAuthReady(request, env); } catch { auth = null; }
+      const session = auth && await getSession(auth, request);
+      if (!session?.user?.id || !session?.session?.token)
+        return json({error:"Sign-in required."},{status:401,headers:{"Cache-Control":"no-store"}});
+      return json({token:session.session.token},{headers:{
+        "Cache-Control":"no-store","Referrer-Policy":"no-referrer"
+      }});
+    }
+
     if (url.pathname.startsWith("/api/auth/") || url.pathname === "/api/folkhold/profile") {
       if (!originAllowed(request, env)) {
         return new Response("Origin not allowed", { status: 403 });
@@ -670,6 +751,8 @@ export default {
       return withCors(response, request, env);
     }
 
-    return proxyFrontend(request, env);
+    if (url.pathname === "/" && request.method === "GET")
+      return authPage("Folkhold Accounts", "Authentication service. The website remains on GitHub Pages.");
+    return new Response("Not found", { status:404, headers:{"Cache-Control":"no-store"} });
   },
 };

@@ -11,7 +11,7 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
 (() => {
   if (!document.querySelector('script[data-folkhold-account-ui]')) {
     const script = document.createElement('script');
-    script.src = 'auth-ui.js';
+    script.src = 'auth-ui.js?v=2';
     script.async = true;
     script.dataset.folkholdAccountUi = 'true';
     document.head.append(script);

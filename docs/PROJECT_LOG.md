@@ -1,5 +1,11 @@
 # Folkhold Project Log
 
+## 2026-10-08 — Owner-required GitHub Pages login-only Cloudflare design
+
+- User explicitly ordered the GitHub Pages Folkhold website to remain open when the account avatar is clicked, with an in-page login window and no duplicate Cloudflare website or music proxy. Implemented targeted account UI and Better Auth bearer session transport, minimal OAuth popup and first-party callback handoff, backend-only Worker landing, and specific Test Center contracts.
+- Radio, Square chat/forum, Holds, banners, icons, public Google/Cloudflare client configuration and D1 schema intentionally unchanged.
+- Google 401 invalid_client remains a separate external verification issue. Automatic tests do not prove successful user login.
+
 ## 2026-10-08 — Diagnose Google 401 invalid_client (targeted OAuth test)
 
 - Owner tried Google sign-in on the live Folkhold Cloud app and supplied screenshots of Google's `401 invalid_client` / `The OAuth client was not found`. This confirms the Google redirect is reached but provider acceptance is not working despite all 13 prior presence/readiness tests passing.
