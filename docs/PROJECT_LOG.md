@@ -1,5 +1,11 @@
 # Folkhold Project Log
 
+## 2026-10-08 — Trigger Google OAuth production credential verification
+
+- Owner confirmed saving `GOOGLE_CLIENT_ID` as Variable and `GOOGLE_CLIENT_SECRET` as Secret under Folkhold Cloudflare Production Builds → Variables and secrets.
+- This documentation-only commit triggers a Git-connected main deployment using the existing verified `npm run deploy` handoff. No credential values are stored in GitHub; no Worker code, D1, forum, or live chat is changed.
+- Verify Cloudflare Workers Build success, Test Center `providers.google` runtime status, and only then attempt the real Google login browser flow. Do not equate configuration success with a completed Google login.
+
 ## October 8 — Google credential handoff through existing build variables
 
 - The owner correctly identified that Runtime and Builds are sections of the same Cloudflare Settings page, and the `Variables and secrets` block was visible beneath Builds. The unrelated Cloudflare account Secrets Store is not needed.
