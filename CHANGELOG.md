@@ -2,6 +2,13 @@
 
 All notable accepted Folkhold changes are recorded here from v1.1.0 forward.
 
+## Unreleased candidate — OpenLayers map replacement
+
+- Removed the previous map-rendering library from Travel Companion runtime and replaced it with OpenLayers 10.10.0.
+- Reimplemented map, marker, nearby-place and route overlays against the new mapping API. Preserved OpenStreetMap contributor attribution.
+- Refreshed browser script versions; requires PC/iPhone validation of map and travel features.
+- The accepted Radio and global navigation/artwork were not changed.
+
 ## Unreleased candidates — Travel Companion (Wayfarer) slices 20–24
 
 - Renamed the public-facing map/travel page to **Travel Companion** without changing its internal route or accepted UI.
