@@ -465,7 +465,7 @@ Replace shared demo routing/discovery endpoints with scalable providers; verify 
 
 **Status: REVIEW (candidate, owner desktop validation required).**
 
-- Use precisely eleven desktop nav shortcuts in this order: Hub, Square, Notice, Hold, Tavern, Tea Room, Directory, Key Ring, Radio, Travel, Settings.
+- Use precisely eleven desktop nav shortcuts in this order: Hub, Square, Notice, Hold, Tavern, Tea Room, Directory, Key Ring, Radio, Wayfarer, Settings.
 - Every desktop top-nav button is 108px wide and 44px high, preserving existing icons and Tavern age indicator.
 - Resize nav viewport to fit an integral number of buttons; snap wheel and mouse-drag navigation to whole-button positions.
 - Intercept mouse-wheel events above desktop nav even at its ends: the page must not scroll vertically while hovered there.
@@ -486,3 +486,28 @@ Replace shared demo routing/discovery endpoints with scalable providers; verify 
 - Document exact Master Key administrative scope, especially any user-private-content boundary, with owner approval before shipping.
 
 **No admin panel, Master Key privilege, or ad behavior is implemented by Slice 27.**
+
+## Slice 29 — Wayfarer name, location honesty, shared Hold front door
+
+**Status: DEPLOYED / REVIEW (owner Firefox/iPhone confirmation remains open).**
+
+- Rename the top nav, Hub card and main travel heading **Wayfarer**; keep `gods-eye` internal URL and event identifiers stable.
+- On a click of Use My Location, request fresh higher-accuracy browser coordinates and display the reported latitude/longitude and uncertainty; no hardcoded Boston or Wichita map default.
+- Coarse fixes with more than 10 km reported uncertainty or missing accuracy do not silently become route origins. A wrong-city result from the OS may still be wrong even with a small reported error; users can search a place and choose **Use Selected as Start**.
+- Match the Hold door to the approved Hub medieval door structure/CSS, eliminate the mismatched extra gold knocker, sync existing door designer choices, and preserve Knock.
+- Preserve Radio, backgrounds, mobile footer and privacy boundaries.
+
+**Shipped source:** `e4242cc3dd2aec7117aec8215e8418f00a42216e`, with follow-up `90cb72710813a4daea5242cbbe62ede8d92852c3`. GitHub Pages deployment for the latter succeeded. **Still check:** device location correctness, visibly matching doors, knock dialogs, and old saved door choices.
+
+## Slice 30 — Village Square forum with integrated live chat
+
+**Status: ROADMAP / NEXT ARCHITECTURE CHOICE.**
+
+- Use NodeBB's spacious, category-first layout as the principal visual reference; avoid tightly packed old-style thread tables. Do not assume approval of a wholesale third-party rebranding.
+- Keep current realtime Cloudflare Global Chat in the Square, uninterrupted. Desktop: forum and chat integrated in the same destination, potentially side by side; phone: a readable Forum / Live Chat switch.
+- First compare real self-hosted NodeBB (separate Node.js/Redis-or-MongoDB deployment, login bridge, GPL-3.0 review, admin/security/hosting) against a native Folkhold forum backed by authenticated Worker/D1 data.
+- Pick **one** approach with owner approval before download/install/integration; do not install third-party forum packages inside the existing static GitHub Pages build as though they can execute there.
+- After architecture approval: category/card navigation, forum threads and replies, persistence, search, moderation/permissions, account identity, notification handoff, testing and deployment.
+- Preserve user privacy and established Square chat history; no gambling, wagers, betting or cash-stakes mechanics in any Folkhold games/forum add-on.
+
+**Acceptance:** forum and live chat usable together within the Square on desktop/iPhone, while the existing chat works as before. Actual implementation, server provisioning and licensing review are future work. See `docs/SQUARE_FORUM.md`.
