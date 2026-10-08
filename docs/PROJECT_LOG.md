@@ -1,5 +1,14 @@
 # Folkhold Project Log
 
+## 2026-10-08 — Travel Companion map engine replacement
+
+- Owner requested complete removal of the previous mapping dependency, not suppression of an attribution element.
+- Rebuilt the browser map layer using **OpenLayers 10.10.0**, migrating place and GPS markers, road overlay drawing and nearby-place layers.
+- Removed the former JS and CSS imports from the map loader; retained legally required OpenStreetMap map-data credit.
+- Upgraded only Travel Companion map modules, scoped map styling, and their cache keys in index.html. Radio, global navigation, Hub/Hold icons and backgrounds remain unchanged.
+- GitHub source parsed successfully; external CDN delivery, iOS and PC rendering, road routes and nearby selection remain owner-validation candidates.
+
+
 ## 2026-10-07 — Travel Companion temporary name
 
 - Owner requested that the new travel destination be named **Travel Companion**, not the previous map-focused title.
