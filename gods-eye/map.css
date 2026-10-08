@@ -82,3 +82,11 @@
 .fh-phrasebook small{font:12px Arial,sans-serif}
 .fh-hitch-box{grid-column:1/-1}
 @media(max-width:760px){.fh-talk{padding:14px 11px}.fh-talk-grid{grid-template-columns:1fr}.fh-hitch-box{grid-column:auto}}
+
+/* OpenLayers-only Travel Companion map presentation and readable OSM attribution. */
+#gods-eye-map .ol-attribution{font:11px Arial,sans-serif;color:#3c3c3c;bottom:3px;right:3px;max-width:90%}
+#gods-eye-map .ol-attribution a{color:#165f89;text-decoration:underline}
+#gods-eye-map .ol-control button{background:rgba(42,58,48,.88);color:#fff;border-radius:4px}
+#gods-eye-map .ol-control button:hover{background:#355e4a}
+.fh-map-popup{display:flex;align-items:center;gap:9px;padding:8px 10px;border:1px solid #8d775c;border-radius:9px;background:#fffaf0;color:#34271c;box-shadow:0 3px 12px #0005;max-width:250px;font:13px Arial,sans-serif;overflow-wrap:anywhere}
+.fh-map-popup-close{padding:1px 4px;border:0;background:transparent;color:#544535;font:700 20px Arial,sans-serif;cursor:pointer}

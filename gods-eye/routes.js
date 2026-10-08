@@ -1,7 +1,7 @@
 (() => {
   'use strict';
   const $ = id => document.getElementById(id);
-  let selected = null, start = null, end = null, map = null, L = null, path = null;
+  let selected = null, start = null, end = null, renderer = null;
   let busy = false, lastRequest = 0;
   const status = message => { if ($('gods-eye-route-status')) $('gods-eye-route-status').textContent=message; };
   const good = point => point && Number.isFinite(point.lat) && Number.isFinite(point.lon) &&
@@ -12,7 +12,7 @@
     document.querySelector('[data-route-end]').textContent=end ? name(end) : 'Search and select destination';
     $('gods-eye-navigate').hidden=true;
   }
-  function clearLine() { if(path && map)map.removeLayer(path);path=null; }
+  function clearLine() { renderer?.clearRoute(); }
   function externalLink(mode) {
     if(!good(start)||!good(end))return;
     const u=new URL('https://www.google.com/maps/dir/');
@@ -25,7 +25,7 @@
   async function getRoute(event) {
     event.preventDefault();
     if(!good(start)||!good(end)){status('Select both a start and destination first.');return;}
-    if(!map||!L){status('Open the map first.');return;}
+    if(!renderer){status('Open the map first.');return;}
     if(busy)return;
     // Demo router fair-use: manual action only, with local rate limiting.
     if(Date.now()-lastRequest<1500){status('Wait a moment before requesting another route.');return;}
@@ -52,8 +52,7 @@
       const line=coords.filter(c=>Array.isArray(c)&&c.length>=2).map(c=>[Number(c[1]),Number(c[0])]).filter(c=>Number.isFinite(c[0])&&Number.isFinite(c[1]));
       if(line.length<2)throw Error('Invalid route geometry');
       clearLine();
-      path=L.polyline(line,{color:'#236651',weight:5,opacity:0.9}).addTo(map);
-      map.fitBounds(path.getBounds(),{padding:[20,20]});
+      if(!renderer.drawRoute(line))throw Error('Could not draw road geometry');
       const km=Number(route.distance)/1000;
       const min=Number(route.duration)/60;
       status('Road route: '+(Number.isFinite(km)?km.toFixed(1)+' km':'distance unavailable')+
@@ -68,7 +67,7 @@
   function init() {
     if(!$('gods-eye-route'))return;
     window.addEventListener('folkhold:gods-eye-map-ready',event=>{
-      map=event.detail.map;L=event.detail.leaflet;
+      renderer=event.detail.renderer;
     });
     window.addEventListener('folkhold:gods-eye-point',event=>{
       const p=event.detail;

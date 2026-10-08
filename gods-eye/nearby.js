@@ -8,7 +8,7 @@
     adventure: {radius:4500, clauses:['["tourism"~"^(viewpoint|attraction)$"]','["natural"~"^(peak|waterfall)$"]']},
     nightlife: {radius:3000, clauses:['["amenity"~"^(bar|pub|nightclub)$"]']}
   });
-  let map=null,L=null,nearbyLayer=null,point=null,busy=false,lastRequest=0,requestSerial=0;
+  let renderer=null,point=null,busy=false,lastRequest=0,requestSerial=0;
   const cache=new Map();
   const valid=(lat,lon)=>Number.isFinite(lat)&&Math.abs(lat)<=90&&Number.isFinite(lon)&&Math.abs(lon)<=180;
   const say=message=>{if($('gods-eye-nearby-status'))$('gods-eye-nearby-status').textContent=message;};
@@ -23,8 +23,7 @@
     return '[out:json][timeout:16];('+parts+');out center 35;';
   }
   function clear() {
-    if(map&&nearbyLayer)map.removeLayer(nearbyLayer);
-    nearbyLayer=null;
+    renderer?.clearNearby();
     $('gods-eye-nearby-results')?.replaceChildren();
   }
   function pointFor(item){
@@ -35,7 +34,7 @@
   async function find(kind) {
     if(!types[kind]||busy)return;
     if(!point){say('Search a place or choose Use My Location first.');return;}
-    if(!map||!L){say('Wait for the Travel Companion map to load.');return;}
+    if(!renderer){say('Wait for the Travel Companion map to load.');return;}
     const key=kind+':'+point.lat.toFixed(3)+':'+point.lon.toFixed(3);
     if(!cache.has(key)&&Date.now()-lastRequest<3000){say('Please wait a few seconds before another request.');return;}
     busy=true;lastRequest=Date.now();const serial=++requestSerial;
@@ -61,15 +60,13 @@
         .filter(x=>x.coords)
         .sort((a,b)=>haversine(point.lat,point.lon,a.coords.lat,a.coords.lon)-haversine(point.lat,point.lon,b.coords.lat,b.coords.lon))
         .slice(0,20);
-      nearbyLayer=L.layerGroup().addTo(map);
+      renderer.showNearby(entries.map(({item,coords})=>({...coords,label:title(item)})));
       for(const {item,coords} of entries){
         const name=title(item),km=haversine(point.lat,point.lon,coords.lat,coords.lon);
-        const marker=L.circleMarker([coords.lat,coords.lon],{radius:6,color:'#fff',weight:2,fillColor:'#9a5c2b',fillOpacity:1}).addTo(nearbyLayer);
-        const safeLabel=document.createElement('span');safeLabel.textContent=name;marker.bindPopup(safeLabel);
         const li=document.createElement('li'),btn=document.createElement('button');
         btn.type='button';btn.textContent=name+' · '+(km<1?Math.round(km*1000)+' m':km.toFixed(1)+' km')+' away';
         btn.addEventListener('click',()=>{
-          map.setView([coords.lat,coords.lon],16);marker.openPopup();
+          renderer.focus(coords.lat,coords.lon,16);renderer.showPopup(coords.lat,coords.lon,name);
         });
         li.append(btn);$('gods-eye-nearby-results').append(li);
       }
@@ -82,7 +79,7 @@
   }
   function start() {
     if(!$('gods-eye-nearby'))return;
-    window.addEventListener('folkhold:gods-eye-map-ready',e=>{map=e.detail.map;L=e.detail.leaflet;});
+    window.addEventListener('folkhold:gods-eye-map-ready',e=>{renderer=e.detail.renderer;});
     window.addEventListener('folkhold:gods-eye-point',e=>{
       const p=e.detail;if(!valid(p.lat,p.lon))return;
       point={lat:p.lat,lon:p.lon,label:p.own?'your location':p.label};
