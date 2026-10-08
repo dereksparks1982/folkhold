@@ -2,6 +2,8 @@
 
 ## Square forum candidate
 
+- Owner reported a new topic failed to save on October 8. Source UI now surfaces errors inline, but the actual live POST failure remains undiagnosed pending the Cloudflare Worker response/deployment status; do not call posting fixed.
+
 - Forum and Worker routes are in GitHub source but **live Worker deployment and device validation remain unverified**.
 - Guest display names are unverified. Durable Object cooldown is in-memory and resets on restart. Moderation, editing, identity activation, paging, search and notification are still incomplete.
 

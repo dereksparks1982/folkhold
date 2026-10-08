@@ -12,7 +12,9 @@
     ["journeys","Journeys & Places","Roads, travels and local knowledge.","⌖"],
     ["questions","Questions & Help","Ask the Square and share what you know.","?"]
   ];
-  const state={screen:"categories",category:null,topic:null,posting:false};
+  const state={screen:"categories",category:null,topic:null,posting:false,ready:false};
+  const composeButton=forum.querySelector('[data-forum="compose"]');
+  if(composeButton)composeButton.disabled=true;
   const make=(tag,cls,text)=>{const el=document.createElement(tag);if(cls)el.className=cls;if(text!==undefined)el.textContent=String(text);return el};
   const btn=(text,action,cls)=>{const el=make("button",cls,text);el.type="button";el.dataset.forum=action;return el};
   const msg=text=>{status.textContent=text};
@@ -25,12 +27,18 @@
     if(data){req.method="POST";req.headers["Content-Type"]="application/json";req.body=JSON.stringify({...data,name:name()})}
     const res=await fetch(`${base}/api/forum/${path}`,req);
     let json;
-    try{json=await res.json()}catch{throw Error(`Forum server returned ${res.status}.`)}
-    if(!res.ok)throw Error(json.error||`Forum server returned ${res.status}.`);
+    try{json=await res.json()}catch{
+      if(res.status===404)throw Error("Cloudflare has not deployed this forum endpoint yet (404).");
+      throw Error(`Forum backend returned an unexpected response (HTTP ${res.status}).`);
+    }
+    if(!res.ok){
+      if(res.status===404&&path==="topics"&&data)throw Error("The topic-save endpoint is missing from the deployed Cloudflare Worker (404).");
+      throw Error(json.error||`Forum request failed (HTTP ${res.status}).`);
+    }
     return json;
   }
   function view(screen,category=state.category,topic=null){state.screen=screen;state.category=category;state.topic=topic;body.replaceChildren();msg("")}
-  function failure(err){msg(err.message||"Could not reach the forum.");body.replaceChildren(btn("Try again","retry","secondary"))}
+  function failure(err){state.ready=false;if(composeButton)composeButton.disabled=true;msg(err.message||"Could not reach the forum.");body.replaceChildren(btn("Try again","retry","secondary"))}
   function bar(label,back,backText){
     const row=make("div","square-forum-bar");
     row.append(btn(backText||"← Categories",back),make("h3","",label));
@@ -41,6 +49,8 @@
     try{
       const data=await call("categories");
       if(state.screen!=="categories")return;
+      state.ready=true;
+      if(composeButton)composeButton.disabled=false;
       msg("");
       for(const s of sections){
         const count=(data.categories||[]).find(c=>c.id===s[0])?.topics||0;
@@ -86,10 +96,12 @@
       const label=make("label","", "Your reply"),text=make("textarea");
       text.name="body";text.required=true;text.maxLength=5000;label.append(text);
       const submit=make("button","primary","Post reply");submit.type="submit";
-      form.append(label,submit);body.append(form);
+      const feedback=make("p","square-form-feedback");feedback.setAttribute("role","alert");
+      form.append(label,feedback,submit);body.append(form);
     }catch(err){if(state.screen==="topic")failure(err)}
   }
   function compose(){
+    if(!state.ready){msg("Discussions are not connected to Cloudflare yet. Try again after the forum loads.");return}
     view("compose",state.category||"general");
     const form=make("form","square-entry");form.dataset.form="topic";
     form.append(bar("Start a discussion","back","← Back"));
@@ -97,11 +109,15 @@
     select.name="category";for(const s of sections){const opt=make("option","",s[1]);opt.value=s[0];opt.selected=s[0]===state.category;select.append(opt)}
     categoryLabel.append(select);
     const titleLabel=make("label","", "Title"),heading=make("input");
-    heading.name="title";heading.maxLength=120;heading.required=true;titleLabel.append(heading);
+    heading.name="title";heading.minLength=4;heading.maxLength=120;heading.required=true;
+    heading.setAttribute("aria-describedby","square-topic-title-help");
+    const titleHelp=make("small","square-hint","Use at least 4 characters.");titleHelp.id="square-topic-title-help";
+    titleLabel.append(heading,titleHelp);
     const bodyLabel=make("label","", "Message"),text=make("textarea");
     text.name="body";text.maxLength=5000;text.required=true;bodyLabel.append(text);
     const submit=make("button","primary","Publish topic");submit.type="submit";
-    form.append(categoryLabel,titleLabel,bodyLabel,make("p","square-hint","Posts are public and permanent. Guest nicknames are unverified."),submit);
+    const feedback=make("p","square-form-feedback");feedback.setAttribute("role","alert");
+    form.append(categoryLabel,titleLabel,bodyLabel,make("p","square-hint","Posts are public and permanent. Guest nicknames are unverified."),feedback,submit);
     body.append(form);
   }
   document.querySelectorAll(".square-switch [data-square-tab]").forEach(b=>b.addEventListener("click",()=>{
@@ -124,7 +140,10 @@
   forum.addEventListener("submit",async event=>{
     const form=event.target.closest("[data-form]");if(!form)return;
     event.preventDefault();if(state.posting||!form.reportValidity())return;
-    state.posting=true;const submit=form.querySelector('[type="submit"]');submit.disabled=true;msg("Publishing…");
+    state.posting=true;const submit=form.querySelector('[type="submit"]');submit.disabled=true;
+    const feedback=form.querySelector(".square-form-feedback");
+    if(feedback)feedback.textContent="Publishing…";
+    msg("Publishing…");
     try{
       const values=new FormData(form);
       if(form.dataset.form==="topic"){
@@ -132,7 +151,10 @@
         const data=await call("topics",{category:id,title:values.get("title"),body:values.get("body")});
         state.category=id;await topic(data.topic.id);
       }else{const id=state.topic;await call(`topic?id=${id}`,{body:values.get("body")});await topic(id)}
-    }catch(err){msg(err.message||"Could not publish.")}
+    }catch(err){const message=err.message||"Could not publish.";
+      msg(message);
+      if(feedback){feedback.textContent=message;feedback.scrollIntoView({block:"nearest",behavior:"smooth"});}
+    }
     finally{state.posting=false;submit.disabled=false}
   });
   window.FolkholdSquareForum=Object.freeze({refresh:categories});

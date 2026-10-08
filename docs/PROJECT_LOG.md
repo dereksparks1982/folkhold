@@ -1,5 +1,10 @@
 # Folkhold Project Log
 
+## 2026-10-08 — Forum save error visibility candidate
+
+- Following owner report that a new forum topic would not save, improved only the forum UI failure path: prevent composing before the backend is reachable, enforce the server's existing four-character title minimum, and show save errors inline while retaining the form content.
+- Existing live chat, backend and theme unchanged. Actual Cloudflare save failure still requires Worker request/deployment evidence; no claim of a repaired backend.
+
 ## 2026-10-08 — Integrated Public Square forum source candidate
 
 - Owner approved the native NodeBB-inspired forum built into the existing Square, with no paid forum hosting or additional navigation destination.

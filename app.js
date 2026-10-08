@@ -42,7 +42,7 @@
     .then(() => loadLocalScript('backgammon.js?v=1'))
     .then(() => loadLocalScript('hold-designer.js?v=2'))
     .then(() => loadLocalScript('global-chat.js'))
-    .then(() => loadLocalScript('square-forum.js?v=1'))
+    .then(() => loadLocalScript('square-forum.js?v=2'))
     .catch((error) => console.warn('Folkhold runtime module did not load.', error));
 
   function showToast(message) {

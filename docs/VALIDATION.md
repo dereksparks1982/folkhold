@@ -1,3 +1,9 @@
+## 2026-10-08 — Square forum unsuccessful-save UI diagnostic patch
+
+- Confirmed current source permits topic composition before a successful backend-read request and shows write errors only above the scrolling form.
+- Candidate patch gates creation on a successful categories response, validates 4-character minimum titles before submission, retains typed content when a save fails, and shows the server error beside the publishing button.
+- The prior successful GitHub Pages deployment does **not** confirm a successful Cloudflare Worker deployment. Cannot directly verify live Cloudflare GET/POST in this environment; production server response and owner browser test remain outstanding. No live chat or Worker code edited in this patch.
+
 ## 2026-10-08 — Square forum candidate source checks
 
 - Read repository `main`, live-chat source, Worker and the prior forum design before editing.
