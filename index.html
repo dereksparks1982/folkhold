@@ -18,7 +18,7 @@
   <link rel="icon" type="image/png" sizes="192x192" href="assets/folkhold-app-icon-192.png?v=9">
   <link rel="apple-touch-icon" sizes="180x180" href="assets/folkhold-app-icon-180.png?v=9">
   <link rel="manifest" href="site.webmanifest?v=9">
-  <link rel="stylesheet" href="styles.css?v=19">
+  <link rel="stylesheet" href="styles.css?v=20">
   <link rel="stylesheet" href="gods-eye/map.css?v=6">
   <style>
     .brand-mark{overflow:hidden;padding:0;background:#111}
@@ -330,9 +330,9 @@
                 <p>Translate a short message when you press Translate. Entered text is sent to MyMemory, a third-party translation service.</p>
                 <form id="gods-eye-translate-form">
                   <div class="fh-talk-language-row">
-                    <label>From<select id="gods-eye-language-from"><option value="en">English</option><option value="tr">Turkish</option><option value="ar">Arabic</option><option value="fa">Persian</option><option value="fr">French</option></select></label>
+                    <label>From<select id="gods-eye-language-from"><option value="en">English</option><option value="tr">Turkish</option><option value="ar">Arabic</option><option value="fa">Persian</option><option value="fa-AF">Dari (Afghanistan)</option><option value="ps">Pashto</option><option value="ur">Urdu</option><option value="ru">Russian</option><option value="fr">French</option></select></label>
                     <button type="button" class="secondary" id="gods-eye-language-swap" aria-label="Swap languages">⇄</button>
-                    <label>To<select id="gods-eye-language-to"><option value="tr">Turkish</option><option value="en">English</option><option value="ar">Arabic</option><option value="fa">Persian</option><option value="fr">French</option></select></label>
+                    <label>To<select id="gods-eye-language-to"><option value="tr">Turkish</option><option value="en">English</option><option value="ar">Arabic</option><option value="fa">Persian</option><option value="fa-AF">Dari (Afghanistan)</option><option value="ps">Pashto</option><option value="ur">Urdu</option><option value="ru">Russian</option><option value="fr">French</option></select></label>
                   </div>
                   <label>Your message<textarea id="gods-eye-language-text" maxlength="300" rows="3" required placeholder="Hello, where is the nearest mosque?"></textarea></label>
                   <button type="submit" class="primary">Translate</button>
@@ -420,11 +420,11 @@
   <div id="toast" class="toast" role="status" aria-live="polite"></div>
   <script src="radio/playlist.js?v=3"></script>
   <script src="radio/player.js?v=6"></script>
-  <script src="gods-eye/map.js?v=4"></script>
+  <script src="gods-eye/map.js?v=5"></script>
   <script src="gods-eye/routes.js?v=4"></script>
   <script src="gods-eye/nearby.js?v=3"></script>
   <script src="gods-eye/essentials.js?v=2"></script>
-  <script src="gods-eye/companion.js?v=2"></script>
-  <script src="app.js?v=20"></script>
+  <script src="gods-eye/companion.js?v=3"></script>
+  <script src="app.js?v=21"></script>
 </body>
 </html>
