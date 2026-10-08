@@ -10,11 +10,15 @@ Folkhold is a social web project built around personal places rather than flat p
 - **Hanafi Learning Deck:** https://dereksparks1982.github.io/Hanafi-Islam-Learning-Deck/
 - **Hanafi Learning Deck repository:** https://github.com/dereksparks1982/Hanafi-Islam-Learning-Deck
 
-## Development candidate: God's Eye, slice 1
+## Development candidates: God's Eye and Wayfarer (slices 20–24)
 
-The Hub now links to a mobile-friendly world map inside Folkhold, with manual place search and a separate **Use My Location** button. It never requests GPS automatically. It uses Leaflet with OpenStreetMap tiles and Photon search, whose public demo capacity is limited.
+God's Eye is a new place inside Folkhold, entered from the Hub, with a world map, place search and **optional** device location.
 
-Routing, nearby places and travel tools are separate later slices. The accepted background, icons, mobile bar and Radio v1.2.0 are unchanged. See `docs/GODS_EYE.md`.
+The next four self-contained candidate slices now add manual **driving/walking road routes** and navigation handoff, nearby discoveries (mosques, cafés/food, history, adventure, nightlife), selected-place weather, **Hanafi prayer times**, currency conversion, short-message translation, a Turkish phrasebook, **Fair Price** comparison using your own benchmark, and an initial Hitch travel-context panel.
+
+**Review status:** source committed and parsed; third-party map/search/routing/data services and iPhone/desktop interactions still need real browser testing. The location chosen on the map is sent to outside providers only when you explicitly request nearby results, directions, weather or prayer times. Translation text goes to MyMemory only when you press Translate. No automatic GPS, member location sharing, persistent trip records, true AI assistant or verified local market-price database are in this candidate.
+
+See `docs/GODS_EYE.md` for provider credits, usage limits and review checklist. Radio v1.2.0 and accepted backgrounds, mobile bar and icons are unchanged.
 
 ## v1.2.0 — Folkhold Radio
 
