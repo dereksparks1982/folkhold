@@ -11,14 +11,23 @@
     document.querySelector('[data-route-start]').textContent=start ? name(start) : 'Choose start or Use My Location';
     document.querySelector('[data-route-end]').textContent=end ? name(end) : 'Search and select destination';
     $('gods-eye-navigate').hidden=true;
+    $('gods-eye-navigate-osm').hidden=true;
   }
   function clearLine() { renderer?.clearRoute(); }
   function externalLink(mode) {
     if(!good(start)||!good(end))return;
-    const u=new URL('https://www.openstreetmap.org/directions');
-    u.searchParams.set('engine',mode==='pedestrian'?'fossgis_osrm_foot':'fossgis_osrm_car');
-    u.searchParams.set('route',start.lat+','+start.lon+';'+end.lat+','+end.lon);
-    const a=$('gods-eye-navigate');a.href=u.href;a.hidden=false;
+    // Google Maps is the primary handoff; OpenStreetMap remains an optional alternative.
+    const google=new URL('https://www.google.com/maps/dir/');
+    google.searchParams.set('api','1');
+    google.searchParams.set('origin',start.lat+','+start.lon);
+    google.searchParams.set('destination',end.lat+','+end.lon);
+    google.searchParams.set('travelmode',mode==='pedestrian'?'walking':'driving');
+    const primary=$('gods-eye-navigate');primary.href=google.href;primary.hidden=false;
+
+    const osm=new URL('https://www.openstreetmap.org/directions');
+    osm.searchParams.set('engine',mode==='pedestrian'?'fossgis_osrm_foot':'fossgis_osrm_car');
+    osm.searchParams.set('route',start.lat+','+start.lon+';'+end.lat+','+end.lon);
+    const alternate=$('gods-eye-navigate-osm');alternate.href=osm.href;alternate.hidden=false;
   }
   async function getRoute(event) {
     event.preventDefault();
@@ -58,7 +67,7 @@
       externalLink(mode);
     } catch {
       clearLine();
-      status('No road route available from this demo server. Use Open in OpenStreetMap to check directions externally, or try closer places.');
+      status('No road route available from this demo server. Use Google Maps or OpenStreetMap to check directions externally, or try closer places.');
       externalLink(mode);
     } finally {busy=false;button.disabled=false;}
   }
