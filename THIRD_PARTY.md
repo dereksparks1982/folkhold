@@ -6,6 +6,16 @@ Folkhold's browser UI remains intentionally lightweight and uses browser-standar
 
 **Folkhold itself is proprietary source-available software under the repository `LICENSE`.** The Folkhold license does not replace, narrow, or override rights granted directly by third-party licensors for their own components.
 
+### OpenLayers (Travel Companion map)
+
+- Project: https://openlayers.org/
+- Browser package: `ol` (version pinned at `10.10.0`)
+- Source: https://github.com/openlayers/openlayers
+- License: BSD-2-Clause; https://github.com/openlayers/openlayers/blob/v10.10.0/LICENSE.md
+- Purpose: interactive map tiles, search/location markers, road-route drawings and nearby-place overlays.
+- Runtime: CSS/JS from a version-pinned CDN. The previous map renderer is not part of the current runtime.
+- Map data: OpenStreetMap contributors, with required copyright and attribution: https://www.openstreetmap.org/copyright
+
 ### Better Auth
 
 - Project: https://www.better-auth.com/
