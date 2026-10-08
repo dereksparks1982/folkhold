@@ -12,6 +12,8 @@ Folkhold is a social web project built around personal places rather than flat p
 
 ## Development candidates: Travel Companion and Wayfarer (slices 20–24)
 
+**Map renderer updated October 8, 2026:** Travel Companion now uses OpenLayers 10.10.0. The former renderer is completely absent from the page's runtime dependencies; road and nearby marker layers were migrated too. The OpenStreetMap map-data credit remains. This replacement still awaits owner validation on PC/iPhone.
+
 Travel Companion is a new place inside Folkhold, entered from the Hub, with a world map, place search and **optional** device location.
 
 The next four self-contained candidate slices now add manual **driving/walking road routes** and navigation handoff, nearby discoveries (mosques, cafés/food, history, adventure, nightlife), selected-place weather, **Hanafi prayer times**, currency conversion, short-message translation, a Turkish phrasebook, **Fair Price** comparison using your own benchmark, and an initial Hitch travel-context panel.
