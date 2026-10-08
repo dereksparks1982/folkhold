@@ -219,7 +219,8 @@ Trust rule: live prices, laws, schedules and local facts need current evidence. 
 ### Wayfarer implementation status
 
 - **God's Eye map, slice 1 candidate:** Hub entry, interactive world map, manual place search, optional current-location marker.
-- **Still to build:** road routing, nearby category discovery, weather, currency, prayer times, translation, Fair Price and travel assistant.
+- **Sliced candidates 21–24 implemented:** road route overlay with walking/driving and navigation handoff; OSM nearby categories; on-demand weather, exchange rates and Hanafi prayer times; short translation and Turkish phrasebook; user-reference Fair Price and basic Hitch context panel.
+- **Still future:** scaled/reliable provider hosting, live device validation, actual AI-powered Hitch, evidence-backed local typical prices, saved trips and permissioned Key-to-Key shared destinations.
 - **Backend-gated:** Key-to-Key routing must wait for authenticated accounts, persisted Keys and explicit per-contact destination sharing.
 - Prototype public mapping/geocoding services need capacity/licensing review before scale-up.
 
