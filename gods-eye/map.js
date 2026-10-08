@@ -44,7 +44,7 @@
       status('Drag or pinch to explore. Search a place or choose Use My Location.');
       setTimeout(() => map.invalidateSize(), 180);
     } catch {
-      status('The map could not load. Check your connection and try entering God\'s Eye again.');
+      status('The map could not load. Check your connection and try opening Travel Companion again.');
     }
   }
   function pin(lat,lon,label,isOwn=false) {

@@ -91,7 +91,7 @@
     $('gods-eye-hitch-summary').addEventListener('click',()=>text('gods-eye-hitch-result',shareContext()));
     window.FolkholdWayfarer=Object.freeze({
       context:()=>point?{...point}:null,
-      availableTools:()=>['Gods Eye map','Road directions','Nearby discovery','Weather','Currency exchange','Hanafi prayer times','Translation','Fair Price']
+      availableTools:()=>['Travel map','Road directions','Nearby discovery','Weather','Currency exchange','Hanafi prayer times','Translation','Fair Price']
     });
   }
   if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',init,{once:true});
