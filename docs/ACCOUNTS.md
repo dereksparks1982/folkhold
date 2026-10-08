@@ -1,5 +1,13 @@
 # Folkhold Accounts
 
+## Google-first activation (owner priority October 8)
+
+Owner explicitly prioritized Google login ahead of email registration testing and Apple login. Google OAuth is already implemented in the Worker and UI, and the public Test Center confirms Better Auth's unauthenticated session endpoint is healthy ([run 37821109168](https://github.com/dereksparks1982/folkhold/actions/runs/37821109168)). The missing input is a Google Auth Platform **Web application** OAuth client, not more changes to `BETTER_AUTH_SECRET`.
+
+Create/select a Google Cloud project at https://console.cloud.google.com/auth/overview, configure **Branding** and **Audience** (External as appropriate), and under **Clients** create an OAuth client with type **Web application**. Set authorized JavaScript origin `https://folkhold.dereksparks1982.workers.dev` (if the form requests an origin) and the exact authorized redirect URI `https://folkhold.dereksparks1982.workers.dev/api/auth/callback/google`. Google requires an exact match. If the consent screen remains in Testing mode, add the desired test Google account(s). Use only basic sign-in scopes (openid, email, profile); no extra Google API permissions are required for ordinary login.
+
+In the **Cloudflare Production Worker runtime** Variables and Secrets (not Build variables alone), add `GOOGLE_CLIENT_ID` and secret `GOOGLE_CLIENT_SECRET`. The existing deploy script uses `--keep-vars` and Cloudflare preserves existing runtime secrets not present in its `--secrets-file`. Do not put the Google client secret in GitHub or chat; no changes to the existing Better Auth secret or D1 are required. Verify `/api/account/status` reports `providers.google: true`, then complete an actual browser Google sign-in and create the member's username/Hold.
+
 ## 2026-10-08 runtime readiness confirmed; migrations pending smoke test
 
 After the owner set Cloudflare's Git-connected Worker Deploy command to `npm run deploy`, the subsequent GitHub Test Center run `37820689995` reported **10 PASS, 0 FAIL**. The live `/api/account/status` check returned `ready: true`, with email provider enabled. `AUTH_DB` and the secret are now both visible to the Worker. Actual D1 table migrations, sign-in requests, and Google/Apple provider credentials remain separate unfinished checks. The Test Center now includes an unauthenticated session GET to exercise Better Auth initialization without creating a member.

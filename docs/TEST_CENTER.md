@@ -12,7 +12,7 @@ This is a Node.js diagnostic checker running inside GitHub Actions. Its ordinary
 ## Coverage
 
 - Consistency of root and nested Wrangler configuration and D1 / Durable Object bindings.
-- Source declarations for Better Auth email/password, Google and Apple.
+- Source declarations for Better Auth email/password, Google and Apple; separate Google OAuth source-contract and runtime-provider readiness checks.
 - Live Worker health and **runtime** account readiness; unauthenticated Better Auth session GET to confirm initialization, including its lazy D1 schema migration if needed.
 - Read-only GET tests for Square forum categories/topics, GitHub Pages, Worker frontend proxy and approved favicon.
 - Cloudflare Workers Build check linked to the GitHub commit.
@@ -35,3 +35,7 @@ Actions additionally runs `node --test tests/cloudflare-deploy.test.mjs` against
 ## First live authentication-init test
 
 After the runtime secret became detectable, the Test Center gained a public GET `/api/auth/get-session` smoke check, with no session cookies. It does not register accounts. The Worker itself can perform its documented one-time D1 schema creation before servicing the request. Only an HTTP 2xx JSON response counts as a pass; HTTP 503 or unexpected content is reported as FAIL. This is an intentional narrow exception to purely read-only requests.
+
+## Google-first diagnostics (October 8)
+
+Two scoped checks were added without touching the Worker or making sign-in requests: (1) an assertion that the backend and frontend still contain the Google provider configuration and redirect/profile flow, and (2) a GET-only runtime check of `/api/account/status`. Until Google OAuth credentials are installed in Cloudflare Worker runtime, that second check is **SKIP (setup pending)** rather than FAIL. When the runtime advertises Google enabled, it becomes PASS, but an actual browser Google OAuth round trip remains a separate test.

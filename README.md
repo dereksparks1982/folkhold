@@ -12,6 +12,10 @@ The new read-only GitHub Actions Test Center probes GitHub/Cloudflare deployment
 
 Cloudflare's Git-connected deploy command now runs the secure `npm run deploy` helper. Live Test Center run [37820689995](https://github.com/dereksparks1982/folkhold/actions/runs/37820689995) confirmed 10 passed / 0 failed, including `BETTER_AUTH_SECRET` present at runtime and email provider configured. Better Auth D1 migrations and end-to-end email/Google/Apple sign-in remain separate validation steps. See [runtime secret handoff](docs/RUNTIME_SECRET_DEPLOY.md).
 
+## Google login activation
+
+Google OAuth is the next account priority. Better Auth already has the Google provider and frontend flow, while the Test Center now checks Google-specific source and runtime readiness. An OAuth **Web application** client must be created under Google Auth Platform and its ID/secret supplied to Cloudflare Worker Production runtime. See [Google-first instructions](docs/ACCOUNTS.md). Provider login remains pending live verification.
+
 ## Links
 
 - **Folkhold Web App:** https://dereksparks1982.github.io/folkhold/

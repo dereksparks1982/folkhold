@@ -11,6 +11,8 @@ This file records unresolved or intentionally incomplete work. An item remains h
 
 ## Accounts / persistence
 
+- Google login remains unavailable until Google Auth Platform Web application OAuth credentials are created and configured as `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET` in the running Cloudflare Worker; end-to-end browser login is untested. Owner selected Google as the first provider to activate.
+
 - Resolved October 8: Cloudflare deployment using the `npm run deploy` helper now exposes `BETTER_AUTH_SECRET` to the running Worker; live Test Center run `37820689995` returned ready true and 10 passes. Email login and actual Better Auth D1 migrations are not yet validated.
 
 - Folkhold Test Center is a source candidate pending its first live workflow report; it observes but cannot automatically repair missing Cloudflare runtime secrets or complete OAuth without provider credentials.

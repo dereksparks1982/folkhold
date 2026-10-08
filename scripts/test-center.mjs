@@ -80,6 +80,28 @@ await test('production', 'Authentication runtime bindings', async () => {
 });
 // A GET without cookies never signs in or creates a user. On first call, the existing
 // Worker may lazily initialize Better Auth's own D1 schema (expected activation).
+await test('source', 'Google OAuth source integration contract', async () => {
+  const worker = await readFile('cloudflare/src/index.js', 'utf8');
+  const ui = await readFile('auth-ui.js', 'utf8');
+  for (const fragment of ['env.GOOGLE_CLIENT_ID', 'env.GOOGLE_CLIENT_SECRET',
+    'socialProviders.google', 'clientId: env.GOOGLE_CLIENT_ID',
+    'clientSecret: env.GOOGLE_CLIENT_SECRET']) {
+    requireValue(worker.includes(fragment), 'Google Worker configuration missing: ' + fragment);
+  }
+  for (const fragment of ['socialButton("google"', '"/api/auth/sign-in/social"',
+    'disableRedirect: true', 'location.assign(url)', 'renderUsernameSetup()']) {
+    requireValue(ui.includes(fragment), 'Google account UI contract missing: ' + fragment);
+  }
+  return 'Google button, OAuth start, redirect and profile setup found in source';
+});
+await test('production', 'Google OAuth runtime configuration', async () => {
+  const data = await getJson(base + '/api/account/status');
+  if (!data.ready) skip('General authentication prerequisites are not ready yet');
+  if (!data.providers?.google) {
+    skip('Google OAuth not configured yet: GOOGLE_CLIENT_ID and GOOGLE_CLIENT_SECRET required as Worker runtime bindings');
+  }
+  return 'Google provider enabled in running Worker (end-to-end Google login still untested)';
+});
 await test('production', 'Better Auth session endpoint and D1 initialization', async () => {
   const readiness = await getJson(base + '/api/account/status');
   if (!readiness.ready) skip('Authentication runtime prerequisites missing');

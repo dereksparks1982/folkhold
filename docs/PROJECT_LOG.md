@@ -1,5 +1,12 @@
 # Folkhold Project Log
 
+## 2026-10-08 — Google-first account integration checks
+
+- Owner chose to activate Google login before testing email registration or adding Apple OAuth.
+- Inspected current backend socialProviders.google configuration and frontend OAuth redirect flow. Both already exist, so no extra auth provider, navigation redesign, or Worker behavior change was necessary.
+- Extended Test Center with source-level Google OAuth flow contract and GET-only runtime Google readiness, reporting absent OAuth credentials as SKIP rather than an application failure. Documented exact authorized OAuth callback and Cloudflare runtime credential names.
+- Google Cloud project/client, credential attachment, browser login, and real user profile/Hold flow remain pending owner/provider steps and live acceptance.
+
 ## 2026-10-08 — Authentication runtime prerequisite solved; D1 init smoke test
 
 - Following owner's Cloudflare deployment-command change, commit `91fedfc` deployed and Test Center run `37820689995` confirmed `10 PASS, 0 FAIL`. Specifically, `/api/account/status` returned ready true with email enabled, showing D1 and `BETTER_AUTH_SECRET` are now available at runtime. The previous blocker is resolved.

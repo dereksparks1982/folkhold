@@ -1,3 +1,10 @@
+## 2026-10-08 — Google-first readiness candidate
+
+- Confirmed from current source that `socialProviders.google` requires both `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`, while frontend posts to Better Auth social sign-in then redirects to the provider URL.
+- Google OAuth callback is `https://folkhold.dereksparks1982.workers.dev/api/auth/callback/google`, per Better Auth's default callback scheme and Google exact redirect URI requirement.
+- Added two automated Test Center checks, one static source-contract and one read-only runtime provider check. Google provider not configured yet is SKIP, not FAIL.
+- **Pending:** first new GitHub Action run, Google Cloud Web application OAuth client, credentials in Cloudflare runtime, successful provider redirect and profile/Hold provisioning. No account or OAuth requests were performed.
+
 ## 2026-10-08 — Runtime authentication ready and D1 initialization candidate
 
 - Verified GitHub Actions Test Center run `37820689995`: **10 PASS, 0 FAIL, 0 SKIP** (log obtained through GitHub). Runtime auth test returned `Runtime ready; enabled providers: email` and all forum/frontend checks passed.
