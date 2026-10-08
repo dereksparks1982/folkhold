@@ -1,14 +1,14 @@
-# Travel Companion inside Folkhold
+# Wayfarer inside Folkhold
 
-**Status: Slices 20–24 development candidates, owner validation pending**
+**Status: v1.3.0 source deployed; external provider and owner-device validation pending**
 
-**Current public name:** Travel Companion. Internal `gods-eye` file paths, IDs and existing URL hash are retained for compatibility and are not the product name.
+**Current public name:** Wayfarer. Internal `gods-eye` file paths, IDs and existing URL hash are retained for compatibility and are not the product name.
 
-Travel Companion is Folkhold's mapping foundation for Wayfarer. It lives inside Folkhold and does not create a second standalone application.
+Wayfarer is Folkhold's travel and mapping area. It lives inside Folkhold and does not create a second standalone application.
 
 ## Slice 1 built October 7, 2026
 
-- A **Travel Companion** card on the Hub opens the map as a normal Folkhold screen.
+- A **Wayfarer** card on the Hub opens the map as a normal Folkhold screen.
 - OpenLayers 10.10.0 creates a worldwide interactive map only after the screen is opened. The previous renderer is no longer loaded or referenced by runtime code.
 - OpenStreetMap standard tiles display required attribution. The application never bulk-prefetches or downloads tiles in the background.
 - Manual **Search** submits a query to Photon, receives up to five results, and lets the visitor select a location. No search-as-you-type or background place harvesting.
@@ -60,3 +60,11 @@ Road routing and line display → nearby discovery → weather, rates, prayer ti
 ### Important boundaries
 
 These are **GitHub source candidates**, not accepted device-tested production services. Leaflet/OSM/Photon, Valhalla, Overpass, Open-Meteo, Frankfurter, AlAdhan and MyMemory have differing terms, availability and rate limits. Public demo tile, routing and discovery servers need provisioning before serious traffic. The user must explicitly request data; there is no automatic GPS, no friend-location disclosure and no saved travel profile. Review on PC/iPhone: routes, categories, weather, rates, prayer times/date/timezone, translator, Fare Price and Hitch; verify existing Radio and UI unchanged.
+
+## v1.3.0 Wayfarer location and naming closeout (October 8, 2026)
+
+- Public names in the live top bar, Hub card, map page and status messaging are **Wayfarer**. Older `gods-eye` source IDs/routes/events remain untouched intentionally.
+- No default Boston coordinate is in map source: it begins in a world overview. A requested browser geolocation may be incorrect, especially on desktop networks. The new request uses `enableHighAccuracy:true`, `maximumAge:0` and an 18-second timeout; the success message displays browser-reported latitude/longitude and declared accuracy in meters.
+- If accuracy is unavailable or the browser estimates uncertainty over **10 km**, Folkhold displays the estimate but does not automatically treat it as the routing start. Even a low declared accuracy does **not prove** the city is correct.
+- When geolocation is wrong, manually search for the actual city/address, select it, and choose **Use Selected as Start** in Directions. This is a user-selected starting point, not a claimed GPS fix.
+- The owner reported Boston while in Wichita. Actual desktop/iPhone location correctness, routing provider behavior, map markers and permissions still require physical-device review. No member live-location sharing is added.

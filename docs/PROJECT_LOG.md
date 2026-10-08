@@ -1,5 +1,16 @@
 # Folkhold Project Log
 
+## 2026-10-08 — v1.3.0 closeout and Square forum handoff
+
+- Owner explicitly requested closing the most recent build, documenting all work and updating the roadmap. Selected **v1.3.0** because the scope added Wayfarer/travel functionality after accepted Radio v1.2.0, not merely patch-level CSS polish. Retained existing history rather than rewriting earlier acceptance.
+- Verified the latest pre-closeout runtime head `90cb72710813a4daea5242cbbe62ede8d92852c3` and successful GitHub Pages deployment `37800022754`.
+- Verified affected browser JavaScript parses, 11-button desktop UI uses **Wayfarer**, geolocation does not contain a Boston default, reported precision is disclosed, and both front doors use matching medieval markup. Browser and provider correctness remain deliberately open in validation/known issues.
+- Recorded the full current user-facing scope: colored Hub cards; Settings; compact horizontal nav and Your people banner; Wayfarer name/map/travel tools; current local Hold Designer and matching Hub/Hold doors; Russian/Urdu/Pashto/Dari translator options in UI; maintained Radio/mobile footer and existing realtime Global Chat.
+- Preserved outstanding infrastructure: production Better Auth/D1, Keys/Knocks, Master Key server authorization, Google AdSense disabled configuration, live routing/search/GPS provider testing and browser visual verification.
+- The owner then selected a **NodeBB-like spacious, category-first forum** co-located with current Square live chat as the next design target. Added `docs/SQUARE_FORUM.md` and Slice 30: compare independently hosted NodeBB and a Folkhold-native original implementation before selecting an architecture. No NodeBB download, deployment, license copying, GitHub repo/branch creation or live chat disruption occurred.
+- Closeout is owner-authorized publication of the release documentation and version; do not confuse it with independent owner-device validation of all feature states.
+
+
 ## 2026-10-08 — Compact navigation UI candidate; admin request recorded
 
 - The owner specified exact eleven abbreviated desktop top-nav labels, uniform button sizing, left-mouse horizontal drag, no vertical page scrolling on hover even at scroll ends, and scroll stops showing complete buttons.

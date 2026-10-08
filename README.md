@@ -10,15 +10,28 @@ Folkhold is a social web project built around personal places rather than flat p
 - **Hanafi Learning Deck:** https://dereksparks1982.github.io/Hanafi-Islam-Learning-Deck/
 - **Hanafi Learning Deck repository:** https://github.com/dereksparks1982/Hanafi-Islam-Learning-Deck
 
-## Current candidate: compact desktop navigation (October 8, 2026)
+## v1.3.0 — Wayfarer and Square foundations
 
-The eleven desktop top-nav shortcuts now use short labels (**Hub, Square, Notice, Hold, Tavern, Tea Room, Directory, Key Ring, Radio, Travel, Settings**), equal-size buttons and a fixed-count horizontal carousel. While the mouse is over the bar, its wheel moves the bar sideways without scrolling the document. Wheel moves and mouse-drag release align whole buttons. The banner tagline is now **Your people**. This is a source-validated candidate requiring desktop Firefox owner acceptance; no mobile-footer, background or Radio changes. The owner-only administration panel with Master Key and ad-display control is a separate planned security slice, not implemented by this visual patch.
+**Owner-directed release closeout: October 8, 2026.** Folkhold's latest committed interface and travel additions are published on GitHub Pages. This closeout records the accepted **release scope** without claiming that every device-specific interaction has passed the owner's hands-on testing.
 
-## Development candidates: Travel Companion and Wayfarer (slices 20–24)
+- **Wayfarer** is the public name for the travel room, now accessible from the desktop navigation and Hub. The underlying `gods-eye` URL/IDs remain stable. World map, place search, opt-in location, road navigation, nearby destinations, Hanafi prayer times, weather, currency references, translation, and travel helpers are implemented as on-demand development features.
+- Location now displays **browser-reported coordinates and accuracy**, asks for a fresh fix, and does not automatically use a >10 km uncertainty estimate as the route starting point. Browser geolocation may still name the wrong city. Search the correct place and select **Use Selected as Start**.
+- **Hub and My Hold doors** now use the same approved medieval door structure. The misplaced Hold gold knocker is removed. Local door customization and Knock actions remain; local choices are **not yet server-persistent**.
+- Desktop navigation has eleven **uniform-width, shortened buttons**, a full-button horizontal wheel/drag carousel, and the **Your people** banner subtitle. The accepted iPhone footer, leather background, approved icons, and v1.2.0 Radio remain preserved.
+- The Square's **live Global Chat remains the existing realtime feature**. A spacious **NodeBB-style forum inside the same Square** is the next planned feature, **not included in v1.3.0**. See [`docs/SQUARE_FORUM.md`](docs/SQUARE_FORUM.md).
+- A secure Master Key admin panel and Ads On/Off remain planned only. Account/D1 credentials, provider testing, true GPS accuracy, Firefox/iPhone layout, and shared-door visual review remain separate validation/prerequisite work.
 
-**Map renderer updated October 8, 2026:** Travel Companion now uses OpenLayers 10.10.0. The former renderer is completely absent from the page's runtime dependencies; road and nearby marker layers were migrated too. The OpenStreetMap map-data credit remains. This replacement still awaits owner validation on PC/iPhone.
+**Published frontend source:** [`90cb727`](https://github.com/dereksparks1982/folkhold/commit/90cb72710813a4daea5242cbbe62ede8d92852c3), Pages run [`37800022754`](https://github.com/dereksparks1982/folkhold/actions/runs/37800022754) succeeded. This documentation closeout follows that deployment; see `docs/VALIDATION.md` for exact checks and limitations.
 
-Travel Companion is a new place inside Folkhold, entered from the Hub, with a world map, place search and **optional** device location.
+## v1.3.0 implementation notes: compact desktop navigation
+
+The eleven desktop top-nav shortcuts now use short labels (**Hub, Square, Notice, Hold, Tavern, Tea Room, Directory, Key Ring, Radio, Wayfarer, Settings**), equal-size buttons and a fixed-count horizontal carousel. While the mouse is over the bar, its wheel moves the bar sideways without scrolling the document. Wheel moves and mouse-drag release align whole buttons. The banner tagline is now **Your people**. This is a source-validated candidate requiring desktop Firefox owner acceptance; no mobile-footer, background or Radio changes. The owner-only administration panel with Master Key and ad-display control is a separate planned security slice, not implemented by this visual patch.
+
+## v1.3.0 implementation notes: Wayfarer providers (slices 20–24)
+
+**Map renderer updated October 8, 2026:** Wayfarer now uses OpenLayers 10.10.0. The former renderer is completely absent from the page's runtime dependencies; road and nearby marker layers were migrated too. The OpenStreetMap map-data credit remains. This replacement still awaits owner validation on PC/iPhone.
+
+Wayfarer is a new place inside Folkhold, entered from the Hub, with a world map, place search and **optional** device location.
 
 The next four self-contained candidate slices now add manual **driving/walking road routes** and navigation handoff, nearby discoveries (mosques, cafés/food, history, adventure, nightlife), selected-place weather, **Hanafi prayer times**, currency conversion, short-message translation, a Turkish phrasebook, **Fair Price** comparison using your own benchmark, and an initial Hitch travel-context panel.
 
@@ -142,4 +155,4 @@ See [`LICENSE`](LICENSE) for the full terms. Third-party dependencies remain und
 
 ## Status
 
-**v1.1.0 closed.** Global Chat is live. Knock interaction works as a browser prototype. Account infrastructure is staged but not yet activated until its D1 database and secrets are connected. The Hanafi Majlis bridge, Town Crier, persistent Knock ledger, Hold door designer, Tavern Upstairs Rooms, and UO Folkhold are documented future slices rather than completed v1.1.0 features.
+**v1.3.0 closeout recorded October 8, 2026.** GitHub Pages frontend and Cloudflare realtime Global Chat are deployed; the account infrastructure awaits D1/secrets. Wayfarer and the local Hold door designer are deployed features with outstanding third-party/live-device checks. The NodeBB-style Village Square forum, production account-backed Master Key administration, persistent Knocks/Keys, Tavern paid rooms and UO Folkhold remain separate future work. No new forum server or admin privilege was installed during closeout.

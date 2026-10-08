@@ -2,7 +2,28 @@
 
 All notable accepted Folkhold changes are recorded here from v1.1.0 forward.
 
-## Unreleased candidate — Compact desktop navigation (October 8, 2026)
+## v1.3.0 — Wayfarer, shared doors, desktop navigation and Square planning
+
+**Owner requested closeout October 8, 2026.** Release scoped to source deployed on GitHub Pages, with physical desktop/iPhone and external-data-provider checks remaining open.
+
+### Included
+- Added the interactive **Wayfarer** travel foundation and tools: OpenLayers map, manual Photon location search, opt-in browser position, routes and external navigation handoffs, nearby Overpass places, weather, reference FX, Hanafi prayer-time calculations, limited translation and local travel helpers.
+- Named the travel button, Hub card and map heading **Wayfarer**, retaining old internal route names for link compatibility.
+- Presented coordinates and browser-reported accuracy and blocked very coarse browser positions from automatically becoming route origins; users can select an explicit city/address as Start if OS location is wrong (e.g. Boston rather than Wichita).
+- Aligned Hub and Hold doors to the same approved medieval structure, removed Hold's misplaced gold-ring knocker, and shared existing locally saved door styles/Knock interaction.
+- Standardized the eleven desktop top-nav buttons with short names and equal widths, horizontal wheel/drag behavior and whole-button snaps; top-left tagline now reads **Your people**.
+- Completed colored Hub destination cards and Settings entry, while keeping the approved Radio, mobile footer and leather backdrop unchanged.
+- Documented recreational **Games** planning with an absolute no-betting rule; added a NodeBB-inspired Square forum + existing Global Chat integration study to the roadmap, **not to deployed UI**.
+
+### Not yet implemented or independently confirmed
+- No NodeBB install, new forum persistence, Master Key privilege or live admin ad toggle; no production account activation.
+- Firefox/iPhone layout and door visual parity, browser geolocation truthfulness, live map/routing/translation providers and routing accuracy still require real-device/service checks.
+- Google AdSense publisher/slot configuration remains disabled; existing chat is preserved.
+
+**Release source head prior to docs:** `90cb72710813a4daea5242cbbe62ede8d92852c3` (GitHub Pages run `37800022754` succeeded). This closeout documents release scope, not universal end-to-end testing.
+
+
+## v1.3.0 candidate history — Compact desktop navigation (October 8, 2026)
 - Eleven equal-width desktop buttons using shortened names: Hub, Square, Notice, Hold, Tavern, Tea Room, Directory, Key Ring, Radio, Travel, Settings.
 - Horizontal mouse wheel now consumes wheel events over the bar, even at either end; whole-button scroll positions are enforced after wheel and drag.
 - Changed only the small top-brand subtitle to “Your people”.
@@ -11,39 +32,39 @@ All notable accepted Folkhold changes are recorded here from v1.1.0 forward.
 - Desktop Firefox behavior and owner acceptance remain pending.
 
 
-## Unreleased candidate — Desktop navigation overflow correction (October 8, 2026)
+## v1.3.0 candidate history — Desktop navigation overflow correction (October 8, 2026)
 - Changed runtime desktop navigation alignment from centered overflow to left-starting horizontal scrolling; wheel and mouse-drag support and browser Back handling already exist in the previous deployed candidate.
 - Refreshed JavaScript cache versions without changing button order, accepted backgrounds, Radio, map logic or the mobile footer.
 - Documented the recreational Games direction with no wagering in the roadmap; no Games UI or new gameplay was built.
 - Real desktop Firefox overflow/wheel/drag/Back behavior remains owner-validation work.
 
-## Unreleased candidate — Hub destination colors and Settings (October 8, 2026)
+## v1.3.0 candidate history — Hub destination colors and Settings (October 8, 2026)
 - Filled all ten Hub cards with distinct destination colors. Public Square blue, Notice Board yellow, Tavern red, Tea Room brown, and Travel Companion earth green; My Hold, Directory, Key Ring, Radio, and Settings each have their own solid color.
 - Added My Hold, Directory, Key Ring, Radio and Settings shortcut cards; Tea Room uses the same ☕ icon as its desktop navigation button.
 - Replaced Travel Companion's crosshair with 🧭 and added its missing desktop top-navigation button.
 - Renamed the top-navigation Ads entry to Settings. The Settings card and navigation open the existing advertising preferences dialog, now headed Settings; other settings remain future work.
 - Preserved mobile navigation, Radio playback, backgrounds, mapping code, icons outside the requested Hub icons, and account/advertising behavior. PC/iPhone validation remains pending.
 
-## Unreleased candidate — Travel Companion navigation choice (October 8, 2026)
+## v1.3.0 candidate history — Travel Companion navigation choice (October 8, 2026)
 
 - Restored Google Maps as the primary external navigation link for walking and driving.
 - Kept OpenStreetMap Directions as a second link; both use the same selected route endpoints and travel mode.
 - Preserved OpenLayers, OpenStreetMap map tiles, Valhalla road overlays, Radio, and existing navigation.
 - iPhone/desktop link handoffs still require owner validation.
 
-## Unreleased candidate — Travel Companion external directions provider
+## v1.3.0 candidate history — Travel Companion external directions provider
 
 - Replaced the Google Maps external directions link with OpenStreetMap Directions for both walking and driving modes; retained internal Valhalla road-route drawing.
 - Advanced only the routing script cache key. External navigation still needs a browser/device acceptance test.
 
-## Unreleased candidate — OpenLayers map replacement
+## v1.3.0 candidate history — OpenLayers map replacement
 
 - Removed the previous map-rendering library from Travel Companion runtime and replaced it with OpenLayers 10.10.0.
 - Reimplemented map, marker, nearby-place and route overlays against the new mapping API. Preserved OpenStreetMap contributor attribution.
 - Refreshed browser script versions; requires PC/iPhone validation of map and travel features.
 - The accepted Radio and global navigation/artwork were not changed.
 
-## Unreleased candidates — Travel Companion (Wayfarer) slices 20–24
+## v1.3.0 candidate history — Travel Companion (Wayfarer) slices 20–24
 
 - Renamed the public-facing map/travel page to **Travel Companion** without changing its internal route or accepted UI.
 

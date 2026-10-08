@@ -1,3 +1,13 @@
+## 2026-10-08 — v1.3.0 release-scope closeout (not all features device-accepted)
+
+- Explicit owner instruction: **close out the last build, document everything, and roadmap**. Version advanced from `1.2.0` to `1.3.0` because Wayfarer and additional UI/door features have been delivered. This is release-scope acceptance, not a fabricated success report for unobserved devices.
+- GitHub `main` pre-closeout runtime head `90cb72710813a4daea5242cbbe62ede8d92852c3` had **successful GitHub Pages deployment**, workflow run `37800022754`.
+- Inspected current source: `app.js`, `cloudflare-config.js`, `hold-designer.js`, `gods-eye/map.js`, `gods-eye/nearby.js`, and `ads-config.js` all passed JavaScript syntax parsing.
+- Source-level checks confirm: eleven desktop nav entries with **Wayfarer** name; static HTML tagline **Your people**; fresh browser geolocation and coarse (>10 km) position guard; no hardcoded Boston; `.hero-door` markup reused for Hub/Hold without the extra knocker; runtime cache references align; ad config `enabled: false`.
+- Current Square live chat architecture stays intact; the NodeBB-style forum is a separately planned feature and **was not installed or tested**. The source closeout did not deploy a new Cloudflare Worker, D1 binding or other server configuration.
+- **Pending owner/device acceptance:** actual Firefox horizontal wheel/drag and browser Back; identical door appearance and saved custom design; Knock behavior on both doors; iPhone layout; OS geolocation correctness; live map/geocoding, directions, weather, currency, prayer-time calculation and translation; any production account flow.
+- The release docs/source may deploy through a separate Pages workflow. Verify the exact post-closeout commit separately. No semantic-release tag or extra branch created.
+
 ## 2026-10-08 — Compact desktop top navigation candidate
 
 - Inspected the actual runtime-generated desktop bar in `cloudflare-config.js` and the `app.js` wheel/drag listeners; updated both along with static HTML for consistency.

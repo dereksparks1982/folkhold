@@ -28,7 +28,7 @@ This file records unresolved or intentionally incomplete work. An item remains h
 ## Hold front door
 
 - Current medieval door is a generic CSS placeholder and intentionally not final artwork.
-- Door customization is not yet implemented.
+- Local browser-based door customization is implemented and deployed; server-backed persistence and other members' door state are not yet implemented.
 - The public-front-door / restricted-room access model is conceptual until server-side Room permissions are live.
 
 ## Town Crier
@@ -127,3 +127,11 @@ GitHub source state, browser behavior, Cloudflare services, iOS Home Screen beha
 
 - Source now contains the uniform 108px / 44px eleven-button desktop carousel, mouse wheel containment, mouse-drag snapping, and the shortened brand subtitle. The owner must test real Firefox behavior at multiple widths, including nav-wheel at either edge, browser Back, and Hanafi-origin return-link layouts. No device acceptance is implied by a successful source check/deploy.
 - The admin panel, Master Key, and Ads On/Off control are **not yet implemented**. Current Settings is advertising preferences only and may be non-persistent. Full administrator access depends on production backend authentication and explicit privilege design. Do not treat a local UI state flag as administrative authentication.
+
+## v1.3.0 closeout validation boundaries (October 8, 2026)
+
+- Source and GitHub Pages deployment succeeded, but **real Firefox/iPhone visual checks** are still needed for whole-button desktop nav scrolling, Hub/Hold door parity including saved customization, Knock dialogs, and the Wayfarer experience.
+- If a desktop browser reports Boston while the user is in Wichita, browser network geolocation may simply be wrong. Showing claimed accuracy and retrying a fresh fix cannot guarantee a correct city. User can search and explicitly choose a route start; do not replace the wrong location with an assumed Wichita GPS position.
+- External map, geocoding, Valhalla routes, nearby listings, Hanafi prayer-time provider, currency and MyMemory translation responses require provider and device testing. No claim of fully supported production usage or local-market prices.
+- The Square forum is **roadmap only**. Existing live chat is preserved; no NodeBB instance is running. NodeBB server/database hosting, login bridging, GPL-3.0 licensing compatibility and security/operational decisions have not been approved.
+- Admin Panel/Master Key and an ad display toggle are **not built**. Accounts require D1/secrets; Ads config remains disabled until legitimate publisher/slot configuration is provided.
