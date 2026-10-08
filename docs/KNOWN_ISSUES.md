@@ -97,3 +97,14 @@ GitHub source state, browser behavior, Cloudflare services, iOS Home Screen beha
 - Map UI is source-implemented, but external Leaflet CDN, OSM community tiles and Photon demo search must be checked live on desktop/iPhone.
 - OSM tile and Photon search services are best-effort/limited capacity; replace with provisioned providers before production scale.
 - The first slice has no routing, nearby place layers or geolocation sharing. GPS permission denial must be user tested.
+
+
+## Wayfarer demo-service and device review (slices 21–24)
+
+- Live road routing relies on Valhalla's public demo (walking/driving); response format and CORS need owner/browser validation, and a provisioned routing provider is needed before scale.
+- Nearby places rely on public Overpass OSM data. Results can be missing, outdated or throttled; mosque/restaurant tags cannot establish safety, halal certification or opening hours.
+- Current weather (Open-Meteo), published reference FX (Frankfurter), calculated Hanafi prayers (AlAdhan), and short translation (MyMemory) may be unavailable or rate-limited. Live source responses and mobile layouts are not yet owner-verified.
+- Prayer-date queries now request the destination's timezone if unknown, requiring Open-Meteo to be available for correct destination-local date resolution. The local mosque's official timings can differ.
+- The translation sends user-entered messages to an external provider when requested. Avoid personal/sensitive phrases.
+- Fair Price does not have market-price evidence; it only compares two numbers entered by the user. Hitch is not yet a full AI assistant.
+- No backend Keys permissions, member-to-member location sharing, trip persistence or production provider quotas are implemented.
