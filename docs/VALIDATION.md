@@ -1,3 +1,11 @@
+## 2026-10-08 — Map dependency replacement source validation
+
+- Travel Companion loads **OpenLayers 10.10.0**, not the previous renderer. All affected runtime modules were inspected and successfully parsed.
+- The map module now uses OpenLayers tile, vector, overlay and projection APIs. The route and nearby modules use an event-delivered renderer adapter instead of the former mapping API.
+- Player/map links were cache-bumped to force iPhone/desktop scripts to update. The seven-button mobile nav, Radio asset references and background styles were not changed.
+- OpenStreetMap map-data attribution remains present.
+- **Still to test on owner devices:** map tile delivery from OpenLayers CDN/OSM, markers, drawing a real route, nearby results, mobile gestures, and map readability.
+
 ## 2026-10-07 — Travel Companion Wayfarer travel slices 21–24
 
 Source/structure validations:
