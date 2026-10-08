@@ -244,7 +244,7 @@
       if (Math.abs(offset) > 5) dragged = true;
       if (!dragged) return;
       desktopNav.classList.add('is-dragging');
-      desktopNav.style.scrollSnapType = 'none';
+      desktopNav.style.setProperty('scroll-snap-type', 'none', 'important');
       desktopNav.scrollLeft = startScroll + offset;
       event.preventDefault();
     });
