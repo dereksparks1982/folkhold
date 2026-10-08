@@ -1,5 +1,16 @@
 # Folkhold Project Log
 
+## 2026-10-07 — Wayfarer candidate slices 21–24
+
+- Implemented a road routing module using the Valhalla demo server for explicit start/end, walking/driving geometry, time/distance and optional navigation handoff.
+- Implemented on-demand nearby Overpass category discovery (mosques, food, history, adventure, nightlife).
+- Implemented Open-Meteo weather, Frankfurter conversion and AlAdhan Hanafi prayer times using selected coordinates. Follow-up corrected prayer-date calculations to the destination timezone before a weather request.
+- Implemented MyMemory short translation, offline Turkish phrases, Fair Price using the user's own reference and a basic Hitch shared selected-place context.
+- Updated the God's Eye heading to clarify that explicit travel-data requests send coordinates to external providers.
+- No account persistence, Key-to-Key location access, autonomous assistant, unverified market rates, accepted Radio/UI artwork or mobile nav changes.
+- Modules compiled as JS source but third-party APIs and device behavior remain to be reviewed.
+
+
 ## 2026-10-07 — God's Eye slice 1
 
 - Following accepted v1.2.0 Radio closeout, created a dedicated God's Eye place reachable from the Hub.
