@@ -1,5 +1,11 @@
 # Folkhold Project Log
 
+## 2026-10-08 — Trigger production validation with new secret handoff
+
+- Owner supplied a screenshot of Cloudflare's Folkhold Production build configuration showing Deploy command `npm run deploy` and branch `main`. Settings persistence had not been independently verified.
+- This documentation-only commit triggers a new Git-connected Cloudflare Workers Build. Its logs will confirm which deploy command actually executed; the Test Center will independently read production `/api/account/status` and verify unrelated endpoints.
+- Runtime secret activation, database migrations, and real email/OAuth sign-in remain pending live evidence. No changes to Worker, chat, forum, secret value, or Wrangler bindings.
+
 ## 2026-10-08 — Authentication runtime secret deployment helper candidate
 
 - Confirmed official Cloudflare support for deployment with --secrets-file; build variables do not automatically become Worker runtime secrets. Built private-temp-file deployment helper, npm script, mock-Wrangler unit tests and documentation.

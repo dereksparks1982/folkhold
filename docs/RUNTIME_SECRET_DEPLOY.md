@@ -17,3 +17,7 @@ Until that Cloudflare Deploy command is changed, the helper is installed but NOT
 - Subsequent D1 migrations, email registration, Google OAuth client and Apple OAuth configuration require separate end-to-end tests.
 
 Docs: https://developers.cloudflare.com/workers/configuration/secrets/ and https://developers.cloudflare.com/workers/ci-cd/builds/configuration/.
+
+## First production trial (October 8)
+
+Owner screenshot shows Deploy command set to `npm run deploy` in the Production build configuration. A documentation-only GitHub push will trigger a fresh build to determine whether the saved Cloudflare build setting runs the secret handoff. The first actual deployment run must be verified before treating account setup as ready.

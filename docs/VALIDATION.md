@@ -1,3 +1,9 @@
+## 2026-10-08 — Production runtime-secret deploy trial
+
+- The owner showed `npm run deploy` in Cloudflare's Production deploy-command field. This commit provides a clean new GitHub `main` push to exercise that configuration.
+- **Pending evidence:** Cloudflare build log must show the actual command and success; Test Center must show runtime readiness. Displaying a field value is not proof it was saved/applied.
+- No application logic or credentials modified for this trial.
+
 ## 2026-10-08 — Auth runtime deployment helper candidate
 
 - Source candidate: private temporary-file secret handoff using Cloudflare-supported wrangler deploy --secrets-file, no credential values stored in git or public configs.
