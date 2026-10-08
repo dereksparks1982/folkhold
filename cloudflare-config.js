@@ -128,7 +128,7 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
         .ad-strip{left:0!important}
         .topbar{display:flex!important;gap:14px!important;padding-left:18px!important;padding-right:18px!important}
         .brand{flex:0 0 auto}
-        .desktop-nav{display:flex!important;align-items:stretch!important;justify-content:center!important;gap:3px!important;min-width:0!important;flex:1 1 auto!important;margin-left:0!important;overflow-x:auto!important;scrollbar-width:none}
+        .desktop-nav{display:flex!important;align-items:stretch!important;justify-content:flex-start!important;gap:3px!important;min-width:0!important;flex:1 1 auto!important;margin-left:0!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:thin!important;overscroll-behavior-x:contain!important}
         .desktop-nav::-webkit-scrollbar{display:none}
         .desktop-nav button{position:relative!important;display:flex!important;align-items:center!important;justify-content:center!important;gap:5px!important;min-width:max-content!important;padding:8px 9px!important;border-radius:9px!important;color:#d8cbb7!important;white-space:nowrap!important}
         .desktop-nav button>span{font-size:16px!important;line-height:1!important}

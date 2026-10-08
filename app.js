@@ -32,7 +32,7 @@
     .then(() => window.FolkholdAds?.showForView(state.view))
     .catch((error) => console.warn('Folkhold ad module did not load.', error));
 
-  loadLocalScript('cloudflare-config.js?v=22')
+  loadLocalScript('cloudflare-config.js?v=23')
     .then(() => {
       const brandIcon = document.querySelector('.brand-mark img');
       if (brandIcon) brandIcon.src = 'assets/folkhold-app-icon-192.png?v=10';
