@@ -1,3 +1,15 @@
+## 2026-10-07 — God's Eye Wayfarer travel slices 21–24
+
+Source/structure validations:
+
+- Confirmed `gods-eye/map.js`, `routes.js`, `nearby.js`, `essentials.js` and `companion.js` all parsed as JavaScript.
+- God’s Eye passes selected point and map references through explicit in-page events. Directions requests are manual, using a Valhalla OSRM-compatible GeoJSON route response with a Google Maps external link as fallback.
+- Nearby places are manually requested with bounded Overpass categories and map markers; source lists may be incomplete.
+- Weather, Hanafi prayers and conversion need button/form actions. Prayer-day calculation uses destination time zone (fetched if weather was not checked first).
+- Translation is manual and limited to short messages; offline Turkish phrase buttons do not send network requests. Fair Price is benchmark-relative math only. Hitch is a selected-map-place context summary, not an AI chatbot.
+- Verified HTML module order, five associated travel JS modules, and seven untouched bottom navigation destinations; accepted Radio v1.2.0 assets were not edited.
+- **Not independently verified:** actual demo/data provider API success in browser, CORS, real route drawn, correct local clock/fiqh timing against an official mosque, physical device GPS and UX, or owner acceptance.
+
 ## 2026-10-07 — God's Eye slice 1 source validation
 
 - Verified standalone God's Eye screen and Hub card use the existing Folkhold `data-view` system.
