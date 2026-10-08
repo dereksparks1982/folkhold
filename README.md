@@ -10,9 +10,9 @@ Folkhold is a social web project built around personal places rather than flat p
 - **Hanafi Learning Deck:** https://dereksparks1982.github.io/Hanafi-Islam-Learning-Deck/
 - **Hanafi Learning Deck repository:** https://github.com/dereksparks1982/Hanafi-Islam-Learning-Deck
 
-## Development candidates: God's Eye and Wayfarer (slices 20–24)
+## Development candidates: Travel Companion and Wayfarer (slices 20–24)
 
-God's Eye is a new place inside Folkhold, entered from the Hub, with a world map, place search and **optional** device location.
+Travel Companion is a new place inside Folkhold, entered from the Hub, with a world map, place search and **optional** device location.
 
 The next four self-contained candidate slices now add manual **driving/walking road routes** and navigation handoff, nearby discoveries (mosques, cafés/food, history, adventure, nightlife), selected-place weather, **Hanafi prayer times**, currency conversion, short-message translation, a Turkish phrasebook, **Fair Price** comparison using your own benchmark, and an initial Hitch travel-context panel.
 

@@ -339,14 +339,14 @@ See `docs/AUDIO_RADIO.md`.
 
 ## Slice 16 — Wayfarer / Travel Copilot integration
 
-**Status: IN PROGRESS (God's Eye core-map candidate built; other travel components remain separate slices)**
+**Status: IN PROGRESS (Travel Companion core-map candidate built; other travel components remain separate slices)**
 
 Goal: fold the useful Midlife Crisis travel prototype into Folkhold.
 
 First build:
 
 - Hub/desktop entry point without expanding the permanent five-button mobile footer
-- God's Eye map and live location
+- Travel Companion map and live location
 - nearby places/discovery
 - exchange rate and weather
 - Hanafi prayer times
@@ -374,7 +374,7 @@ The existing `dereksparks1982/midlifecrisis` repository is a prototype/source po
 Source/import verified: GitHub Actions [run 37694240022](https://github.com/dereksparks1982/folkhold/actions/runs/37694240022) succeeded. All six organized MP3 assets are present. Owner expressly accepted the completed Radio candidate on October 7, 2026.
 
 
-## Slice 18 — Key-to-Key God's Eye navigation
+## Slice 18 — Key-to-Key Travel Companion navigation
 
 **Status: ROADMAP / BLOCKED by identity + Keys persistence and Wayfarer map.**
 
@@ -383,8 +383,8 @@ Goal: after two members exchange Keys, let a member request a real street route 
 Stages:
 
 1. UI/data contract for per-Key **Share meeting point / Share destination**, revocation and optional expiry. A Key exchange by itself reveals no position/address.
-2. Road-level routing adapter on God's Eye, with walking/driving distance, ETA, polyline/road geometry and route state (not a straight line).
-3. Key Ring and God's Eye **Directions** controls; live starting GPS is local to the requesting device and only sent to the chosen router on request.
+2. Road-level routing adapter on Travel Companion, with walking/driving distance, ETA, polyline/road geometry and route state (not a straight line).
+3. Key Ring and Travel Companion **Directions** controls; live starting GPS is local to the requesting device and only sent to the chosen router on request.
 4. Optional Google Maps/other navigation handoff for turn-by-turn guidance.
 5. Authenticated server enforcement, mutual relationship check, permission deletion/revocation and mobile tests.
 
@@ -402,23 +402,23 @@ Acceptance: two distinct accounts exchange Keys; one explicitly shares a destina
 - Do not replace the current opening theme without owner approval.
 
 
-## Slice 20 — God's Eye core map and search
+## Slice 20 — Travel Companion core map and search
 
 **Status: REVIEW (candidate; owner PC/iPhone validation pending)**
 
-- Add a God's Eye card on the Hub, opening its own Folkhold page.
+- Add a Travel Companion card on the Hub, opening its own Folkhold page.
 - Lazy-load Leaflet map, show OSM world tiles and attribution, support pan/zoom.
 - Add button-initiated GPS position marker with permission/denial/error states, no automatic location access or storage.
 - Add user-submit Photon place search, up to five selectable results, in-session cache and a per-tab query cooldown.
 - Preserve accepted seven-button mobile navigation, Hub/Hold icons, leather artwork and v1.2.0 Radio.
 - Document public map/geocoding usage constraints and plan scalable provider selection.
 
-Acceptance checks: God's Eye opens on desktop/iPhone; a user can pan, search/select places and request or deny their own location. No location prompt occurs until requested.
+Acceptance checks: Travel Companion opens on desktop/iPhone; a user can pan, search/select places and request or deny their own location. No location prompt occurs until requested.
 
 Next slices: street route geometry, nearby discovery and travel tools; Key-to-Key shared destinations remain gated by accounts/Keys and explicit sharing.
 
 
-## Slice 21 — God's Eye routes
+## Slice 21 — Travel Companion routes
 
 **Status: REVIEW; live provider and owner-device validation pending**
 

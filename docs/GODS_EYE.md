@@ -1,12 +1,14 @@
-# God's Eye inside Folkhold
+# Travel Companion inside Folkhold
 
-**Status: Slice 20 development candidate, owner validation pending**
+**Status: Slices 20–24 development candidates, owner validation pending**
 
-God's Eye is Folkhold's mapping foundation for Wayfarer. It lives inside Folkhold and does not create a second standalone application.
+**Current public name:** Travel Companion. Internal `gods-eye` file paths, IDs and existing URL hash are retained for compatibility and are not the product name.
+
+Travel Companion is Folkhold's mapping foundation for Wayfarer. It lives inside Folkhold and does not create a second standalone application.
 
 ## Slice 1 built October 7, 2026
 
-- A **God's Eye** card on the Hub opens the map as a normal Folkhold screen.
+- A **Travel Companion** card on the Hub opens the map as a normal Folkhold screen.
 - Leaflet 1.9.4 creates a worldwide interactive map only after the screen is opened.
 - OpenStreetMap standard tiles display required attribution. The application never bulk-prefetches or downloads tiles in the background.
 - Manual **Search** submits a query to Photon, receives up to five results, and lets the visitor select a location. No search-as-you-type or background place harvesting.
@@ -29,7 +31,7 @@ No automatic GPS, no friend position lookup, no backend coordinate persistence, 
 
 ## Review checklist
 
-1. Visit the Hub, open **God's Eye** and pan/zoom on PC and iPhone.
+1. Visit the Hub, open **Travel Companion** and pan/zoom on PC and iPhone.
 2. Search for a city/landmark and tap a result; verify the selected marker and centered map.
 3. Verify no location prompt appears until **Use My Location** is pressed, and test denied permission if convenient.
 4. Navigate back to Square, Hold and Radio; confirm previously accepted app controls work and the mobile bottom bar remains unchanged.

@@ -202,7 +202,7 @@ Fold the useful Midlife Crisis travel prototype into Folkhold as a first-class p
 
 Initial scope:
 
-- **God's Eye** map with live location and place search
+- **Travel Companion** map with live location and place search
 - nearby mosques, food, history, adventure and nightlife
 - live exchange rates and weather
 - Hanafi-aware prayer times
@@ -218,7 +218,7 @@ Trust rule: live prices, laws, schedules and local facts need current evidence. 
 
 ### Wayfarer implementation status
 
-- **God's Eye map, slice 1 candidate:** Hub entry, interactive world map, manual place search, optional current-location marker.
+- **Travel Companion map, slice 1 candidate:** Hub entry, interactive world map, manual place search, optional current-location marker.
 - **Sliced candidates 21–24 implemented:** road route overlay with walking/driving and navigation handoff; OSM nearby categories; on-demand weather, exchange rates and Hanafi prayer times; short translation and Turkish phrasebook; user-reference Fair Price and basic Hitch context panel.
 - **Still future:** scaled/reliable provider hosting, live device validation, actual AI-powered Hitch, evidence-backed local typical prices, saved trips and permissioned Key-to-Key shared destinations.
 - **Backend-gated:** Key-to-Key routing must wait for authenticated accounts, persisted Keys and explicit per-contact destination sharing.
@@ -241,21 +241,21 @@ For every accepted patch/add-on/feature:
 The ordered work breakdown lives in `docs/TASK_SLICES.md`. It is intentionally sliced so each feature can be built, checked, documented, and accepted without turning Folkhold into one giant mystery commit.
 
 
-## 15. Key-to-Key directions on God's Eye
+## 15. Key-to-Key directions on Travel Companion
 
-When two Folkhold members exchange/accept Keys, either member should be able to **activate Directions** to the other member through God's Eye, without leaving the Folkhold experience.
+When two Folkhold members exchange/accept Keys, either member should be able to **activate Directions** to the other member through Travel Companion, without leaving the Folkhold experience.
 
 - **Mutual Key relationship** makes a member eligible for this feature, but *does not automatically reveal either person's location*.
 - Each member chooses whether to share a destination with that particular Key holder: home, public meeting spot, or a temporary pin. A precise private address is **never inferred from the Key alone**.
-- From a Key card or God's Eye contact, **Directions** opens the real street-level route from the requesting member's current GPS location to the other member's explicitly shared destination.
+- From a Key card or Travel Companion contact, **Directions** opens the real street-level route from the requesting member's current GPS location to the other member's explicitly shared destination.
 - Show the route drawn on the map, travel distance, estimated travel time, and walking/driving choice; re-route when necessary.
 - Support a one-tap **Navigate** handoff to a navigation app, such as Google Maps, when turn-by-turn directions are preferable.
 - Location permissions, share/revoke controls, expiration for temporary pins, and clear who-can-see-what states must precede any release.
 - Shared destination data must be private server-side, gated by authenticated identities and individual Key grants.
 - Do not silently broadcast live position or infer location from chat/metadata. Revoke/Key removal should make the destination unavailable immediately.
-- Reuse Wayfarer's God's Eye mapping stack. Real routing requires a provider that returns **road/path geometry**, not just a straight connecting line. Choose an appropriately licensed/capacity-suitable service before production.
+- Reuse Wayfarer's Travel Companion mapping stack. Real routing requires a provider that returns **road/path geometry**, not just a straight connecting line. Choose an appropriately licensed/capacity-suitable service before production.
 
-Dependency: authenticated accounts, persistent Keys, permission enforcement (Slice 6), and the Wayfarer/God's Eye map.
+Dependency: authenticated accounts, persistent Keys, permission enforcement (Slice 6), and the Wayfarer/Travel Companion map.
 
 ## 16. Radio: authentic cultural recordings
 
