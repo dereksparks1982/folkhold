@@ -4,9 +4,9 @@ This roadmap is the current planning record. Items are not implementation author
 
 ## Current baseline
 
-- **v1.1.0** is the current closed baseline.
+- **v1.3.0** is the latest owner-directed release closeout (October 8, 2026); deployed GitHub Pages source is verified, with the real-browser/location/provider acceptance items still open. v1.2.0 Radio and v1.1.0 Hold door release history remain preserved.
 - GitHub `main` is authoritative.
-- Desktop navigation is top-centered, the desktop side rail is gone, the app/browser icon uses a generic placeholder, room/page heading panels are readable, and Derek's Hold has a generic medieval CSS door with a working double-click Knock interaction.
+- Desktop navigation has eleven short, equal-width horizontally scrollable buttons, including **Wayfarer**; the desktop side rail is removed, the accepted artwork is preserved, and the banner subtitle is **Your people**. Hub and Hold use matching medieval front doors; local door customization and browser-prototype Knock are deployed, but device visuals and server persistence remain to verify.
 - Folkhold documentation now follows explicit version/change/validation/memory records so the project leaves breadcrumbs instead of relying on conversation history alone.
 
 ## 1. Hold presence, Knocks, and a better notification model

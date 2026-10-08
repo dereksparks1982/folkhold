@@ -402,18 +402,18 @@ Acceptance: two distinct accounts exchange Keys; one explicitly shares a destina
 - Do not replace the current opening theme without owner approval.
 
 
-## Slice 20 — Travel Companion core map and search
+## Slice 20 — Wayfarer core map and search
 
 **Status: REVIEW (candidate; owner PC/iPhone validation pending)**
 
-- Add a Travel Companion card on the Hub, opening its own Folkhold page.
-- Lazy-load Leaflet map, show OSM world tiles and attribution, support pan/zoom.
+- The Wayfarer Hub card opens the existing Folkhold travel screen (formerly Travel Companion); retain the internal `gods-eye` identifiers for compatibility.
+- Lazy-load **OpenLayers 10.10.0**, display OSM world tiles with required attribution, and support pan/zoom; the earlier Leaflet renderer was removed in the October 8 build.
 - Add button-initiated GPS position marker with permission/denial/error states, no automatic location access or storage.
 - Add user-submit Photon place search, up to five selectable results, in-session cache and a per-tab query cooldown.
 - Preserve accepted seven-button mobile navigation, Hub/Hold icons, leather artwork and v1.2.0 Radio.
 - Document public map/geocoding usage constraints and plan scalable provider selection.
 
-Acceptance checks: Travel Companion opens on desktop/iPhone; a user can pan, search/select places and request or deny their own location. No location prompt occurs until requested.
+Acceptance checks: Wayfarer opens on desktop/iPhone; a user can pan, search/select places and request or deny their own location. No location prompt occurs until requested. Geolocation can still report the wrong city; manually selected starting points must work. These browser/device checks remain open.
 
 Next slices: street route geometry, nearby discovery and travel tools; Key-to-Key shared destinations remain gated by accounts/Keys and explicit sharing.
 
@@ -440,7 +440,7 @@ On-demand Open-Meteo weather, Frankfurter reference currency conversion, AlAdhan
 
 **Status: REVIEW; provider/device validation pending**
 
-Short MyMemory translation for English/Turkish plus selectable Arabic/Persian/French, offline Turkish phrasebook, quoted vs user-supplied known benchmark, selected-place context for Hitch. Full LLM conversation and verified local prices are NOT implemented.
+Short MyMemory translation for English/Turkish, Arabic/Persian/French and additional Russian/Urdu/Pashto/Dari selections (some language-pair behavior and Dari-as-Persian approximation remain unverified), offline Turkish phrasebook, quoted vs user-supplied known benchmark, and selected-place context for Hitch. Full LLM conversation and verified local prices are NOT implemented.
 
 ## Slice 25 — Harden Wayfarer and add genuine AI Hitch
 
