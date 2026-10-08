@@ -1,5 +1,13 @@
 # Folkhold Project Log
 
+## 2026-10-08 — Hub full-color destination cards and Settings navigation
+- Owner approved ten Hub shortcuts, including previously missing My Hold, Directory, Key Ring, Radio, and Settings. Each has a full-color background; corrected palette is Square blue, Notice yellow, Tavern red, Tea Room brown, Travel Companion earth green.
+- Tea Room Hub icon now matches top navigation (☕), and Travel Companion uses 🧭 in its Hub card and a newly added desktop navigation item.
+- Top navigation's Ads label is now Settings, opening the existing advertising-preferences dialog. Settings does not yet offer other options.
+- Only scoped Hub HTML/styles and desktop navigation wiring changed. Kept existing seven-button mobile navigation, approved Radio, background, map tools, and accounts intact.
+- Candidate requires owner validation on desktop and iPhone.
+
+
 ## 2026-10-08 — Travel Companion directions handoff provider
 
 - As the first narrow part of a broader provider review, removed Google Maps as the external navigation handoff. Walking and driving handoffs now use OpenStreetMap Directions links while internal Valhalla road overlays stay unchanged.
