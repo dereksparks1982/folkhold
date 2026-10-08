@@ -11,7 +11,7 @@ This file records unresolved or intentionally incomplete work. An item remains h
 
 ## Accounts / persistence
 
-- Build-time secret is not guaranteed to reach Worker runtime; deployment helper requires one-time Cloudflare Deploy command change to npm run deploy. This candidate has not yet changed live authentication.
+- Resolved October 8: Cloudflare deployment using the `npm run deploy` helper now exposes `BETTER_AUTH_SECRET` to the running Worker; live Test Center run `37820689995` returned ready true and 10 passes. Email login and actual Better Auth D1 migrations are not yet validated.
 
 - Folkhold Test Center is a source candidate pending its first live workflow report; it observes but cannot automatically repair missing Cloudflare runtime secrets or complete OAuth without provider credentials.
 

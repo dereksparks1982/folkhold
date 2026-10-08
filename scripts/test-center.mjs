@@ -78,6 +78,20 @@ await test('production', 'Authentication runtime bindings', async () => {
   return 'Runtime ready; enabled providers: ' +
     Object.entries(data.providers || {}).filter(([, yes]) => yes).map(([name]) => name).join(', ');
 });
+// A GET without cookies never signs in or creates a user. On first call, the existing
+// Worker may lazily initialize Better Auth's own D1 schema (expected activation).
+await test('production', 'Better Auth session endpoint and D1 initialization', async () => {
+  const readiness = await getJson(base + '/api/account/status');
+  if (!readiness.ready) skip('Authentication runtime prerequisites missing');
+  const response = await request(base + '/api/auth/get-session');
+  requireValue(response.ok, 'GET session failed: HTTP ' + response.status +
+    ' (database migration or auth handler may be failing)');
+  requireValue((response.headers.get('content-type') || '').includes('json'),
+    'Unexpected get-session response content-type');
+  const session = await response.json();
+  requireValue(session === null || typeof session === 'object', 'Unexpected session response');
+  return 'Unauthenticated session request completed (no account created)';
+});
 await test('production', 'Square forum categories', async () => {
   const data = await getJson(base + '/api/forum/categories');
   requireValue(Array.isArray(data.categories) && data.categories.length >= 5, 'Forum categories missing');

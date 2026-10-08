@@ -1,3 +1,9 @@
+## 2026-10-08 — Runtime authentication ready and D1 initialization candidate
+
+- Verified GitHub Actions Test Center run `37820689995`: **10 PASS, 0 FAIL, 0 SKIP** (log obtained through GitHub). Runtime auth test returned `Runtime ready; enabled providers: email` and all forum/frontend checks passed.
+- GitHub Cloudflare Workers Builds reported success on commit `91fedfc`. The earlier missing secret is no longer reported in production.
+- Added an unauthenticated GET `/api/auth/get-session` smoke check; Better Auth may initialize missing database tables on first access. This check is pending a fresh live GitHub Action run. No member account is created, and no login secrets are collected.
+
 ## 2026-10-08 — Production runtime-secret deploy trial
 
 - The owner showed `npm run deploy` in Cloudflare's Production deploy-command field. This commit provides a clean new GitHub `main` push to exercise that configuration.

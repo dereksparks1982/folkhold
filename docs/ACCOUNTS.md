@@ -1,5 +1,9 @@
 # Folkhold Accounts
 
+## 2026-10-08 runtime readiness confirmed; migrations pending smoke test
+
+After the owner set Cloudflare's Git-connected Worker Deploy command to `npm run deploy`, the subsequent GitHub Test Center run `37820689995` reported **10 PASS, 0 FAIL**. The live `/api/account/status` check returned `ready: true`, with email provider enabled. `AUTH_DB` and the secret are now both visible to the Worker. Actual D1 table migrations, sign-in requests, and Google/Apple provider credentials remain separate unfinished checks. The Test Center now includes an unauthenticated session GET to exercise Better Auth initialization without creating a member.
+
 ## 2026-10-08 D1 provisioning progress (pre-login activation)
 
 The owner created the D1 database `folkhold-auth` and confirmed a dashboard Worker binding named `AUTH_DB` while preserving the existing `GLOBAL_CHAT` Durable Object binding. Both Wrangler configurations (`wrangler.jsonc` in the repository root and `cloudflare/wrangler.jsonc`) now record the same database ID and binding, so whichever directory Cloudflare builds from keeps the database reference.

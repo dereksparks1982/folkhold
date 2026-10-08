@@ -1,6 +1,6 @@
 # Folkhold Test Center (candidate)
 
-This is the first diagnostic slice: a **read-only** Node.js checker running inside GitHub Actions. The runner saves Markdown, JSON and plain-text reports even when a test fails.
+This is a Node.js diagnostic checker running inside GitHub Actions. Its ordinary probes are read-only; an authentication session GET can trigger Better Auth's initial D1 table migration, but it never creates a member account. The runner saves Markdown, JSON and plain-text reports even when a test fails.
 
 ## Run and inspect
 
@@ -13,7 +13,7 @@ This is the first diagnostic slice: a **read-only** Node.js checker running insi
 
 - Consistency of root and nested Wrangler configuration and D1 / Durable Object bindings.
 - Source declarations for Better Auth email/password, Google and Apple.
-- Live Worker health and **runtime** account readiness.
+- Live Worker health and **runtime** account readiness; unauthenticated Better Auth session GET to confirm initialization, including its lazy D1 schema migration if needed.
 - Read-only GET tests for Square forum categories/topics, GitHub Pages, Worker frontend proxy and approved favicon.
 - Cloudflare Workers Build check linked to the GitHub commit.
 - PASS / FAIL / SKIP, so an untested feature is not called healthy.
@@ -31,3 +31,7 @@ A GitHub Pages or Cloudflare build success is different from verified runtime be
 ## Deployment helper tests
 
 Actions additionally runs `node --test tests/cloudflare-deploy.test.mjs` against a mocked Wrangler executable before live read-only checks. See [runtime secret deployment](RUNTIME_SECRET_DEPLOY.md). Production deploy still uses Cloudflare's current configured command until explicitly changed.
+
+## First live authentication-init test
+
+After the runtime secret became detectable, the Test Center gained a public GET `/api/auth/get-session` smoke check, with no session cookies. It does not register accounts. The Worker itself can perform its documented one-time D1 schema creation before servicing the request. Only an HTTP 2xx JSON response counts as a pass; HTTP 503 or unexpected content is reported as FAIL. This is an intentional narrow exception to purely read-only requests.

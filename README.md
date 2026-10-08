@@ -6,11 +6,11 @@ Folkhold is a social web project built around personal places rather than flat p
 
 ## Test Center (diagnostic candidate)
 
-The new read-only GitHub Actions Test Center probes GitHub/Cloudflare deployment readiness, the live authentication status, the Square forum GET endpoints and the frontend. It saves report.json, report.md and report.log as artifacts even if a test fails. See [Test Center](docs/TEST_CENTER.md). It does not repair or reveal secrets. First live report and owner acceptance are pending.
+The new read-only GitHub Actions Test Center probes GitHub/Cloudflare deployment readiness, the live authentication status, the Square forum GET endpoints and the frontend. It saves report.json, report.md and report.log as artifacts even if a test fails. See [Test Center](docs/TEST_CENTER.md). It does not repair or reveal secrets. First live report succeeded for all 10 original checks; owner acceptance and new authentication initialization test remain pending.
 
 ## Authentication deployment repair candidate
 
-A secure deploy helper is staged for Git-connected Cloudflare builds. It needs the Cloudflare Deploy command set to `npm run deploy`; until that setting changes, the Worker still does not receive BETTER_AUTH_SECRET. See [runtime secret handoff](docs/RUNTIME_SECRET_DEPLOY.md). Live account activation is pending.
+Cloudflare's Git-connected deploy command now runs the secure `npm run deploy` helper. Live Test Center run [37820689995](https://github.com/dereksparks1982/folkhold/actions/runs/37820689995) confirmed 10 passed / 0 failed, including `BETTER_AUTH_SECRET` present at runtime and email provider configured. Better Auth D1 migrations and end-to-end email/Google/Apple sign-in remain separate validation steps. See [runtime secret handoff](docs/RUNTIME_SECRET_DEPLOY.md).
 
 ## Links
 

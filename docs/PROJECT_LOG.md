@@ -1,5 +1,10 @@
 # Folkhold Project Log
 
+## 2026-10-08 — Authentication runtime prerequisite solved; D1 init smoke test
+
+- Following owner's Cloudflare deployment-command change, commit `91fedfc` deployed and Test Center run `37820689995` confirmed `10 PASS, 0 FAIL`. Specifically, `/api/account/status` returned ready true with email enabled, showing D1 and `BETTER_AUTH_SECRET` are now available at runtime. The previous blocker is resolved.
+- Next scoped candidate adds unauthenticated GET `/api/auth/get-session` to Test Center. This invokes existing Better Auth D1 schema migration if necessary but does not create accounts or touch chat/forum. Provider OAuth and signup remain unverified.
+
 ## 2026-10-08 — Trigger production validation with new secret handoff
 
 - Owner supplied a screenshot of Cloudflare's Folkhold Production build configuration showing Deploy command `npm run deploy` and branch `main`. Settings persistence had not been independently verified.
