@@ -2,6 +2,13 @@
 
 All notable accepted Folkhold changes are recorded here from v1.1.0 forward.
 
+## Unreleased candidate — Hub destination colors and Settings (October 8, 2026)
+- Filled all ten Hub cards with distinct destination colors. Public Square blue, Notice Board yellow, Tavern red, Tea Room brown, and Travel Companion earth green; My Hold, Directory, Key Ring, Radio, and Settings each have their own solid color.
+- Added My Hold, Directory, Key Ring, Radio and Settings shortcut cards; Tea Room uses the same ☕ icon as its desktop navigation button.
+- Replaced Travel Companion's crosshair with 🧭 and added its missing desktop top-navigation button.
+- Renamed the top-navigation Ads entry to Settings. The Settings card and navigation open the existing advertising preferences dialog, now headed Settings; other settings remain future work.
+- Preserved mobile navigation, Radio playback, backgrounds, mapping code, icons outside the requested Hub icons, and account/advertising behavior. PC/iPhone validation remains pending.
+
 ## Unreleased candidate — Travel Companion navigation choice (October 8, 2026)
 
 - Restored Google Maps as the primary external navigation link for walking and driving.
