@@ -34,7 +34,7 @@
   async function find(kind) {
     if(!types[kind]||busy)return;
     if(!point){say('Search a place or choose Use My Location first.');return;}
-    if(!renderer){say('Wait for the Travel Companion map to load.');return;}
+    if(!renderer){say('Wait for the Wayfarer map to load.');return;}
     const key=kind+':'+point.lat.toFixed(3)+':'+point.lon.toFixed(3);
     if(!cache.has(key)&&Date.now()-lastRequest<3000){say('Please wait a few seconds before another request.');return;}
     busy=true;lastRequest=Date.now();const serial=++requestSerial;

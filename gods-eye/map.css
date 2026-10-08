@@ -83,7 +83,7 @@
 .fh-hitch-box{grid-column:1/-1}
 @media(max-width:760px){.fh-talk{padding:14px 11px}.fh-talk-grid{grid-template-columns:1fr}.fh-hitch-box{grid-column:auto}}
 
-/* OpenLayers-only Travel Companion map presentation and readable OSM attribution. */
+/* OpenLayers-only Wayfarer map presentation and readable OSM attribution. */
 #gods-eye-map .ol-attribution{font:11px Arial,sans-serif;color:#3c3c3c;bottom:3px;right:3px;max-width:90%}
 #gods-eye-map .ol-attribution a{color:#165f89;text-decoration:underline}
 #gods-eye-map .ol-control button{background:rgba(42,58,48,.88);color:#fff;border-radius:4px}

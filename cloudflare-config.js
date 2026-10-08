@@ -268,7 +268,7 @@ window.FOLKHOLD_CLOUDFLARE = Object.freeze({
       document.body.append(dialog);
       dialog.addEventListener('close', () => {
         if (dialog.returnValue === 'yes') {
-          window.dispatchEvent(new CustomEvent('folkhold:knock', { detail: { hold: "Derek's Hold" } }));
+          window.dispatchEvent(new CustomEvent('folkhold:knock', { detail: { hold: sign?.textContent || "Derek's Hold" } }));
         }
       });
     }
