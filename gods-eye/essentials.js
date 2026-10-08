@@ -43,7 +43,24 @@
     const p={...place},serial=updatedPlaceSerial;
     set('gods-eye-prayer-result','Retrieving calculated prayer times for '+p.label+'…');
     try {
-      const date=localDate(timezone);
+      // Prayer day must belong to the DESTINATION timezone, not the visitor's
+      // computer. Ask Open-Meteo for timezone if Weather has not been loaded.
+      let targetTimezone=timezone;
+      if(!targetTimezone){
+        const tzUrl=new URL('https://api.open-meteo.com/v1/forecast');
+        tzUrl.searchParams.set('latitude',p.lat);
+        tzUrl.searchParams.set('longitude',p.lon);
+        tzUrl.searchParams.set('timezone','auto');
+        tzUrl.searchParams.set('current','temperature_2m');
+        const tzResponse=await fetch(tzUrl);
+        if(!tzResponse.ok)throw Error('Destination timezone unavailable');
+        const tzData=await tzResponse.json();
+        targetTimezone=tzData.timezone;
+        if(!targetTimezone)throw Error('No destination timezone');
+        if(serial!==updatedPlaceSerial)return;
+        timezone=targetTimezone;
+      }
+      const date=localDate(targetTimezone);
       const u=new URL('https://api.aladhan.com/v1/timings/'+encodeURIComponent(date));
       for(const [k,v] of Object.entries({latitude:p.lat,longitude:p.lon,method:$('gods-eye-prayer-method').value,school:'1'}))u.searchParams.set(k,v);
       const response=await fetch(u);
@@ -52,7 +69,7 @@
       if(serial!==updatedPlaceSerial)return;
       if(!t||!t.Fajr||!t.Isha)throw Error('No valid timings');
       const container=$('gods-eye-prayer-result');container.replaceChildren();
-      const heading=document.createElement('p');heading.textContent=p.label+' · '+(data.data?.date?.readable||date)+' · '+(data.data?.meta?.timezone||timezone||'place timezone')+' (Hanafi Asr)';
+      const heading=document.createElement('p');heading.textContent=p.label+' · '+(data.data?.date?.readable||date)+' · '+(data.data?.meta?.timezone||targetTimezone||'place timezone')+' (Hanafi Asr)';
       const list=document.createElement('ol');list.className='fh-prayer-times';
       for(const key of ['Fajr','Sunrise','Dhuhr','Asr','Maghrib','Isha']){
         const li=document.createElement('li'),strong=document.createElement('strong'),span=document.createElement('span');
