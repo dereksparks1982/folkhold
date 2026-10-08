@@ -31,14 +31,14 @@
     text('gods-eye-translation-result','Translating through MyMemory…');
     try {
       const u=new URL('https://api.mymemory.translated.net/get');
-      u.searchParams.set('q',message);u.searchParams.set('langpair',from+'|'+to);
+      u.searchParams.set('q',message);u.searchParams.set('langpair',(from==='fa-AF'?'fa':from)+'|'+(to==='fa-AF'?'fa':to));
       const r=await fetch(u);if(!r.ok)throw Error('Translation unavailable');
       const data=await r.json();
       const content=data.responseData?.translatedText;
       if(!content||Number(data.responseStatus)>=400||typeof content!=='string')throw Error('No translation');
       const el=$('gods-eye-translation-result');
       el.replaceChildren();
-      const heading=document.createElement('strong');heading.textContent='Translation (machine-assisted): ';
+      const heading=document.createElement('strong');heading.textContent=from==='fa-AF'||to==='fa-AF'?'Translation (Persian approximation for Dari; local wording may differ): ':'Translation (machine-assisted): ';
       const result=document.createElement('span');result.textContent=content;
       el.append(heading,result);
     }catch{text('gods-eye-translation-result','Translation service unavailable or rate-limited. Try a phrase from the local phrasebook.');}
