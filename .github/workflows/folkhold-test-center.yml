@@ -1,0 +1,34 @@
+name: Folkhold Test Center
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+  checks: read
+concurrency:
+  group: folkhold-test-center-${{ github.ref }}
+  cancel-in-progress: true
+jobs:
+  diagnostics:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Give Cloudflare Git integration time to deploy
+        run: sleep 45
+      - name: Read-only Folkhold diagnostics
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/test-center.mjs
+      - name: Save reports even if checks fail
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: folkhold-test-center-report
+          path: test-center-reports/
+          retention-days: 14
+          if-no-files-found: error

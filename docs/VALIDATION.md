@@ -1,3 +1,10 @@
+## 2026-10-08 — Folkhold Test Center first-slice candidate
+
+- Read current Company Bible, docs, and existing Worker/Better Auth configuration.
+- Introduced read-only source/runtime runner and on-push/manual GitHub workflow, with reports saved on failure.
+- No secrets, DB writes, test posts or account creation. Tests are HTTP GET and source file comparisons.
+- Pending: first GitHub Actions artifact, live Worker status results, real email/Google/Apple authentication. Do not mark previously missing runtime secret as fixed.
+
 ## 2026-10-08 — Approved icon for Cloudflare API tabs
 
 - Inspected current HTML, web manifest and runtime favicon source: the main application already loads approved gold house/keyhole PNG while API pages default to `/favicon.ico` (older file).

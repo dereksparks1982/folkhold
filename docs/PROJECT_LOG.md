@@ -1,5 +1,12 @@
 # Folkhold Project Log
 
+## 2026-10-08 — Test Center first slice candidate
+
+- Added a read-only Node.js diagnostic runner and GitHub Actions workflow with downloadable logs/reports.
+- The runner compares both Wrangler configs; checks declared email, Google and Apple auth paths; probes Worker runtime readiness, Pages, the Square forum and the Cloudflare build status.
+- No changes to Worker, runtime bindings, authentication, user data, forum or chat. Reports never print secret values. Cloudflare and GitHub build success is not mistaken for runtime authentication success.
+- Source candidate pending first real Actions run and owner acceptance.
+
 ## 2026-10-08 — Use approved Folkhold favicon on Worker API tabs
 
 - Owner saw the outdated icon on the `workers.dev/api/account/status` browser tab. JSON responses have no HTML favicon link, so browsers fall back to requesting `/favicon.ico`, which the existing frontend proxy previously served from the older root icon.

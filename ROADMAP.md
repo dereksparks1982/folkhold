@@ -293,3 +293,8 @@ The first technical slice is an evidence-based integration and license/hosting a
 
 
 **October 8 forum update:** The owner chose a native forum with no NodeBB hosting. First source candidate adds integrated forum/chat interface and persistent SQLite Durable Object routes; live Worker deployment, device testing, authenticated identity, moderation and pagination remain open. See `docs/SQUARE_FORUM.md`.
+
+## Test Center expansion (candidate introduced October 8)
+
+- First slice: GitHub Actions read-only diagnostics and downloadable reports, pending acceptance.
+- Later: isolated Cloudflare Vitest/D1 tests, Playwright OAuth/browser scenarios with test accounts, optional owner-only on-site diagnostics once authentication is operational.

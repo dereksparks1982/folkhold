@@ -11,6 +11,8 @@ This file records unresolved or intentionally incomplete work. An item remains h
 
 ## Accounts / persistence
 
+- Folkhold Test Center is a source candidate pending its first live workflow report; it observes but cannot automatically repair missing Cloudflare runtime secrets or complete OAuth without provider credentials.
+
 - Owner's current `/api/account/status` reports `ready: false` and `needs: ["BETTER_AUTH_SECRET"]` after the diagnostic patch. `AUTH_DB` is recognized. The secret is not exposed to the currently running Worker; recheck the production secret name and deploy status in Cloudflare, then re-test. Don't recreate D1.
 - Worker JSON-page favicon previously fell back to old `favicon.ico`; a scoped source fix maps the fallback to existing approved house/key PNG, pending live browser validation.
 

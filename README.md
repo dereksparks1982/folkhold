@@ -4,6 +4,10 @@
 
 Folkhold is a social web project built around personal places rather than flat profiles. Each member has a **Hold** containing rooms for the things they care about, and access to private Holds is granted through individually revocable **Keys** rather than shared passwords.
 
+## Test Center (diagnostic candidate)
+
+The new read-only GitHub Actions Test Center probes GitHub/Cloudflare deployment readiness, the live authentication status, the Square forum GET endpoints and the frontend. It saves report.json, report.md and report.log as artifacts even if a test fails. See [Test Center](docs/TEST_CENTER.md). It does not repair or reveal secrets. First live report and owner acceptance are pending.
+
 ## Links
 
 - **Folkhold Web App:** https://dereksparks1982.github.io/folkhold/
