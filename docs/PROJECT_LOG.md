@@ -1,5 +1,11 @@
 # Folkhold Project Log
 
+## October 8 — Google credential handoff through existing build variables
+
+- The owner correctly identified that Runtime and Builds are sections of the same Cloudflare Settings page, and the `Variables and secrets` block was visible beneath Builds. The unrelated Cloudflare account Secrets Store is not needed.
+- Extended the proven private `npm run deploy` helper to transfer `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` to Worker runtime only as a complete pair, without plaintext repository files or build log output.
+- Added mock-Wrangler tests covering complete-pair transfer and incomplete-pair nonactivation. Existing BETTER_AUTH_SECRET, D1, Global Chat, forum, and Worker source remain untouched. Live Google credentials and OAuth round trip are not verified.
+
 ## 2026-10-08 — Google-first account integration checks
 
 - Owner chose to activate Google login before testing email registration or adding Apple OAuth.

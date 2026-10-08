@@ -1,5 +1,9 @@
 # Folkhold Accounts
 
+## October 8 — Simplified Google client credential deployment
+
+Folkhold's existing `npm run deploy` helper now transfers both Google client credentials from Cloudflare **Settings → Builds → Variables and secrets** into the Worker's runtime via the same secure temporary `--secrets-file` mechanism already validated for `BETTER_AUTH_SECRET`. The owner has entered `GOOGLE_CLIENT_ID` as a **Variable** in that section. Enter `GOOGLE_CLIENT_SECRET` there as a **Secret**, save, and trigger a Git-connected main-branch deployment. Do **not** use the account-level Cloudflare Secrets Store or duplicate these entries elsewhere. The helper will only activate Google credentials when both exist. Google OAuth is not considered live until `/api/account/status` reports `providers.google: true` and a real browser sign-in completes successfully. Keep the earlier direct-runtime setup directions below as a supported alternative, not a required additional step.
+
 ## Google-first activation (owner priority October 8)
 
 Owner explicitly prioritized Google login ahead of email registration testing and Apple login. Google OAuth is already implemented in the Worker and UI, and the public Test Center confirms Better Auth's unauthenticated session endpoint is healthy ([run 37821109168](https://github.com/dereksparks1982/folkhold/actions/runs/37821109168)). The missing input is a Google Auth Platform **Web application** OAuth client, not more changes to `BETTER_AUTH_SECRET`.

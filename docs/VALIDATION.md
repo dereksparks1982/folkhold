@@ -1,3 +1,10 @@
+## 2026-10-08 — Google OAuth runtime credential handoff candidate
+
+- Extended only the existing Wrangler secure deployment script and mock-Wrangler tests, not Worker business logic, site frontend, database configuration or chat/forum endpoints.
+- With both Google build credentials present, the helper uploads them as private runtime bindings. With one or neither, it does not enable half-configured Google OAuth; existing Better Auth runtime secret continues to deploy.
+- Tests additionally check complete-pair presence, private-file mode, cleanup, no inherited Google credentials in subprocess, and no credential values in stdout/stderr.
+- Pending actual GitHub Actions unit-test result, next Cloudflare production deployment after owner saves the Google Client Secret, runtime provider readiness and browser OAuth test.
+
 ## 2026-10-08 — Google-first readiness candidate
 
 - Confirmed from current source that `socialProviders.google` requires both `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET`, while frontend posts to Better Auth social sign-in then redirects to the provider URL.

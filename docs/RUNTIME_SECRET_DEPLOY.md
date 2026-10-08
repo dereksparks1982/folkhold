@@ -21,3 +21,11 @@ Docs: https://developers.cloudflare.com/workers/configuration/secrets/ and https
 ## First production trial (October 8)
 
 Owner screenshot shows Deploy command set to `npm run deploy` in the Production build configuration. A documentation-only GitHub push will trigger a fresh build to determine whether the saved Cloudflare build setting runs the secret handoff. The first actual deployment run must be verified before treating account setup as ready.
+
+## Google OAuth credentials through the existing deployment helper
+
+The dashboard screenshot confirmed that `Variables and secrets` appears within **Settings → Builds**, and the owner already entered `GOOGLE_CLIENT_ID` there as a Variable. Cloudflare's separate account-wide **Secrets Store** is not used by Folkhold.
+
+The helper now also reads optional `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` from the same **Builds → Variables and secrets** block. Both must be present before it uploads them as runtime secret bindings along with `BETTER_AUTH_SECRET`. Until both are provided, it leaves Google OAuth pending without breaking the existing Worker deployment. The values are never committed or echoed to build logs and are removed from the Wrangler subprocess environment. This upload uses the already-configured `npm run deploy` command. Cloudflare remains the owner-controlled credential store.
+
+**Owner step:** In the existing Folkhold Cloudflare **Builds → Variables and secrets** block, keep `GOOGLE_CLIENT_ID` as a Variable; add `GOOGLE_CLIENT_SECRET` as a **Secret**, save, then trigger a new Git-connected deployment. Confirm `providers.google: true` via Folkhold Test Center and then complete an actual browser Google sign-in with an authorized test user.

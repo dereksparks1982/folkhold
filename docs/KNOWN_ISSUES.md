@@ -11,6 +11,8 @@ This file records unresolved or intentionally incomplete work. An item remains h
 
 ## Accounts / persistence
 
+- To activate Google, the existing Cloudflare **Builds → Variables and secrets** block needs both `GOOGLE_CLIENT_ID` (Variable) and `GOOGLE_CLIENT_SECRET` (Secret). The updated deploy helper transfers the pair to Worker runtime; until both are configured and deployed, `providers.google` remains false. Do not use the unrelated Cloudflare account Secrets Store.
+
 - Google login remains unavailable until Google Auth Platform Web application OAuth credentials are created and configured as `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET` in the running Cloudflare Worker; end-to-end browser login is untested. Owner selected Google as the first provider to activate.
 
 - Resolved October 8: Cloudflare deployment using the `npm run deploy` helper now exposes `BETTER_AUTH_SECRET` to the running Worker; live Test Center run `37820689995` returned ready true and 10 passes. Email login and actual Better Auth D1 migrations are not yet validated.

@@ -16,14 +16,29 @@ async function main() {
   if (typeof secret !== 'string' || secret.length < 32) {
     throw Error('BETTER_AUTH_SECRET missing or too short in build environment');
   }
+  // Google credentials share the same private build-to-runtime handoff.
+  // Do not enable a half-configured provider. Deploy it only once both exist.
+  const googleId = String(process.env.GOOGLE_CLIENT_ID || '').trim();
+  const googleSecret = String(process.env.GOOGLE_CLIENT_SECRET || '').trim();
+  const runtimeSecrets = { BETTER_AUTH_SECRET: secret };
+  if (googleId && googleSecret) {
+    runtimeSecrets.GOOGLE_CLIENT_ID = googleId;
+    runtimeSecrets.GOOGLE_CLIENT_SECRET = googleSecret;
+    console.log('Google login credentials included in runtime secret upload (values hidden).');
+  } else {
+    console.log('Google login not yet activated: both Google build credentials are needed.');
+  }
+
   const dir = await mkdtemp(join(tmpdir(), 'folkhold-secrets-'));
   try {
     const file = join(dir, 'runtime.json');
-    await writeFile(file, JSON.stringify({ BETTER_AUTH_SECRET: secret }), {
+    await writeFile(file, JSON.stringify(runtimeSecrets), {
       mode: 0o600, flag: 'wx'
     });
     const env = { ...process.env };
-    delete env.BETTER_AUTH_SECRET;
+    for (const name of ['BETTER_AUTH_SECRET', 'GOOGLE_CLIENT_ID', 'GOOGLE_CLIENT_SECRET']) {
+      delete env[name];
+    }
     console.log('Deploying Worker with a private runtime-secret upload (value hidden).');
     const code = await new Promise((resolve, reject) => {
       const child = spawn('npx', ['wrangler', 'deploy', '--secrets-file', file, '--keep-vars'],
