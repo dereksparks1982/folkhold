@@ -1,3 +1,10 @@
+## 2026-10-08 — Square forum candidate source checks
+
+- Read repository `main`, live-chat source, Worker and the prior forum design before editing.
+- Parsed new frontend JS and modified Worker JS (after stripping ESM wrappers for syntax-only inspection).
+- Checked the Square retains existing chat IDs and UI, and the Worker retains WebSocket handling. Forum REST paths, input limits and SQLite schema are present.
+- **Not tested:** live Worker deployment, GET/POST round trip, iPhone, Firefox, anti-abuse under load, session cookies or owner acceptance. This is a candidate, not a closed release.
+
 ## 2026-10-08 — v1.3.0 release-scope closeout (not all features device-accepted)
 
 - Explicit owner instruction: **close out the last build, document everything, and roadmap**. Version advanced from `1.2.0` to `1.3.0` because Wayfarer and additional UI/door features have been delivered. This is release-scope acceptance, not a fabricated success report for unobserved devices.

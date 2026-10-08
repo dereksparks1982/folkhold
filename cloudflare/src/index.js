@@ -315,6 +315,66 @@ async function proxyFrontend(request, env) {
   });
 }
 
+async function handleSquareForum(room,request,url){
+  const sql=room.sql,path=url.pathname;
+  const valid=["general","workshop","games","journeys","questions"];
+  const answer=(data,status=200)=>json(data,{status});
+  if(request.method==="GET"){
+    if(path==="/api/forum/categories"){
+      const counts=sql.exec("SELECT category,COUNT(*) AS topics FROM forum_topics GROUP BY category").toArray();
+      return answer({categories:valid.map(id=>({id,topics:Number(counts.find(r=>r.category===id)?.topics||0)}))});
+    }
+    if(path==="/api/forum/topics"){
+      const category=url.searchParams.get("category");
+      if(!valid.includes(category))return answer({error:"Unknown category."},400);
+      return answer({topics:sql.exec("SELECT id,category,title,author,reply_count,created_at,last_at FROM forum_topics WHERE category=? ORDER BY last_at DESC,id DESC LIMIT 50",category).toArray()});
+    }
+    if(path==="/api/forum/topic"){
+      const id=Number(url.searchParams.get("id"));
+      if(!Number.isSafeInteger(id)||id<1)return answer({error:"Invalid topic."},400);
+      const topic=sql.exec("SELECT * FROM forum_topics WHERE id=?",id).toArray()[0];
+      if(!topic)return answer({error:"Topic not found."},404);
+      const replies=sql.exec("SELECT id,author,body,created_at FROM forum_replies WHERE topic_id=? ORDER BY id DESC LIMIT 100",id).toArray().reverse();
+      return answer({topic,replies,moreReplies:topic.reply_count>replies.length});
+    }
+  }
+  if(request.method!=="POST"||!["/api/forum/topics","/api/forum/topic"].includes(path))
+    return answer({error:"Not found."},404);
+  if(Number(request.headers.get("content-length")||0)>7200)return answer({error:"Post too long."},413);
+  const raw=await request.text();
+  if(raw.length>7200)return answer({error:"Post too long."},413);
+  let data;try{data=JSON.parse(raw)}catch{return answer({error:"Invalid JSON."},400)}
+  const body=String(data.body||"").replace(/\r\n?/g,"\n").replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g,"").trim();
+  if(!body||body.length>5000)return answer({error:"Post must be between 1 and 5,000 characters."},400);
+  const name=cleanText(request.headers.get("X-Folkhold-Name")||data.name,32)||"Guest";
+  const userId=cleanText(request.headers.get("X-Folkhold-User"),128)||null;
+  const now=Date.now();
+  let id;
+  if(path==="/api/forum/topics"){
+    if(!valid.includes(data.category))return answer({error:"Choose a discussion category."},400);
+    const title=cleanText(data.title,120);
+    if(title.length<4)return answer({error:"Title needs at least four characters."},400);
+  }else{
+    id=Number(url.searchParams.get("id"));
+    if(!Number.isSafeInteger(id)||id<1)return answer({error:"Invalid topic."},400);
+    if(!sql.exec("SELECT id FROM forum_topics WHERE id=?",id).toArray().length)return answer({error:"Topic not found."},404);
+  }
+  const key=userId?`member:${userId}`:`ip:${request.headers.get("CF-Connecting-IP")||"unknown"}`;
+  room.forumThrottle||=new Map();
+  const period=path==="/api/forum/topics"?10000:3000;
+  if(now-(room.forumThrottle.get(key)||0)<period)return answer({error:"Wait a moment before posting again."},429);
+  if(room.forumThrottle.size>2000)room.forumThrottle.clear();
+  room.forumThrottle.set(key,now);
+  if(path==="/api/forum/topics"){
+    const title=cleanText(data.title,120);
+    const topic=sql.exec("INSERT INTO forum_topics(category,title,author,author_user_id,body,created_at,last_at,reply_count) VALUES(?,?,?,?,?,?,?,0) RETURNING id",data.category,title,name,userId,body,now,now).one();
+    return answer({topic:{id:topic.id}},201);
+  }
+  sql.exec("INSERT INTO forum_replies(topic_id,author,author_user_id,body,created_at) VALUES(?,?,?,?,?)",id,name,userId,body,now);
+  sql.exec("UPDATE forum_topics SET reply_count=reply_count+1,last_at=? WHERE id=?",now,id);
+  return answer({ok:true},201);
+}
+
 export class GlobalChat extends DurableObject {
   constructor(ctx, env) {
     super(ctx, env);
@@ -331,6 +391,23 @@ export class GlobalChat extends DurableObject {
       );
       CREATE INDEX IF NOT EXISTS idx_messages_created_at
       ON messages(created_at DESC);
+    `);
+
+
+    // Forum persistence uses the already-bound SQLite Durable Object; live chat is unchanged.
+    this.sql.exec(`
+      CREATE TABLE IF NOT EXISTS forum_topics (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, category TEXT NOT NULL,
+        title TEXT NOT NULL, author TEXT NOT NULL, author_user_id TEXT,
+        body TEXT NOT NULL, created_at INTEGER NOT NULL, last_at INTEGER NOT NULL,
+        reply_count INTEGER NOT NULL DEFAULT 0
+      );
+      CREATE INDEX IF NOT EXISTS forum_topics_category_last ON forum_topics(category,last_at DESC);
+      CREATE TABLE IF NOT EXISTS forum_replies (
+        id INTEGER PRIMARY KEY AUTOINCREMENT, topic_id INTEGER NOT NULL,
+        author TEXT NOT NULL, author_user_id TEXT, body TEXT NOT NULL, created_at INTEGER NOT NULL
+      );
+      CREATE INDEX IF NOT EXISTS forum_replies_topic ON forum_replies(topic_id,id);
     `);
 
     this.ctx.setWebSocketAutoResponse(
@@ -354,6 +431,8 @@ export class GlobalChat extends DurableObject {
 
   async fetch(request) {
     const url = new URL(request.url);
+
+    if (url.pathname.startsWith("/api/forum/")) return handleSquareForum(this, request, url);
 
     if (url.pathname.endsWith("/history")) {
       return json({
@@ -538,6 +617,26 @@ export default {
 
       const response = await auth.handler(request);
       return withCors(response, request, env);
+    }
+
+
+    if (url.pathname.startsWith("/api/forum/")) {
+      if (!originAllowed(request, env))
+        return withCors(json({error:"Origin not allowed."},{status:403}),request,env);
+      // Strip forged identity headers before trusting optional Better Auth sessions.
+      const headers=new Headers(request.headers);
+      headers.delete("X-Folkhold-Name");
+      headers.delete("X-Folkhold-User");
+      let forwarded=new Request(request,{headers});
+      if (request.method==="POST" && authConfigured(env)) {
+        try {
+          const auth=await ensureAuthReady(request,env);
+          forwarded=await authenticatedChatRequest(forwarded,env,auth);
+        } catch(error) {
+          console.warn("Forum identity temporarily unavailable; posting as guest.",error);
+        }
+      }
+      return withCors(await env.GLOBAL_CHAT.getByName("global").fetch(forwarded),request,env);
     }
 
     if (url.pathname.startsWith("/api/global/")) {

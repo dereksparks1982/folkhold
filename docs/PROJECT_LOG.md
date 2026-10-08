@@ -1,5 +1,11 @@
 # Folkhold Project Log
 
+## 2026-10-08 — Integrated Public Square forum source candidate
+
+- Owner approved the native NodeBB-inspired forum built into the existing Square, with no paid forum hosting or additional navigation destination.
+- Added original categories/topics/replies UI, responsive forum/chat composition and Cloudflare Worker APIs using the already-bound SQLite Durable Object, without editing `global-chat.js` or chat WebSocket behavior.
+- Candidate source parsed successfully; live backend deployment, account verification, mobile/desktop checks and owner acceptance remain open.
+
 ## 2026-10-08 — v1.3.0 closeout and Square forum handoff
 
 - Owner explicitly requested closing the most recent build, documenting all work and updating the roadmap. Selected **v1.3.0** because the scope added Wayfarer/travel functionality after accepted Radio v1.2.0, not merely patch-level CSS polish. Retained existing history rather than rewriting earlier acceptance.

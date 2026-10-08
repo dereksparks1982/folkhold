@@ -283,10 +283,13 @@ Prerequisites: live Better Auth / Cloudflare Worker identity, D1/secret setup an
 
 ## 18. Village Square forum, integrated with existing live chat
 
-**Status: NEXT PRODUCT DESIGN SLICE / NOT IMPLEMENTED.** The owner prefers the NodeBB look over the compact, old-fashioned phpBB/forum-row treatment and Flarum's current presentation: **large clickable discussion categories** with a modern, easy-to-read layout. The forum belongs **inside the existing Square** along with the current working Cloudflare live chat. Do not replace or disrupt that chat.
+**Status: NATIVE SOURCE CANDIDATE / LIVE DEPLOYMENT AND OWNER REVIEW PENDING.** The owner prefers the NodeBB look over the compact, old-fashioned phpBB/forum-row treatment and Flarum's current presentation: **large clickable discussion categories** with a modern, easy-to-read layout. The forum belongs **inside the existing Square** along with the current working Cloudflare live chat. Do not replace or disrupt that chat.
 
 Proposed presentation: category tiles open a discussion-list view; individual threads show original post/replies and clear navigation. On desktop, live chat can share the Square as an adjacent panel; on iPhone, switch between **Forum** and **Live Chat** within the Square without expanding the permanent bottom navigation. The accepted Folkhold leather/theme, Hub/Room identity and navigation remain. Actual placement and visuals await owner review.
 
 **Implementation decision gate:** compare (A) a **self-hosted NodeBB service** integrated into Folkhold's Square through a deliberate authentication/SSO and theming adapter, versus (B) a **Folkhold-native forum** matching NodeBB's category-forward UI, using the existing Cloudflare Worker/identity and durable database. NodeBB is a real Node.js server and datastore application, **not** a library to drop into static GitHub Pages. Its GPL-3.0 licensing needs review against Folkhold's proprietary source-available licensing before code is combined, distributed or adapted. Do not copy NodeBB's code or present a visual design as already integrated. Preserve discussion data portability, user permissions, moderation, no-gambling policy, notifications and reliable mobile behavior.
 
 The first technical slice is an evidence-based integration and license/hosting assessment, then a single approved Square UI/prototype. See [`docs/SQUARE_FORUM.md`](docs/SQUARE_FORUM.md). **No forum was downloaded, installed or shipped in the October 8 release closeout.**
+
+
+**October 8 forum update:** The owner chose a native forum with no NodeBB hosting. First source candidate adds integrated forum/chat interface and persistent SQLite Durable Object routes; live Worker deployment, device testing, authenticated identity, moderation and pagination remain open. See `docs/SQUARE_FORUM.md`.

@@ -162,7 +162,22 @@
           <div><span class="eyebrow">GLOBAL</span><h1>Public Square</h1><p>Live public conversation, in order. No engagement-ranking machine.</p></div>
           <span class="live-pill">● LIVE</span>
         </div>
-        <div class="chat-layout">
+        <div class="square-switch" role="group" aria-label="Square conversation">
+          <button type="button" data-square-tab="forum" aria-pressed="true">Discussions</button>
+          <button type="button" data-square-tab="chat" aria-pressed="false">Live Chat</button>
+        </div>
+        <div class="square-together" id="square-together" data-square-tab="forum">
+          <section class="panel square-forum" id="square-forum">
+            <header class="square-forum-header">
+              <div><span class="eyebrow">THE PUBLIC SQUARE</span><h2>Discussions</h2></div>
+              <button type="button" class="primary" data-forum="compose">New Topic</button>
+            </header>
+            <div class="square-forum-status" id="square-forum-status" role="status" aria-live="polite"></div>
+            <div class="square-forum-body" id="square-forum-body"></div>
+          </section>
+          <section class="square-live-chat" id="square-live-chat">
+            <header class="square-live-heading"><h2>Live Chat</h2><small>Happening now</small></header>
+            <div class="chat-layout">
           <section class="panel chat-panel">
             <div id="square-chat" class="chat-stream" aria-live="polite">
               <div class="chat-message"><span class="chat-time">3:12</span><button class="chat-name">MayaR</button><p>Anyone here still collecting physical games?</p></div>
@@ -183,6 +198,8 @@
             <h2>Square rules</h2>
             <p>Broad public audience. Normal community rules apply here. The Tavern exists for rougher conversation.</p>
           </aside>
+        </div>
+          </section>
         </div>
       </section>
 

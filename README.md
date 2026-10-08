@@ -10,6 +10,10 @@ Folkhold is a social web project built around personal places rather than flat p
 - **Hanafi Learning Deck:** https://dereksparks1982.github.io/Hanafi-Islam-Learning-Deck/
 - **Hanafi Learning Deck repository:** https://github.com/dereksparks1982/Hanafi-Islam-Learning-Deck
 
+## Integrated Square forum candidate (not yet owner-accepted)
+
+The source now includes a native category/topic/reply forum alongside the existing Public Square live chat. It uses the existing Cloudflare SQLite Durable Object, without a NodeBB host or new subscription. Live Worker deployment and PC/iPhone acceptance are **not yet verified**. See [Square forum](docs/SQUARE_FORUM.md).
+
 ## v1.3.0 — Wayfarer and Square foundations
 
 **Owner-directed release closeout: October 8, 2026.** Folkhold's latest committed interface and travel additions are published on GitHub Pages. This closeout records the accepted **release scope** without claiming that every device-specific interaction has passed the owner's hands-on testing.

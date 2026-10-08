@@ -1,5 +1,10 @@
 # Folkhold Known Issues and Unfinished Work
 
+## Square forum candidate
+
+- Forum and Worker routes are in GitHub source but **live Worker deployment and device validation remain unverified**.
+- Guest display names are unverified. Durable Object cooldown is in-memory and resets on restart. Moderation, editing, identity activation, paging, search and notification are still incomplete.
+
 This file records unresolved or intentionally incomplete work. An item remains here until it is actually resolved and validated.
 
 ## Accounts / persistence

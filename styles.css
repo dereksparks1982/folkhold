@@ -168,3 +168,60 @@ body {
   .desktop-nav>button{flex:0 0 auto;white-space:nowrap}
   .desktop-nav.is-dragging{cursor:grabbing}
 }
+
+
+/* Native forum and live chat are joined within the existing Square. */
+.square-switch{display:none}
+.square-together{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(280px,.85fr);gap:16px;align-items:start}
+.square-forum,.square-live-chat{min-width:0}
+.square-forum{overflow:hidden}
+.square-forum-header,.square-live-heading{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:15px 18px;border-bottom:1px solid var(--line)}
+.square-forum-header h2,.square-live-heading h2{margin:0;font-size:25px}
+.square-live-heading{background:var(--cream);border:1px solid var(--line);border-radius:var(--radius) var(--radius) 0 0}
+.square-live-heading h2{font-size:22px}
+.square-live-heading small{color:#716655}
+.square-live-chat .chat-layout{grid-template-columns:1fr;gap:10px}
+.square-live-chat .chat-panel{border-radius:0 0 var(--radius) var(--radius)}
+.square-live-chat .chat-stream{height:500px;padding:10px}
+.square-live-chat .chat-message{grid-template-columns:36px minmax(65px,95px) minmax(0,1fr);gap:6px;font-size:13px;overflow-wrap:anywhere}
+.square-live-chat .chat-compose{grid-template-columns:minmax(0,1fr) auto;padding:10px}
+.square-live-chat .now-panel{padding:15px}
+.square-forum-status{padding:10px 18px;font:13px Arial,sans-serif;color:#6b5945}
+.square-forum-status:empty{display:none}
+.square-forum-body{padding:14px 18px 24px;min-height:390px}
+.square-category,.square-topic-link{display:grid;width:100%;text-align:left;background:#fff8ed;color:var(--ink);border:1px solid #d7c5ab;border-radius:12px;padding:16px;margin-bottom:10px;gap:5px}
+.square-category{grid-template-columns:44px minmax(0,1fr) auto;align-items:center;gap:11px}
+.square-category:hover,.square-topic-link:hover{background:#f2e4ce;border-color:var(--brass)}
+.square-category .symbol{display:grid;place-items:center;background:#e9d9bc;border-radius:10px;width:42px;height:42px;font-size:23px}
+.square-category strong,.square-category small,.square-topic-link strong,.square-topic-link small{display:block}
+.square-category strong{font-size:19px}
+.square-category small,.square-topic-link small{color:#706555;font:13px/1.4 Arial,sans-serif}
+.square-category .count{font:12px Arial,sans-serif;color:#70604e;white-space:nowrap}
+.square-topic-link strong{font-size:18px}
+.square-forum-bar{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:15px}
+.square-forum-bar h3{margin:0;font-size:22px}
+.square-forum-bar button{background:#eee0ca;border:1px solid #cbb28d;border-radius:9px;padding:9px}
+.square-post{background:#fff9ee;border:1px solid #e0ceb3;border-radius:12px;padding:15px;margin:12px 0;overflow-wrap:anywhere}
+.square-post header{display:flex;justify-content:space-between;gap:8px;color:#655846;font:13px Arial,sans-serif;padding-bottom:8px;border-bottom:1px solid #ebdcc5;margin-bottom:9px}
+.square-post p{white-space:pre-wrap;line-height:1.5;margin:0}
+.square-entry{display:grid;gap:13px}
+.square-entry label{display:grid;gap:5px;font-weight:bold}
+.square-entry input,.square-entry select,.square-entry textarea{width:100%;padding:11px;border:1px solid #bfa986;background:#fffdf9;border-radius:8px;color:var(--ink);font:16px Arial,sans-serif}
+.square-entry textarea{min-height:125px;resize:vertical}
+.square-entry button{justify-self:end;padding:10px 17px}
+.square-hint{color:#756957;font:13px/1.5 Arial,sans-serif}
+@media(max-width:1100px){.square-together{grid-template-columns:minmax(0,1.1fr) minmax(240px,.9fr)}.square-live-chat .now-panel{display:none}}
+@media(max-width:760px){
+.square-switch{display:grid;grid-template-columns:1fr 1fr;gap:5px;background:#efdfc8;padding:5px;border-radius:12px;margin-bottom:11px}
+.square-switch button{border:0;background:transparent;border-radius:9px;padding:12px;font-weight:bold;color:#554737}
+.square-switch [aria-pressed="true"]{background:var(--green);color:white}
+.square-together{display:block}
+.square-together[data-square-tab="forum"] .square-live-chat{display:none}
+.square-together[data-square-tab="chat"] .square-forum{display:none}
+.square-forum-body{padding:11px}
+.square-forum-header{padding:12px}
+.square-category{grid-template-columns:35px minmax(0,1fr) auto;gap:8px;padding:12px}
+.square-category .symbol{width:34px;height:34px;font-size:18px}
+.square-category strong{font-size:16px}
+.square-live-chat .chat-stream{height:55vh}
+}

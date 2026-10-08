@@ -501,7 +501,7 @@ Replace shared demo routing/discovery endpoints with scalable providers; verify 
 
 ## Slice 30 — Village Square forum with integrated live chat
 
-**Status: ROADMAP / NEXT ARCHITECTURE CHOICE.**
+**Status: REVIEW / original source candidate; Worker deployment and owner checks still pending.**
 
 - Use NodeBB's spacious, category-first layout as the principal visual reference; avoid tightly packed old-style thread tables. Do not assume approval of a wholesale third-party rebranding.
 - Keep current realtime Cloudflare Global Chat in the Square, uninterrupted. Desktop: forum and chat integrated in the same destination, potentially side by side; phone: a readable Forum / Live Chat switch.
@@ -511,3 +511,6 @@ Replace shared demo routing/discovery endpoints with scalable providers; verify 
 - Preserve user privacy and established Square chat history; no gambling, wagers, betting or cash-stakes mechanics in any Folkhold games/forum add-on.
 
 **Acceptance:** forum and live chat usable together within the Square on desktop/iPhone, while the existing chat works as before. Actual implementation, server provisioning and licensing review are future work. See `docs/SQUARE_FORUM.md`.
+
+
+**October 8 Slice 30 update:** Owner chose original Folkhold-native forum, not hosted NodeBB. First source candidate built; remaining gates are Worker deployment, test of posts and unchanged chat, Firefox/iPhone acceptance, and future authenticated identities/moderation/search/paging.
