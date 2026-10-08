@@ -1,3 +1,9 @@
+## 2026-10-08 — Account D1 binding configuration candidate
+
+- Verified owner screenshot identifies D1 `folkhold-auth` and a dashboard `AUTH_DB` binding, with `GLOBAL_CHAT` preserved.
+- Added the same binding to both Wrangler configurations. Parsed both as JSON; verified required `binding`, `database_name`, and `database_id`; checked the remainder of each configuration was byte-semantic-equivalent before/after.
+- **Pending:** automatic Cloudflare deployment status, remote Worker `/api/account/status`, `BETTER_AUTH_SECRET` setup, Better Auth schema initialization, Google credentials and OAuth browser test. Source validation is not live login verification.
+
 ## 2026-10-08 — Square forum unsuccessful-save UI diagnostic patch
 
 - Confirmed current source permits topic composition before a successful backend-read request and shows write errors only above the scrolling form.

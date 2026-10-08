@@ -11,7 +11,7 @@ This file records unresolved or intentionally incomplete work. An item remains h
 
 ## Accounts / persistence
 
-- Better Auth UI/backend scaffolding exists, but production account activation still depends on Cloudflare D1 binding and deployment secrets.
+- Better Auth UI/backend scaffolding exists. Owner provisioned D1 `folkhold-auth` and `AUTH_DB` Worker binding (October 8); both Wrangler configuration files now include it. Live redeployment and database schema creation are not independently verified. Accounts remain disabled until private `BETTER_AUTH_SECRET` is installed.
 - Google/Apple provider activation still depends on valid provider credentials if those sign-in methods remain enabled.
 - Holds, Rooms, Keys, Knocks, notices, preferences, games, and most social state are not yet fully persistent production data.
 

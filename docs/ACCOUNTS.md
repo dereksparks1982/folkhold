@@ -1,5 +1,17 @@
 # Folkhold Accounts
 
+## 2026-10-08 D1 provisioning progress (pre-login activation)
+
+The owner created the D1 database `folkhold-auth` and confirmed a dashboard Worker binding named `AUTH_DB` while preserving the existing `GLOBAL_CHAT` Durable Object binding. Both Wrangler configurations (`wrangler.jsonc` in the repository root and `cloudflare/wrangler.jsonc`) now record the same database ID and binding, so whichever directory Cloudflare builds from keeps the database reference.
+
+**Do not mistake this for enabled authentication:** `BETTER_AUTH_SECRET` has not been confirmed, and live account migrations and OAuth redirects have not been tested.
+
+**Owner-only next action in Cloudflare:** Open **Workers & Pages → folkhold → Settings → Variables and secrets**, add a **Secret** named `BETTER_AUTH_SECRET` with a cryptographically random value of at least 32 bytes, and save/deploy. Generate the value privately (for example with a password manager's secure generator or `openssl rand -base64 48` on a trusted local machine); do not paste its value into chat or commit it to GitHub. After it is set, `/api/account/status` should report `ready: true`. The first authenticated API access initializes Better Auth tables. Verify in Cloudflare D1 rather than assuming tables exist because a binding exists.
+
+After confirming auth database startup, configure **Google Auth Platform** in Google Cloud Console (OAuth consent, external audience when appropriate, and a Web application OAuth client). Add `https://folkhold.dereksparks1982.workers.dev` as an authorized JavaScript origin where requested, and register the redirect URI below **exactly**. Put `GOOGLE_CLIENT_ID` and `GOOGLE_CLIENT_SECRET` in Cloudflare Worker variables/secrets (the secret must be secret). Never put either secret value in GitHub. Depending on Google's publishing/test mode, add designated test users or finish required publishing/verification steps before expecting general public login.
+
+Finally, open `https://folkhold.dereksparks1982.workers.dev`, use the account control, select **Continue with Google**, return to Folkhold, and set a unique username/profile. Test a new session and confirmed member identity; keep Global Chat and Square forum guest-capable.
+
 This slice stages real Folkhold accounts on the existing Cloudflare Worker without interrupting Global Chat.
 
 ## Accepted account methods

@@ -10,6 +10,10 @@ Folkhold is a social web project built around personal places rather than flat p
 - **Hanafi Learning Deck:** https://dereksparks1982.github.io/Hanafi-Islam-Learning-Deck/
 - **Hanafi Learning Deck repository:** https://github.com/dereksparks1982/Hanafi-Islam-Learning-Deck
 
+## Accounts: D1 binding recorded, Google sign-in pending
+
+Cloudflare D1 database `folkhold-auth` has been created and bound as `AUTH_DB` in the dashboard, and that binding is recorded in both root and `cloudflare/` Wrangler configs. **Google login is not active yet:** set the private `BETTER_AUTH_SECRET` in Cloudflare, verify auth initialization, and then configure Google OAuth client credentials. See [`docs/ACCOUNTS.md`](docs/ACCOUNTS.md). Live login/device testing and owner acceptance remain open.
+
 ## Integrated Square forum candidate (not yet owner-accepted)
 
 The source now includes a native category/topic/reply forum alongside the existing Public Square live chat. It uses the existing Cloudflare SQLite Durable Object, without a NodeBB host or new subscription. Live Worker deployment and PC/iPhone acceptance are **not yet verified**. See [Square forum](docs/SQUARE_FORUM.md).

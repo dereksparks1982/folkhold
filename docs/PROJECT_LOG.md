@@ -1,5 +1,11 @@
 # Folkhold Project Log
 
+## 2026-10-08 — Persist Cloudflare D1 authentication binding in deployment configs
+
+- Owner created `folkhold-auth` in D1 and connected it as Worker binding `AUTH_DB`; screenshot confirmed original `GLOBAL_CHAT` binding intact.
+- Recorded identical D1 database ID, name and binding in both root and `cloudflare/` Wrangler configurations to prevent Git deployments from silently dropping the dashboard binding. No other Worker bindings, worker source, forum UI or chat logic changed.
+- OAuth activation awaits a private `BETTER_AUTH_SECRET` and Google OAuth client credentials, configured by the owner in provider dashboards. Account migrations and live sign-in not yet tested or claimed.
+
 ## 2026-10-08 — Forum save error visibility candidate
 
 - Following owner report that a new forum topic would not save, improved only the forum UI failure path: prevent composing before the backend is reachable, enforce the server's existing four-character title minimum, and show save errors inline while retaining the form content.

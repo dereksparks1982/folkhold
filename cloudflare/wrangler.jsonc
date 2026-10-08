@@ -18,6 +18,13 @@
       "storage": "sqlite"
     }
   },
+  "d1_databases": [
+    {
+      "binding": "AUTH_DB",
+      "database_name": "folkhold-auth",
+      "database_id": "5b211c62-9256-44af-900b-e6cc7da6aeb4"
+    }
+  ],
   "vars": {
     "ALLOWED_ORIGINS": "https://dereksparks1982.github.io",
     "PUBLIC_SITE_ORIGIN": "https://dereksparks1982.github.io/folkhold"
