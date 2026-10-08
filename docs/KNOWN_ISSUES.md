@@ -11,6 +11,8 @@ This file records unresolved or intentionally incomplete work. An item remains h
 
 ## Accounts / persistence
 
+- **Live Google login failure:** Google displays `401 invalid_client`, `The OAuth client was not found` despite runtime `providers.google: true`. A new Test Center OAuth-start probe compares the actual outgoing client ID to the Google Console client-creation screenshot; result pending. Do not mark Google login functional based only on runtime credential presence.
+
 - To activate Google, the existing Cloudflare **Builds → Variables and secrets** block needs both `GOOGLE_CLIENT_ID` (Variable) and `GOOGLE_CLIENT_SECRET` (Secret). The updated deploy helper transfers the pair to Worker runtime; until both are configured and deployed, `providers.google` remains false. Do not use the unrelated Cloudflare account Secrets Store.
 
 - Google login remains unavailable until Google Auth Platform Web application OAuth credentials are created and configured as `GOOGLE_CLIENT_ID`/`GOOGLE_CLIENT_SECRET` in the running Cloudflare Worker; end-to-end browser login is untested. Owner selected Google as the first provider to activate.

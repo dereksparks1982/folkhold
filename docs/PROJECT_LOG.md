@@ -1,5 +1,11 @@
 # Folkhold Project Log
 
+## 2026-10-08 — Diagnose Google 401 invalid_client (targeted OAuth test)
+
+- Owner tried Google sign-in on the live Folkhold Cloud app and supplied screenshots of Google's `401 invalid_client` / `The OAuth client was not found`. This confirms the Google redirect is reached but provider acceptance is not working despite all 13 prior presence/readiness tests passing.
+- Added a narrow Test Center check that starts an unauthenticated Better Auth Google OAuth URL, compares its public `client_id` to the value shown by Google at client creation using a pinned SHA-256, and records only a sanitized result. A temporary OAuth state may be recorded in D1; no member account is created and no cookies, OAuth state, secrets, URLs, or user data are logged.
+- Do not alter Google Cloud OAuth client, existing secret values, Google consent screen, forum, chat, or Worker code before the mismatch result is established.
+
 ## 2026-10-08 — Trigger Google OAuth production credential verification
 
 - Owner confirmed saving `GOOGLE_CLIENT_ID` as Variable and `GOOGLE_CLIENT_SECRET` as Secret under Folkhold Cloudflare Production Builds → Variables and secrets.

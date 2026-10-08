@@ -1,3 +1,9 @@
+## 2026-10-08 — Google OAuth client identity diagnostic candidate
+
+- Google browser screenshot: `401 invalid_client`, `The OAuth client was not found`. Last Test Center passed presence checks, not the real OAuth round trip.
+- Added a Test Center check to initiate one Google OAuth authorization URL and compare its public client ID with SHA-256 derived from the Google Console creation screenshot. No password, token, secret, OAuth state or redirect URL is displayed in the report. This check may create one temporary OAuth state record in D1 but no account.
+- **Pending:** GitHub live run; if an ID mismatch is confirmed, correct the Cloudflare Build Variable. If IDs match, inspect Google's registered client details and the live browser OAuth request before further changes.
+
 ## 2026-10-08 — Google OAuth runtime credential handoff candidate
 
 - Extended only the existing Wrangler secure deployment script and mock-Wrangler tests, not Worker business logic, site frontend, database configuration or chat/forum endpoints.

@@ -102,6 +102,38 @@ await test('production', 'Google OAuth runtime configuration', async () => {
   }
   return 'Google provider enabled in running Worker (end-to-end Google login still untested)';
 });
+// This starts (but never completes) one throwaway Google OAuth state so we can
+// inspect the public client_id actually sent to Google. No sign-in or user created.
+await test('production', 'Google OAuth authorization uses registered client ID', async () => {
+  const readiness = await getJson(base + '/api/account/status');
+  if (!readiness?.providers?.google) skip('Google provider not enabled');
+  if (offline) skip('Network disabled');
+  const origin = new URL(base).origin;
+  const response = await fetch(base + '/api/auth/sign-in/social', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'Accept': 'application/json', 'Origin': origin,
+      'User-Agent': 'Folkhold-Test-Center/1.0' },
+    body: JSON.stringify({ provider: 'google', callbackURL: origin + '/',
+      newUserCallbackURL: origin + '/', errorCallbackURL: origin + '/?authError=1',
+      disableRedirect: true }),
+    signal: AbortSignal.timeout(15000)
+  });
+  requireValue(response.ok, 'OAuth start returned HTTP ' + response.status);
+  const result = await response.json();
+  const destination = new URL(result.url || result.data?.url);
+  requireValue(destination.protocol === 'https:' && destination.hostname === 'accounts.google.com',
+    'Unexpected Google authorization destination');
+  const actual = destination.searchParams.get('client_id') || '';
+  requireValue(actual.length > 30, 'Google authorization request is missing client_id');
+  // SHA-256 of the PUBLIC client ID visible in the owner's Google Console
+  // creation screenshot. Never log OAuth state, redirect URL or credentials.
+  const { createHash } = await import('node:crypto');
+  const observedHash = createHash('sha256').update(actual, 'utf8').digest('hex');
+  const registeredHash = '2ef833cae9493ab407867b453c1f8a04abbfdbbc72eb9c6f5b5d6ffc272c0994';
+  requireValue(observedHash === registeredHash,
+    'The live OAuth request uses a different client ID from the Google Console creation screenshot. Copy the full client ID again into Cloudflare Builds.');
+  return 'Google request contains the client ID shown when the OAuth client was created; provider acceptance is checked separately';
+});
 await test('production', 'Better Auth session endpoint and D1 initialization', async () => {
   const readiness = await getJson(base + '/api/account/status');
   if (!readiness.ready) skip('Authentication runtime prerequisites missing');
