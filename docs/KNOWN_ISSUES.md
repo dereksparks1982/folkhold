@@ -108,3 +108,10 @@ GitHub source state, browser behavior, Cloudflare services, iOS Home Screen beha
 - The translation sends user-entered messages to an external provider when requested. Avoid personal/sensitive phrases.
 - Fair Price does not have market-price evidence; it only compares two numbers entered by the user. Hitch is not yet a full AI assistant.
 - No backend Keys permissions, member-to-member location sharing, trip persistence or production provider quotas are implemented.
+
+
+## Travel Companion map renderer candidate (October 8, 2026)
+
+- Previous map-rendering dependency removed from the browser runtime and replaced with OpenLayers 10.10.0.
+- OpenLayers assets now load from a pinned external CDN; browser connectivity, iPhone/PC display and route/nearby overlays are not yet owner-verified.
+- Shared OpenStreetMap tile limits and required OSM attribution are unaffected by the renderer replacement.
