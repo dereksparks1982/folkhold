@@ -1,3 +1,9 @@
+### Preflight follow-up
+
+- Corrected the raw-string delimiter syntax in the new Cloudflare popup JavaScript constant before accepting deployment.
+- Updated the Google source integration check: OAuth-start invocation now belongs to Cloudflare's first-party popup, not the GitHub Pages modal.
+- Awaiting renewed GitHub syntax/unit and deployed smoke tests.
+
 ## 2026-10-08 — Canonical GitHub Pages account modal / backend-only Worker candidate
 
 - Static checks verify no redirect to Cloudflare website in auth UI, official Better Auth bearer plugin, stricter origin-checked popup handoff, and JS syntax.

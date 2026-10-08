@@ -88,9 +88,11 @@ await test('source', 'Google OAuth source integration contract', async () => {
     'clientSecret: env.GOOGLE_CLIENT_SECRET']) {
     requireValue(worker.includes(fragment), 'Google Worker configuration missing: ' + fragment);
   }
-  for (const fragment of ['socialButton("google"', '"/api/auth/sign-in/social"',
-    'disableRedirect: true', 'window.open(url', 'renderUsernameSetup()']) {
+  for (const fragment of ['socialButton("google"', 'window.open(url', 'renderUsernameSetup()']) {
     requireValue(ui.includes(fragment), 'Google account UI contract missing: ' + fragment);
+  }
+  for (const fragment of ['"/api/auth/sign-in/social"', 'disableRedirect: true']) {
+    requireValue(worker.includes(fragment), 'OAuth popup flow missing: ' + fragment);
   }
   return 'Google button, OAuth start, redirect and profile setup found in source';
 });

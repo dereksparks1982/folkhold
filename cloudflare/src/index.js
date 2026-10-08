@@ -320,7 +320,7 @@ function authPage(heading, message = "Please wait…") {
   } });
 }
 
-const popupJavascript = String.raw\`(() => {
+const popupJavascript = String.raw`(() => {
   const pathname = location.pathname;
   const query = new URLSearchParams(location.search);
   const nonce = query.get("nonce") || "";
@@ -373,7 +373,7 @@ const popupJavascript = String.raw\`(() => {
     (pathname.endsWith("/complete") ? complete() : start())
       .catch(error => report(error.message || "Sign-in failed. Please retry."));
   }
-})();\`;
+})();`;
 
 function popupScriptResponse() {
   return new Response(popupJavascript, { headers: {
