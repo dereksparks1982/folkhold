@@ -10,6 +10,10 @@ Folkhold is a social web project built around personal places rather than flat p
 - **Hanafi Learning Deck:** https://dereksparks1982.github.io/Hanafi-Islam-Learning-Deck/
 - **Hanafi Learning Deck repository:** https://github.com/dereksparks1982/Hanafi-Islam-Learning-Deck
 
+## Current candidate: compact desktop navigation (October 8, 2026)
+
+The eleven desktop top-nav shortcuts now use short labels (**Hub, Square, Notice, Hold, Tavern, Tea Room, Directory, Key Ring, Radio, Travel, Settings**), equal-size buttons and a fixed-count horizontal carousel. While the mouse is over the bar, its wheel moves the bar sideways without scrolling the document. Wheel moves and mouse-drag release align whole buttons. The banner tagline is now **Your people**. This is a source-validated candidate requiring desktop Firefox owner acceptance; no mobile-footer, background or Radio changes. The owner-only administration panel with Master Key and ad-display control is a separate planned security slice, not implemented by this visual patch.
+
 ## Development candidates: Travel Companion and Wayfarer (slices 20–24)
 
 **Map renderer updated October 8, 2026:** Travel Companion now uses OpenLayers 10.10.0. The former renderer is completely absent from the page's runtime dependencies; road and nearby marker layers were migrated too. The OpenStreetMap map-data credit remains. This replacement still awaits owner validation on PC/iPhone.

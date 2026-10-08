@@ -1,3 +1,11 @@
+## 2026-10-08 — Compact desktop top navigation candidate
+
+- Inspected the actual runtime-generated desktop bar in `cloudflare-config.js` and the `app.js` wheel/drag listeners; updated both along with static HTML for consistency.
+- Source JS parsed successfully; verified eleven matching nav labels in fixed order; 108px × 44px widths, CSS mandatory scroll snapping, full-button-count width calculation, wheel `preventDefault` unconditionally inside the top navigation, and the “Your people” subtitle.
+- Confirmed no edits to accepted `styles.css` background chunk, Radio modules or mobile footer. Bumped dynamic runtime and app script cache versions.
+- **Not yet device-validated:** actual wheel and drag in Firefox, layout with the Hanafi return link, keyboard navigation, mouse Back behavior and responsive clipping. GitHub Pages deployment result is checked separately; only owner can accept this candidate.
+- No administrator permissions, ads toggle or Master Key implemented; account authorization remains prerequisite.
+
 ## 2026-10-08 — Desktop top-nav overflow correction (candidate)
 
 - Confirmed browser runtime constructs navigation in `cloudflare-config.js`; its `justify-content:center!important` was overriding the intended horizontally scrollable behavior and could push overflowing items visually ahead of Hub. Corrected to `justify-content:flex-start!important` with constrained overflow and a thin scrollbar.

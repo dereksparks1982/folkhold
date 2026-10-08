@@ -2,6 +2,15 @@
 
 All notable accepted Folkhold changes are recorded here from v1.1.0 forward.
 
+## Unreleased candidate — Compact desktop navigation (October 8, 2026)
+- Eleven equal-width desktop buttons using shortened names: Hub, Square, Notice, Hold, Tavern, Tea Room, Directory, Key Ring, Radio, Travel, Settings.
+- Horizontal mouse wheel now consumes wheel events over the bar, even at either end; whole-button scroll positions are enforced after wheel and drag.
+- Changed only the small top-brand subtitle to “Your people”.
+- Cache versions advanced; no accepted iPhone bar, Radio, background, Hub card, or account/ads changes.
+- The planned owner-only admin panel, Master Key and Ads On/Off control remain separate pending authenticated backend permissions and explicit scope review.
+- Desktop Firefox behavior and owner acceptance remain pending.
+
+
 ## Unreleased candidate — Desktop navigation overflow correction (October 8, 2026)
 - Changed runtime desktop navigation alignment from centered overflow to left-starting horizontal scrolling; wheel and mouse-drag support and browser Back handling already exist in the previous deployed candidate.
 - Refreshed JavaScript cache versions without changing button order, accepted backgrounds, Radio, map logic or the mobile footer.

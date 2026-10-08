@@ -272,3 +272,11 @@ The initial Kevin MacLeod CC BY 4.0 instrumentals are **placeholders**. Derek wa
 - Preserve performer, instruments, culture/region, year (when known), proper native-script names, provenance and license next to each audio file and in the radio track manifest.
 - Offer thoughtful stations curated by musical tradition as the catalog matures, not arbitrary "exotic" labels.
 - Preserve the original Folkhold opening theme until Derek expressly approves its replacement.
+
+## 17. Folkhold administration: owner panel and Master Key
+
+**Status: PLANNED, not implemented.** The owner requested an administrative control panel similar to Federal Electric, accessible only to authenticated/authorized administrators. It will include an **Ads On / Ads Off** control with a way to turn ads back on for visual review. Determine during implementation whether the control affects the owner's preview only or the whole site; never change ad behavior for other users without an explicit choice. Show currently configured placements so owner can inspect them without clicking their own ads.
+
+The **Master Key** is the owner's name for full administrative authority across Folkhold site-management tools. Implement it as securely verified server-side authorization, **not** a public browser flag, client-side secret, magic URL, or hardcoded password. Require working production authentication/session verification, role checks and audit records before exposing any privileged action. Platform-owner administration must remain distinct from member-owned Keys; any scope involving private Rooms/content or impersonation requires an explicit owner decision and privacy boundary before code is written.
+
+Prerequisites: live Better Auth / Cloudflare Worker identity, D1/secret setup and explicit privilege assignment. Initial UI may show future options only if clearly nonfunctional; never create a working-looking unrestricted admin screen as a substitute for security.

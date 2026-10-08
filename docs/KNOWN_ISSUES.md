@@ -122,3 +122,8 @@ GitHub source state, browser behavior, Cloudflare services, iOS Home Screen beha
 - Desktop browser location may fail or time out without any permission popup when no platform geolocation provider can establish a position. Code now distinguishes denial, timeout and unavailable; real Firefox/Ubuntu diagnosis depends on owner-device checks.
 - Two-way translator dropdown includes Russian, Urdu, Pashto and Dari. It uses third-party MyMemory; live language-pair support and translation quality (especially Pashto and Dari) are not guaranteed. Dari currently maps to Persian and is explicitly marked an approximation.
 - Games destination remains roadmap-only and has no wagering features by design. Do not describe planned games as universally permissible under all Islamic schools.
+
+## Desktop navigation candidate and administrative controls (October 8, 2026)
+
+- Source now contains the uniform 108px / 44px eleven-button desktop carousel, mouse wheel containment, mouse-drag snapping, and the shortened brand subtitle. The owner must test real Firefox behavior at multiple widths, including nav-wheel at either edge, browser Back, and Hanafi-origin return-link layouts. No device acceptance is implied by a successful source check/deploy.
+- The admin panel, Master Key, and Ads On/Off control are **not yet implemented**. Current Settings is advertising preferences only and may be non-persistent. Full administrator access depends on production backend authentication and explicit privilege design. Do not treat a local UI state flag as administrative authentication.

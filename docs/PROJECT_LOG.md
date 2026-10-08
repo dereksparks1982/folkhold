@@ -1,5 +1,14 @@
 # Folkhold Project Log
 
+## 2026-10-08 — Compact navigation UI candidate; admin request recorded
+
+- The owner specified exact eleven abbreviated desktop top-nav labels, uniform button sizing, left-mouse horizontal drag, no vertical page scrolling on hover even at scroll ends, and scroll stops showing complete buttons.
+- Runtime-generated navigation, static fallback, wheel/drag logic and cache keys were updated in one source commit. The top-left Folkhold brand graphic/title are preserved, with subtitle abbreviated to “Your people”.
+- No changes to accepted Radio, wallpaper, Hub cards, iPhone footer or live ads/account behavior.
+- Owner requested a Federal Electric-style Admin Panel with Ads On / Ads Off and a Master Key. Recorded this as a separately gated server-authorized feature, not a client-side bypass of pending production login. First determine site-wide vs own-preview ad control and the Master Key's legitimate administrative scope.
+- Actual Firefox usability and owner signoff remain outstanding.
+
+
 ## 2026-10-08 — Desktop overflow repair and recreational Games roadmap
 
 - Repaired dynamic desktop navigation layout: left-started horizontal list instead of centered overflowing items; thin scrollbar complements already-existing wheel/drag code. Existing mouse Back support uses browser history push/pop, and Travel Companion location feedback and extended translation language choices were found already committed.

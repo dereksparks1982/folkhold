@@ -460,3 +460,29 @@ Replace shared demo routing/discovery endpoints with scalable providers; verify 
 - Source for owner decision: https://github.com/dereksparks1982/folkhold/issues/2
 
 **Acceptance boundary:** scope and visual entry point approved before Games UI implementation; no actual game added by this documentation slice.
+
+## Slice 27 — Compact desktop navigation, whole-button carousel
+
+**Status: REVIEW (candidate, owner desktop validation required).**
+
+- Use precisely eleven desktop nav shortcuts in this order: Hub, Square, Notice, Hold, Tavern, Tea Room, Directory, Key Ring, Radio, Travel, Settings.
+- Every desktop top-nav button is 108px wide and 44px high, preserving existing icons and Tavern age indicator.
+- Resize nav viewport to fit an integral number of buttons; snap wheel and mouse-drag navigation to whole-button positions.
+- Intercept mouse-wheel events above desktop nav even at its ends: the page must not scroll vertically while hovered there.
+- Shorten only the top-brand subtitle to “Your people”.
+- Preserve the mobile bottom navigation, approved Radio, leather wallpaper, and Hub destination cards.
+- Owner acceptance: test Firefox wheel scrolling (including both limits), left-mouse drag, full button visibility at several PC widths, mouse Back, and no unexpected iPhone changes.
+
+**Source commit:** `64ac58ae4c08f17c8e70a610b38e00fbaa47ddaf`.
+
+## Slice 28 — Server-authorized Administration Panel and Master Key
+
+**Status: BLOCKED (production identity and privilege backend prerequisites).**
+
+- Owner-only admin entry point, master-level site-administration authorization distinct from member Keys.
+- First confirmed control: Ads On / Ads Off, with ads visible by default for owner review until explicitly turned off; owner can return to ad preview.
+- Define whether ad toggle is owner-preview-only or site-wide before implementing behavior.
+- Require verified server-side session, role checks, permissions and audit logging. Never secure the admin using localStorage, hardcoded email or public JavaScript secrets.
+- Document exact Master Key administrative scope, especially any user-private-content boundary, with owner approval before shipping.
+
+**No admin panel, Master Key privilege, or ad behavior is implemented by Slice 27.**
